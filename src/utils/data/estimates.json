@@ -1,0 +1,298 @@
+[
+  {
+    "_id": "9d7a514b5d2c12c7449be042",
+    "customer": "6d7a514b5d2c12c7449be042",
+    "services": [
+      {
+        "service": "7d7a514b5d2c12c7449be045",
+        "quantity": 1
+      }
+    ],
+    "property": {
+      "address": {
+        "street": "123 Main St",
+        "city": "Garden City",
+        "state": "CA",
+        "zipCode": "12345"
+      },
+      "size": 2500,
+      "details": "Property has existing manual sprinkler system that needs upgrading"
+    },
+    "customerNotes": "Looking for a smart irrigation system that can be controlled remotely",
+    "budget": {
+      "min": 700,
+      "max": 1200
+    },
+    "accessInfo": "Gate code: 1234",
+    "packages": [
+      {
+        "name": "Basic",
+        "description": "Basic irrigation system upgrade",
+        "lineItems": [
+          {
+            "service": "Irrigation System Upgrade",
+            "description": "Replace manual valves with automatic valves",
+            "unitPrice": 100,
+            "quantity": 5,
+            "totalPrice": 500
+          },
+          {
+            "service": "Timer Installation",
+            "description": "Install basic timer",
+            "unitPrice": 200,
+            "quantity": 1,
+            "totalPrice": 200
+          }
+        ],
+        "subTotal": 700,
+        "tax": 56,
+        "total": 756,
+        "notes": "Basic system with limited automation"
+      },
+      {
+        "name": "Standard",
+        "description": "Smart irrigation system with phone control",
+        "lineItems": [
+          {
+            "service": "Irrigation System Upgrade",
+            "description": "Replace manual valves with automatic valves",
+            "unitPrice": 100,
+            "quantity": 5,
+            "totalPrice": 500
+          },
+          {
+            "service": "Smart Timer Installation",
+            "description": "Install smart WiFi timer",
+            "unitPrice": 300,
+            "quantity": 1,
+            "totalPrice": 300
+          },
+          {
+            "service": "Rain Sensor",
+            "description": "Install rain sensor to prevent overwatering",
+            "unitPrice": 100,
+            "quantity": 1,
+            "totalPrice": 100
+          }
+        ],
+        "subTotal": 900,
+        "tax": 72,
+        "total": 972,
+        "notes": "Smart system with phone control and rain detection"
+      },
+      {
+        "name": "Premium",
+        "description": "Premium smart irrigation system with advanced features",
+        "lineItems": [
+          {
+            "service": "Irrigation System Upgrade",
+            "description": "Replace manual valves with automatic valves",
+            "unitPrice": 100,
+            "quantity": 5,
+            "totalPrice": 500
+          },
+          {
+            "service": "Smart Timer Installation",
+            "description": "Install smart WiFi timer with weather integration",
+            "unitPrice": 400,
+            "quantity": 1,
+            "totalPrice": 400
+          },
+          {
+            "service": "Rain Sensor",
+            "description": "Install rain sensor to prevent overwatering",
+            "unitPrice": 100,
+            "quantity": 1,
+            "totalPrice": 100
+          },
+          {
+            "service": "Flow Sensor",
+            "description": "Install flow sensor for leak detection",
+            "unitPrice": 200,
+            "quantity": 1,
+            "totalPrice": 200
+          },
+          {
+            "service": "System Optimization",
+            "description": "Optimize system for water efficiency",
+            "unitPrice": 150,
+            "quantity": 1,
+            "totalPrice": 150
+          }
+        ],
+        "subTotal": 1350,
+        "tax": 108,
+        "discount": {
+          "amount": 100,
+          "description": "New customer discount"
+        },
+        "total": 1358,
+        "notes": "Premium system with advanced features and water conservation"
+      }
+    ],
+    "status": "Approved",
+    "approvedPackage": "Standard",
+    "estimateNumber": "EST-202306-0001",
+    "expiryDate": "2023-07-15",
+    "deposit": {
+      "required": true,
+      "amount": 300
+    },
+    "assignedTo": "5d7a514b5d2c12c7449be043",
+    "createdBy": "5d7a514b5d2c12c7449be042"
+  },
+  {
+    "_id": "9d7a514b5d2c12c7449be043",
+    "customer": "6d7a514b5d2c12c7449be043",
+    "services": [
+      {
+        "service": "7d7a514b5d2c12c7449be043",
+        "quantity": 1
+      }
+    ],
+    "property": {
+      "address": {
+        "street": "456 Oak Ave",
+        "city": "Garden City",
+        "state": "CA",
+        "zipCode": "12346"
+      },
+      "size": 3500,
+      "details": "Large backyard with space for vegetable garden"
+    },
+    "customerNotes": "Interested in a vegetable and herb garden design",
+    "budget": {
+      "min": 300,
+      "max": 600
+    },
+    "accessInfo": "Key under mat",
+    "packages": [
+      {
+        "name": "Basic",
+        "description": "Simple vegetable garden",
+        "lineItems": [
+          {
+            "service": "Garden Design",
+            "description": "Basic vegetable garden design",
+            "unitPrice": 100,
+            "quantity": 1,
+            "totalPrice": 100
+          },
+          {
+            "service": "Soil Preparation",
+            "description": "Basic soil preparation",
+            "unitPrice": 150,
+            "quantity": 1,
+            "totalPrice": 150
+          },
+          {
+            "service": "Plant Installation",
+            "description": "Installation of vegetable plants",
+            "unitPrice": 10,
+            "quantity": 15,
+            "totalPrice": 150
+          }
+        ],
+        "subTotal": 400,
+        "tax": 32,
+        "total": 432,
+        "notes": "Basic vegetable garden with 15 starter plants"
+      },
+      {
+        "name": "Standard",
+        "description": "Complete vegetable and herb garden",
+        "lineItems": [
+          {
+            "service": "Garden Design",
+            "description": "Detailed vegetable and herb garden design",
+            "unitPrice": 150,
+            "quantity": 1,
+            "totalPrice": 150
+          },
+          {
+            "service": "Soil Preparation",
+            "description": "Enhanced soil preparation with compost",
+            "unitPrice": 200,
+            "quantity": 1,
+            "totalPrice": 200
+          },
+          {
+            "service": "Plant Installation",
+            "description": "Installation of vegetable and herb plants",
+            "unitPrice": 10,
+            "quantity": 25,
+            "totalPrice": 250
+          },
+          {
+            "service": "Garden Borders",
+            "description": "Installation of garden borders",
+            "unitPrice": 50,
+            "quantity": 1,
+            "totalPrice": 50
+          }
+        ],
+        "subTotal": 650,
+        "tax": 52,
+        "total": 702,
+        "notes": "Enhanced garden with vegetables and herbs"
+      },
+      {
+        "name": "Premium",
+        "description": "Deluxe vegetable and herb garden with irrigation",
+        "lineItems": [
+          {
+            "service": "Garden Design",
+            "description": "Professionally designed garden layout",
+            "unitPrice": 200,
+            "quantity": 1,
+            "totalPrice": 200
+          },
+          {
+            "service": "Soil Preparation",
+            "description": "Premium soil preparation with compost and fertilizer",
+            "unitPrice": 250,
+            "quantity": 1,
+            "totalPrice": 250
+          },
+          {
+            "service": "Plant Installation",
+            "description": "Installation of vegetable and herb plants",
+            "unitPrice": 10,
+            "quantity": 35,
+            "totalPrice": 350
+          },
+          {
+            "service": "Garden Borders",
+            "description": "Installation of premium garden borders",
+            "unitPrice": 100,
+            "quantity": 1,
+            "totalPrice": 100
+          },
+          {
+            "service": "Drip Irrigation",
+            "description": "Installation of drip irrigation system",
+            "unitPrice": 200,
+            "quantity": 1,
+            "totalPrice": 200
+          }
+        ],
+        "subTotal": 1100,
+        "tax": 88,
+        "discount": {
+          "amount": 50,
+          "description": "Seasonal discount"
+        },
+        "total": 1138,
+        "notes": "Premium garden with irrigation system"
+      }
+    ],
+    "status": "Sent",
+    "estimateNumber": "EST-202306-0002",
+    "expiryDate": "2023-07-20",
+    "deposit": {
+      "required": false
+    },
+    "assignedTo": "5d7a514b5d2c12c7449be044",
+    "createdBy": "5d7a514b5d2c12c7449be042"
+  }
+] 

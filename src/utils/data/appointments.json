@@ -1,0 +1,172 @@
+[
+  {
+    "_id": "8d7a514b5d2c12c7449be042",
+    "customer": "6d7a514b5d2c12c7449be042",
+    "service": "7d7a514b5d2c12c7449be042",
+    "packageType": "Standard",
+    "date": "2023-06-15",
+    "timeSlot": {
+      "startTime": "10:00",
+      "endTime": "11:00"
+    },
+    "status": "Completed",
+    "recurringType": "Weekly",
+    "crew": {
+      "assignedTo": ["5d7a514b5d2c12c7449be043"],
+      "leadProfessional": "5d7a514b5d2c12c7449be043"
+    },
+    "notes": {
+      "customer": "Please be careful around the flower beds",
+      "professional": "Customer has a dog - make sure gates are closed",
+      "internal": "Long-term customer, priority service"
+    },
+    "payment": {
+      "status": "Paid",
+      "amount": 75,
+      "paymentMethod": "Credit Card",
+      "paymentDate": "2023-06-15"
+    },
+    "completionDetails": {
+      "completedAt": "2023-06-15T11:15:00.000Z",
+      "duration": 75,
+      "additionalWorkPerformed": "Trimmed some overgrown bushes"
+    },
+    "notificationsStatus": {
+      "reminderSent": true,
+      "confirmationSent": true,
+      "completionSent": true
+    },
+    "createdBy": "5d7a514b5d2c12c7449be042"
+  },
+  {
+    "_id": "8d7a514b5d2c12c7449be043",
+    "customer": "6d7a514b5d2c12c7449be042",
+    "service": "7d7a514b5d2c12c7449be042",
+    "packageType": "Standard",
+    "date": "2023-06-22",
+    "timeSlot": {
+      "startTime": "10:00",
+      "endTime": "11:00"
+    },
+    "status": "Completed",
+    "recurringType": "Weekly",
+    "crew": {
+      "assignedTo": ["5d7a514b5d2c12c7449be043"],
+      "leadProfessional": "5d7a514b5d2c12c7449be043"
+    },
+    "payment": {
+      "status": "Paid",
+      "amount": 75,
+      "paymentMethod": "Credit Card",
+      "paymentDate": "2023-06-22"
+    },
+    "completionDetails": {
+      "completedAt": "2023-06-22T11:05:00.000Z",
+      "duration": 65
+    },
+    "notificationsStatus": {
+      "reminderSent": true,
+      "confirmationSent": true,
+      "completionSent": true
+    },
+    "createdBy": "5d7a514b5d2c12c7449be042"
+  },
+  {
+    "_id": "8d7a514b5d2c12c7449be044",
+    "customer": "6d7a514b5d2c12c7449be043",
+    "service": "7d7a514b5d2c12c7449be044",
+    "packageType": "Premium",
+    "date": "2023-06-18",
+    "timeSlot": {
+      "startTime": "13:00",
+      "endTime": "15:00"
+    },
+    "status": "Completed",
+    "recurringType": "One-time",
+    "crew": {
+      "assignedTo": ["5d7a514b5d2c12c7449be043", "5d7a514b5d2c12c7449be044"],
+      "leadProfessional": "5d7a514b5d2c12c7449be044"
+    },
+    "notes": {
+      "customer": "Please focus on the oak tree in the back yard",
+      "professional": "Trees have some disease signs, recommended treatment",
+      "internal": "Need special equipment for the large oak"
+    },
+    "payment": {
+      "status": "Paid",
+      "amount": 300,
+      "paymentMethod": "Credit Card",
+      "paymentDate": "2023-06-18"
+    },
+    "completionDetails": {
+      "completedAt": "2023-06-18T15:30:00.000Z",
+      "duration": 150,
+      "additionalWorkPerformed": "Applied tree disease treatment"
+    },
+    "notificationsStatus": {
+      "reminderSent": true,
+      "confirmationSent": true,
+      "completionSent": true
+    },
+    "createdBy": "5d7a514b5d2c12c7449be042"
+  },
+  {
+    "_id": "8d7a514b5d2c12c7449be045",
+    "customer": "6d7a514b5d2c12c7449be042",
+    "service": "7d7a514b5d2c12c7449be042",
+    "packageType": "Standard",
+    "date": "2023-06-29",
+    "timeSlot": {
+      "startTime": "10:00",
+      "endTime": "11:00"
+    },
+    "status": "Scheduled",
+    "recurringType": "Weekly",
+    "crew": {
+      "assignedTo": ["5d7a514b5d2c12c7449be043"],
+      "leadProfessional": "5d7a514b5d2c12c7449be043"
+    },
+    "payment": {
+      "status": "Pending",
+      "amount": 75
+    },
+    "notificationsStatus": {
+      "reminderSent": true,
+      "confirmationSent": true,
+      "completionSent": false
+    },
+    "createdBy": "5d7a514b5d2c12c7449be042"
+  },
+  {
+    "_id": "8d7a514b5d2c12c7449be046",
+    "customer": "6d7a514b5d2c12c7449be043",
+    "service": "7d7a514b5d2c12c7449be043",
+    "packageType": "Premium",
+    "date": "2023-07-05",
+    "timeSlot": {
+      "startTime": "09:00",
+      "endTime": "12:00"
+    },
+    "status": "Scheduled",
+    "recurringType": "One-time",
+    "crew": {
+      "assignedTo": ["5d7a514b5d2c12c7449be044"],
+      "leadProfessional": "5d7a514b5d2c12c7449be044"
+    },
+    "notes": {
+      "customer": "Looking forward to new flower garden design"
+    },
+    "payment": {
+      "status": "Partially Paid",
+      "amount": 250,
+      "paymentMethod": "Credit Card",
+      "paymentDate": "2023-06-25"
+    },
+    "notificationsStatus": {
+      "reminderSent": false,
+      "confirmationSent": true,
+      "completionSent": false
+    },
+    "createdBy": "5d7a514b5d2c12c7449be042"
+  }
+] 
