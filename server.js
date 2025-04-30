@@ -38,6 +38,10 @@ const estimateRoutes = require('./src/routes/estimate.routes');
 const serviceRoutes = require('./src/routes/service.routes');
 const paymentRoutes = require('./src/routes/payment.routes');
 const customerRoutes = require('./src/routes/customer.routes');
+const dashboardRoutes = require('./src/routes/dashboard.routes');
+const professionalRoutes = require('./src/routes/professional.routes');
+const reportRoutes = require('./src/routes/report.routes');
+const businessSettingRoutes = require('./src/routes/business-setting.routes');
 
 // Mount routers
 app.use(`${API_PREFIX}/auth`, authRoutes);
@@ -47,6 +51,10 @@ app.use(`${API_PREFIX}/estimates`, estimateRoutes);
 app.use(`${API_PREFIX}/services`, serviceRoutes);
 app.use(`${API_PREFIX}/payments`, paymentRoutes);
 app.use(`${API_PREFIX}/customers`, customerRoutes);
+app.use(`${API_PREFIX}/dashboard`, dashboardRoutes);
+app.use(`${API_PREFIX}/professionals`, professionalRoutes);
+app.use(`${API_PREFIX}/reports`, reportRoutes);
+app.use(`${API_PREFIX}/business-settings`, businessSettingRoutes);
 
 // Welcome route
 app.get('/', (req, res) => {
