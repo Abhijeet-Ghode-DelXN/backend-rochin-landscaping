@@ -27,7 +27,8 @@ exports.register = asyncHandler(async (req, res, next) => {
   // Create verification URL
   const verificationUrl = `${req.protocol}://${req.get('host')}/api/v1/auth/verify-email/${verificationToken}`;
   const message = `You are receiving this email because you need to confirm your email address. Please make a GET request to: \n\n ${verificationUrl}`;
-
+  console.log('Verification URL (dev):', verificationUrl);
+  
   try {
     try {
       await sendEmail({

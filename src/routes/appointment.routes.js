@@ -56,7 +56,7 @@ router.route('/')
     ),
     getAppointments
   )
-  .post(protect, authorize('admin'), createAppointment);
+  .post(protect, authorize('customer'), createAppointment);
 
 router.route('/:id')
   .get(protect, getAppointment)

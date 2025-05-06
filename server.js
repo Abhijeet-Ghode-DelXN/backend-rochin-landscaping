@@ -25,7 +25,15 @@ if (process.env.NODE_ENV === 'development') {
 
 // Security middleware
 app.use(helmet());
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: function (origin, callback) {
+    // You can validate dynamic origins here (e.g., from DB)
+    callback(null, true);
+  },
+  credentials: true
+}));
+
 
 // API version
 const API_PREFIX = '/api/v1';
