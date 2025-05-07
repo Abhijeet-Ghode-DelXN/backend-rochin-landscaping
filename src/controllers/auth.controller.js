@@ -4,12 +4,38 @@ const asyncHandler = require('../middlewares/async');
 const User = require('../models/user.model');
 const Customer = require('../models/customer.model');
 const sendEmail = require('../utils/sendEmail');
+const validator = require('validator');
 
 // @desc    Register user
 // @route   POST /api/v1/auth/register
 // @access  Public
 exports.register = asyncHandler(async (req, res, next) => {
   const { name, email, password, role, phone } = req.body;
+
+  
+  // Validate fields
+  if (!name || !email || !password || !role) {
+    return next(new ErrorResponse('Please provide all required fields', 400));
+  }
+
+
+
+
+   
+  // ✅ Step 1: Check email format with stricter validation using regex
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
+
+
+  if (!emailRegex.test(email)) {
+    return next(new ErrorResponse('Invalid email format', 400));
+  }
+  // Password strength validation (minimum 8 characters)
+  if (!validator.isLength(password, { min: 8 })) {
+    return next(new ErrorResponse('Password must be at least 8 characters long', 400));
+  }
+
+
+
 
   // Create user
   const user = await User.create({
