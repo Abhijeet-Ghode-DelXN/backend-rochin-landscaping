@@ -75,7 +75,8 @@ exports.deleteService = asyncHandler(async (req, res, next) => {
     );
   }
 
-  await service.remove();
+  await service.deleteOne(); // if you already have the document
+
 
   res.status(200).json({
     success: true,
