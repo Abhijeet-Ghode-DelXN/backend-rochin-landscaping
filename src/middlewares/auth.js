@@ -27,7 +27,16 @@ exports.protect = asyncHandler(async (req, res, next) => {
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.user = await User.findById(decoded.id);
+    // Find user and attach to request
+    const user = await User.findById(decoded.id).select('-password');
+    
+    if (!user) {
+      return next(new ErrorResponse('No user found with this id', 404));
+    }
+
+    // Attach both the user and the decoded token to the request
+    req.user = user;
+    req.tokenData = decoded; // Contains the raw token data including role
 
     next();
   } catch (err) {
@@ -38,14 +47,17 @@ exports.protect = asyncHandler(async (req, res, next) => {
 // Grant access to specific roles
 exports.authorize = (...roles) => {
   return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
+    // Check both user.role and tokenData.role for redundancy
+    const userRole = req.user?.role || req.tokenData?.role;
+    
+    if (!userRole || !roles.includes(userRole)) {
       return next(
         new ErrorResponse(
-          `User role ${req.user.role} is not authorized to access this route`,
+          `User role ${userRole} is not authorized to access this route`,
           403
         )
       );
     }
     next();
   };
-}; 
+};

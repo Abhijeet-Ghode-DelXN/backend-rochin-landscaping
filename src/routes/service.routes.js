@@ -30,11 +30,11 @@ router.route('/:id/packages')
 // Standard CRUD routes
 router.route('/')
   .get(advancedResults(Service), getServices)
-  .post(protect, authorize('admin'), createService);
+  .post(protect, authorize('admin'), createService); // Added protect middleware here
 
 router.route('/:id')
   .get(getService)
   .put(protect, authorize('admin'), updateService)
   .delete(protect, authorize('admin'), deleteService);
 
-module.exports = router; 
+module.exports = router;
