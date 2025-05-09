@@ -30,7 +30,7 @@ router.route('/:id/packages')
 // Standard CRUD routes
 router.route('/')
   .get(advancedResults(Service), getServices)
-  .post(protect, authorize('admin'), createService); // Added protect middleware here
+  .post(protect, authorize('admin'), createService); // Proper controller reference
 
 router.route('/:id')
   .get(getService)
