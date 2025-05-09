@@ -31,14 +31,31 @@ exports.getService = asyncHandler(async (req, res, next) => {
 // @desc    Create new service
 // @route   POST /api/v1/services
 // @access  Private/Admin
-exports.createService = asyncHandler(async (req, res, next) => {
-  const service = await Service.create(req.body);
+// exports.createService = asyncHandler(async (req, res, next) => {
+//   const service = await Service.create(req.body);
 
-  res.status(201).json({
-    success: true,
-    data: service
-  });
-});
+//   res.status(201).json({
+//     success: true,
+//     data: service
+//   });
+// });
+
+
+exports.createService = async (req, res, next) => {
+  try {
+    // Add user to req.body
+    req.body.user = req.user.id;
+    
+    const service = await Service.create(req.body);
+
+    res.status(201).json({
+      success: true,
+      data: service // Ensure response includes full service data with _id
+    });
+  } catch (err) {
+    next(err);
+  }
+};
 
 // @desc    Update service
 // @route   PUT /api/v1/services/:id

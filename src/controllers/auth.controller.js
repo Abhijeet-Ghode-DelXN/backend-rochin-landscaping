@@ -224,7 +224,10 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/auth/forgotpassword
 // @access  Public
 exports.forgotPassword = asyncHandler(async (req, res, next) => {
-  const user = await User.findOne({ email: req.body.email });
+  // const user = await User.findOne({ email: req.body.email });
+  const user = await User.findOne({ 
+    email: { $regex: new RegExp(`^${req.body.email.trim()}$`, 'i') } 
+  });
 
   if (!user) {
     return next(new ErrorResponse('There is no user with that email', 404));
@@ -236,7 +239,12 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   // Create reset url
-  const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/auth/resetpassword/${resetToken}`;
+  // const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/auth/resetpassword/${resetToken}`;
+  // Change this line in forgotPassword function
+// const resetUrl = `${req.protocol}://${req.get('host')}/reset-password?token=${resetToken}`;
+// Create reset URL pointing to frontend
+const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+
 
   const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please make a PUT request to: \n\n ${resetUrl}`;
 
