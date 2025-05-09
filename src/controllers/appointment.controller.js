@@ -67,14 +67,19 @@ exports.getAppointment = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/appointments
 // @access  Private/Admin
 exports.createAppointment = asyncHandler(async (req, res, next) => {
+  // Get logged-in user ID from token
+  const userId = req.user.id;
   // Check customer exists
-  const customer = await Customer.findById(req.body.customer);
+  // const customer = await Customer.findById(req.body.customer);
+  // Find the Customer using the user ID
+  const customer = await Customer.findOne({ user: userId });
   if (!customer) {
     return next(
-      new ErrorResponse(`Customer not found with id of ${req.body.customer}`, 404)
+      new ErrorResponse(`Customer not found with user id of ${userId}`, 404)
     );
   }
-
+  // Replace the customer ID in request body with correct one
+  req.body.customer = customer._id;
   // Check service exists
   const service = await Service.findById(req.body.service);
   if (!service) {
@@ -84,8 +89,10 @@ exports.createAppointment = asyncHandler(async (req, res, next) => {
   }
 
   // Add user as creator
-  req.body.createdBy = req.user.id;
+  // req.body.createdBy = req.user.id;
 
+// Add user as creator
+req.body.createdBy = userId;
   const appointment = await Appointment.create(req.body);
 
   // Get customer's user info for notification
