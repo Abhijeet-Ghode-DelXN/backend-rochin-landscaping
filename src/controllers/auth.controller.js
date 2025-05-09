@@ -71,6 +71,8 @@ exports.register = asyncHandler(async (req, res, next) => {
       }
     }
 
+    let customer = null;
+
     // If user role is customer, create customer profile
     if (role === 'customer') {
       try {
@@ -103,7 +105,7 @@ exports.register = asyncHandler(async (req, res, next) => {
         console.log(JSON.stringify(customerData, null, 2));
         
         // Create the customer
-        const customer = await Customer.create(customerData);
+        customer = await Customer.create(customerData);
         console.log('Customer created successfully:', customer._id);
       } catch (customerError) {
         console.error('Error creating customer profile:', customerError);
@@ -112,7 +114,7 @@ exports.register = asyncHandler(async (req, res, next) => {
       }
     }
 
-    sendTokenResponse(user, 201, res);
+    sendTokenResponse(user, 201, res, customer);
   } catch (err) {
     console.log(err);
     user.emailVerificationToken = undefined;
@@ -152,7 +154,14 @@ exports.login = asyncHandler(async (req, res, next) => {
   user.lastLogin = Date.now();
   await user.save({ validateBeforeSave: false });
 
-  sendTokenResponse(user, 200, res);
+  // Get customer details if the user is a customer
+  let customer = null;
+  if (user.role === 'customer') {
+    customer = await Customer.findOne({ user: user._id });
+  }
+
+  // Send the token response, including customer ID if available
+  sendTokenResponse(user, 200, res, customer ? customer._id : null);
 });
 
 // @desc    Log user out / clear cookie
