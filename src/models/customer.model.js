@@ -101,6 +101,8 @@ CustomerSchema.virtual('appointments', {
   localField: '_id',
   foreignField: 'customer',
   justOne: false
+
+  
 });
 
 // Virtual for all estimates

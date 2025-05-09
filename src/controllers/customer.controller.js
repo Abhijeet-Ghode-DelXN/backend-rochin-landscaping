@@ -34,10 +34,34 @@ exports.getCustomer = asyncHandler(async (req, res, next) => {
 // @desc    Get current customer profile
 // @route   GET /api/v1/customers/me
 // @access  Private/Customer
+
+
+
+// exports.getMyProfile = asyncHandler(async (req, res, next) => {
+//   const customer = await Customer.findOne({ user: req.user.id })
+//     .populate('appointments')
+//     .populate('estimates');
+
+//   if (!customer) {
+//     return next(
+//       new ErrorResponse(`No customer profile found for this user`, 404)
+//     );
+//   }
+
+//   res.status(200).json({
+//     success: true,
+//     data: customer
+//   });
+// });
+
+
+
+
 exports.getMyProfile = asyncHandler(async (req, res, next) => {
   const customer = await Customer.findOne({ user: req.user.id })
     .populate('appointments')
-    .populate('estimates');
+    .populate('estimates')
+    .populate('user', 'name email phone'); // 👈 Only select needed fields
 
   if (!customer) {
     return next(
@@ -50,6 +74,14 @@ exports.getMyProfile = asyncHandler(async (req, res, next) => {
     data: customer
   });
 });
+
+
+
+
+
+
+
+
 
 // @desc    Create customer profile
 // @route   POST /api/v1/customers
