@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const connectDB = require('./src/config/db');
 const errorHandler = require('./src/middlewares/error');
+const fileUpload = require('express-fileupload');
 
 // Load env vars
 dotenv.config();
@@ -34,7 +35,12 @@ app.use(cors({
   credentials: true
 }));
 
-
+// Add this before your routes
+app.use(fileUpload({
+  createParentPath: true, // Creates upload directory if not exists
+  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB limit
+  abortOnLimit: true, // Return 413 when file too large
+}));
 // API version
 const API_PREFIX = '/api/v1';
 

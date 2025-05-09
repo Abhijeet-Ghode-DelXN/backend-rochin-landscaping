@@ -2,6 +2,7 @@ const path = require('path');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middlewares/async');
 const Service = require('../models/service.model');
+// const cloudinary = require('../utils/cloudinary');
 
 // @desc    Get all services
 // @route   GET /api/v1/services
@@ -105,6 +106,12 @@ exports.deleteService = asyncHandler(async (req, res, next) => {
 // @route   PUT /api/v1/services/:id/photo
 // @access  Private/Admin
 exports.servicePhotoUpload = asyncHandler(async (req, res, next) => {
+
+  console.log('Received files:', req.files); // Debug what's received
+  console.log('Received body:', req.body); // Debug other form data
+  
+ 
+
   const service = await Service.findById(req.params.id);
 
   if (!service) {
