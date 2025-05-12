@@ -30,6 +30,13 @@ const AppointmentSchema = new mongoose.Schema({
       required: [true, 'Please add an end time']
     }
   },
+
+  duration: {
+    type: Number,
+    // required: true,
+    min: 15,
+    max: 480
+  },
   status: {
     type: String,
     enum: ['Scheduled', 'In Progress', 'Completed', 'Cancelled', 'Rescheduled'],

@@ -63,6 +63,93 @@ exports.getAppointment = asyncHandler(async (req, res, next) => {
   });
 });
 
+
+
+
+
+// Add to appointment.controller.js
+
+// @desc    Get available time slots
+// @route   GET /api/v1/appointments/availability
+// @access  Public
+exports.getAvailableTimeSlots = asyncHandler(async (req, res, next) => {
+  const { date, serviceId } = req.query;
+
+  // Validate input
+  if (!date || !serviceId) {
+    return next(new ErrorResponse('Please provide date and service ID', 400));
+  }
+
+  // Validate and parse date
+  const selectedDate = new Date(date);
+  if (isNaN(selectedDate)) {
+    return next(new ErrorResponse('Invalid date format', 400));
+  }
+
+  // Get service details
+  const service = await Service.findById(serviceId);
+  if (!service) {
+    return next(new ErrorResponse('Service not found', 404));
+  }
+
+  // Get business hours (you might want to store these in a config/model)
+  const businessHours = {
+    start: 8, // 8 AM
+    end: 18,  // 6 PM
+    slotInterval: 30 // minutes between slots
+  };
+
+  // Calculate time slots
+  const startTime = new Date(selectedDate);
+  startTime.setHours(businessHours.start, 0, 0, 0);
+
+  const endTime = new Date(selectedDate);
+  endTime.setHours(businessHours.end, 0, 0, 0);
+
+  // Generate all possible slots
+  const allSlots = [];
+  let current = new Date(startTime);
+  
+  while (current < endTime) {
+    const slotEnd = new Date(current.getTime() + service.duration * 60000);
+    if (slotEnd > endTime) break;
+    
+    allSlots.push({
+      start: current.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }),
+      end: slotEnd.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' })
+    });
+    
+    current = new Date(current.getTime() + businessHours.slotInterval * 60000);
+  }
+
+  // Get existing appointments
+  const appointments = await Appointment.find({
+    date: {
+      $gte: new Date(selectedDate.setHours(0, 0, 0, 0)),
+      $lte: new Date(selectedDate.setHours(23, 59, 59, 999))
+    }
+  });
+
+  // Filter out occupied slots
+  const availableSlots = allSlots.filter(slot => {
+    return !appointments.some(appointment => {
+      const apptStart = new Date(`1970-01-01T${appointment.timeSlot.startTime}`);
+      const apptEnd = new Date(`1970-01-01T${appointment.timeSlot.endTime}`);
+      const slotStart = new Date(`1970-01-01T${slot.start}`);
+      const slotEnd = new Date(`1970-01-01T${slot.end}`);
+      
+      return (slotStart < apptEnd && slotEnd > apptStart);
+    });
+  });
+
+  res.status(200).json({
+    success: true,
+    data: availableSlots
+  });
+});
+
+
+
 // @desc    Create new appointment
 // @route   POST /api/v1/appointments
 // @access  Private/Admin
@@ -91,8 +178,8 @@ exports.createAppointment = asyncHandler(async (req, res, next) => {
   // Add user as creator
   // req.body.createdBy = req.user.id;
 
-// Add user as creator
-req.body.createdBy = userId;
+ // Add user as creator
+ req.body.createdBy = userId;
   const appointment = await Appointment.create(req.body);
 
   // Get customer's user info for notification
