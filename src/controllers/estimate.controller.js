@@ -216,6 +216,59 @@ exports.uploadEstimatePhotos = asyncHandler(async (req, res, next) => {
   }
 });
 
+// // @desc    Request estimate (Customer)
+// // @route   POST /api/v1/estimates/request
+// // @access  Private/Customer
+// exports.requestEstimate = asyncHandler(async (req, res, next) => {
+//   // Get customer profile
+//   const customer = await Customer.findOne({ user: req.user.id });
+
+//   if (!customer) {
+//     return next(new ErrorResponse(`No customer profile found`, 404));
+//   }
+
+//   // Create estimate request
+//   const estimateData = {
+//     customer: customer._id,
+//     services: req.body.services,
+//     property: {
+//       address: req.body.property.address || customer.address,
+//       size: req.body.property.size || customer.propertyDetails.size,
+//       details: req.body.property.details
+//     },
+//     customerNotes: req.body.notes,
+//     budget: req.body.budget,
+//     accessInfo: req.body.accessInfo,
+//     status: 'Requested',
+//     createdBy: req.user.id
+//   };
+
+//   const estimate = await Estimate.create(estimateData);
+
+//   // Notify admin about new estimate request
+//   const admins = await User.find({ role: 'admin' });
+  
+//   if (admins.length > 0) {
+//     try {
+//       await sendEmail({
+//         email: admins[0].email,
+//         subject: 'New Estimate Request',
+//         message: `A new estimate request has been submitted by ${req.user.name}. Estimate ID: ${estimate.estimateNumber}`
+//       });
+//     } catch (err) {
+//       console.log('Email notification failed:', err);
+//     }
+//   }
+
+//   res.status(201).json({
+//     success: true,
+//     data: estimate
+//   });
+// });
+
+
+
+
 // @desc    Request estimate (Customer)
 // @route   POST /api/v1/estimates/request
 // @access  Private/Customer
@@ -243,7 +296,21 @@ exports.requestEstimate = asyncHandler(async (req, res, next) => {
     createdBy: req.user.id
   };
 
-  const estimate = await Estimate.create(estimateData);
+  let estimate = await Estimate.create(estimateData);
+
+  // 💡 Populate customer details, their linked user, and service details
+  estimate = await estimate.populate([
+    {
+      path: 'customer',
+      populate: { path: 'user' } // gets name, email from User model
+    },
+    {
+      path: 'services.service' // gets full service info
+    },
+    {
+      path: 'createdBy' // gets user info for who created
+    }
+  ]);
 
   // Notify admin about new estimate request
   const admins = await User.find({ role: 'admin' });
@@ -265,6 +332,9 @@ exports.requestEstimate = asyncHandler(async (req, res, next) => {
     data: estimate
   });
 });
+
+
+
 
 // @desc    Get my estimates (Customer)
 // @route   GET /api/v1/estimates/my-estimates
