@@ -93,9 +93,13 @@ const ServiceSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
+  // image: {
+  //   type: String,
+  //   default: 'no-photo.jpg'
+  // },
   image: {
-    type: String,
-    default: 'no-photo.jpg'
+    url: { type: String },
+    publicId: { type: String }
   },
   createdAt: {
     type: Date,
