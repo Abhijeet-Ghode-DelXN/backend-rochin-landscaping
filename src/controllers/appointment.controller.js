@@ -351,35 +351,54 @@ exports.uploadServicePhotos = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`Please specify photoType as 'beforeService' or 'afterService'`, 400));
   }
 
-  const photos = Array.isArray(req.files.photos) 
-    ? req.files.photos 
-    : [req.files.photos];
+  const photos = Array.isArray(req.files.photos) ? req.files.photos : [req.files.photos];
+  const uploadPromises = [];
 
-  const uploadPromises = photos.map(async photo => {
+  for (const photo of photos) {
     // Make sure the file is a photo
-    if (!photo.mimetype.startsWith('image')) {
-      throw new ErrorResponse(`Please upload only image files`, 400);
+    if (!photo.mimetype.startsWith('image/')) {
+      return next(new ErrorResponse(`Please upload only image files`, 400));
     }
 
-    // Check filesize
-    if (photo.size > process.env.MAX_FILE_UPLOAD) {
-      throw new ErrorResponse(
-        `Please upload images less than ${process.env.MAX_FILE_UPLOAD}`,
-        400
-      );
+    // Check filesize (5MB)
+    const maxSize = 5 * 1024 * 1024;
+    if (photo.size > maxSize) {
+      return next(new ErrorResponse(`Please upload images less than 5MB`, 400));
     }
 
-    // Upload to cloudinary
-    const result = await cloudinary.uploader.upload(photo.tempFilePath, {
-      folder: `landscaping/appointments/${appointment._id}/${req.body.photoType}`
+    // Create upload promise
+    const uploadPromise = new Promise((resolve, reject) => {
+      try {
+        // Convert the file buffer to base64
+        const base64Data = photo.data.toString('base64');
+        const dataUri = `data:${photo.mimetype};base64,${base64Data}`;
+
+        // Upload to cloudinary
+        cloudinary.uploader.upload(
+          dataUri,
+          {
+            folder: `landscaping/appointments/${appointment._id}/${req.body.photoType}`,
+            resource_type: 'auto'
+          },
+          (error, result) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve({
+                url: result.secure_url,
+                caption: req.body.caption || '',
+                uploadedAt: Date.now()
+              });
+            }
+          }
+        );
+      } catch (err) {
+        reject(err);
+      }
     });
 
-    return {
-      url: result.secure_url,
-      caption: req.body.caption || '',
-      uploadedAt: Date.now()
-    };
-  });
+    uploadPromises.push(uploadPromise);
+  }
 
   try {
     const uploadedPhotos = await Promise.all(uploadPromises);
