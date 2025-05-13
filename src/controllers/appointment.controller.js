@@ -335,6 +335,13 @@ exports.uploadServicePhotos = asyncHandler(async (req, res, next) => {
     );
   }
 
+  // Check if appointment is completed
+  if (appointment.status !== 'Completed') {
+    return next(
+      new ErrorResponse(`Photos can only be uploaded for completed appointments`, 400)
+    );
+  }
+
   // Check if user is authorized to upload photos
   if (req.user.role !== 'admin' && req.user.role !== 'professional') {
     return next(
