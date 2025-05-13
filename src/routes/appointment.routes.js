@@ -27,7 +27,7 @@ router.put('/:id/reschedule-request', protect, authorize('customer'), requestRes
 
 
 // Calendar route - accessible to all authenticated users
-router.get('/calendar', protect, getCalendarAppointments);
+router.get('/calendar',  getCalendarAppointments);
 
 // Photo upload route - for professionals/admins
 router.post('/:id/photos', protect, authorize('admin', 'professional'), uploadServicePhotos);
