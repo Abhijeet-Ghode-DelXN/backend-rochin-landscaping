@@ -9,14 +9,41 @@ const cloudinary = require('../utils/cloudinary');
 
 // @desc    Get all appointments
 // @route   GET /api/v1/appointments
-// @access  Private/Admin
+// @access  Public/Private
 exports.getAppointments = asyncHandler(async (req, res, next) => {
+  // If status=Completed is specified, allow public access
+  if (req.query.status === 'Completed') {
+    // Add photos to the query
+    res.advancedResults.data = await Promise.all(res.advancedResults.data.map(async (appointment) => {
+      const populatedAppointment = await Appointment.findById(appointment._id)
+        .populate({
+          path: 'customer',
+          select: 'address',
+          populate: {
+            path: 'user',
+            select: 'name phone'
+          }
+        })
+        .populate('service', 'name category')
+        .populate('photos');
+      return populatedAppointment;
+    }));
+    return res.status(200).json(res.advancedResults);
+  }
+
+  // For other queries, check if user is authorized
+  if (!req.user || !['admin', 'professional'].includes(req.user.role)) {
+    return next(
+      new ErrorResponse('Not authorized to access appointments', 403)
+    );
+  }
+
   res.status(200).json(res.advancedResults);
 });
 
 // @desc    Get single appointment
 // @route   GET /api/v1/appointments/:id
-// @access  Private
+// @access  Public/Private
 exports.getAppointment = asyncHandler(async (req, res, next) => {
   const appointment = await Appointment.findById(req.params.id)
     .populate({
@@ -47,6 +74,21 @@ exports.getAppointment = asyncHandler(async (req, res, next) => {
     );
   }
 
+  // Allow public access for completed appointments
+  if (appointment.status === 'Completed') {
+    return res.status(200).json({
+      success: true,
+      data: appointment
+    });
+  }
+
+  // For non-completed appointments, check authorization
+  if (!req.user) {
+    return next(
+      new ErrorResponse(`Not authorized to access this appointment`, 403)
+    );
+  }
+
   // Check if user is authorized to view
   if (req.user.role === 'customer') {
     const customer = await Customer.findOne({ user: req.user.id });
@@ -62,12 +104,6 @@ exports.getAppointment = asyncHandler(async (req, res, next) => {
     data: appointment
   });
 });
-
-
-
-
-
-// Add to appointment.controller.js
 
 // @desc    Get available time slots
 // @route   GET /api/v1/appointments/availability
@@ -147,8 +183,6 @@ exports.getAvailableTimeSlots = asyncHandler(async (req, res, next) => {
     data: availableSlots
   });
 });
-
-
 
 // @desc    Create new appointment
 // @route   POST /api/v1/appointments
