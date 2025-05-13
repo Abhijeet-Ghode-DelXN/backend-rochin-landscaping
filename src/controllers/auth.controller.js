@@ -42,6 +42,7 @@ exports.register = asyncHandler(async (req, res, next) => {
     name,
     email,
     password,
+    phone,
     role,
     phone
   });
@@ -128,6 +129,44 @@ exports.register = asyncHandler(async (req, res, next) => {
 // @desc    Login user
 // @route   POST /api/v1/auth/login
 // @access  Public
+// exports.login = asyncHandler(async (req, res, next) => {
+//   const { email, password } = req.body;
+
+//   // Validate email & password
+//   if (!email || !password) {
+//     return next(new ErrorResponse('Please provide an email and password', 400));
+//   }
+
+//   // Check for user
+//   const user = await User.findOne({ email }).select('+password');
+
+//   if (!user) {
+//     return next(new ErrorResponse('Invalid credentials', 401));
+//   }
+
+//   // Check if password matches
+//   const isMatch = await user.matchPassword(password);
+
+//   if (!isMatch) {
+//     return next(new ErrorResponse('Invalid credentials', 401));
+//   }
+
+//   // Update last login
+//   user.lastLogin = Date.now();
+//   await user.save({ validateBeforeSave: false });
+
+//   // Get customer details if the user is a customer
+//   let customer = null;
+//   if (user.role === 'customer') {
+//     customer = await Customer.findOne({ user: user._id });
+//   }
+
+//   // Send the token response, including customer ID if available
+//   sendTokenResponse(user, 200, res, customer ? customer._id : null);
+// });
+// @desc    Login user
+// @route   POST /api/v1/auth/login
+// @access  Public
 exports.login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -160,10 +199,46 @@ exports.login = asyncHandler(async (req, res, next) => {
     customer = await Customer.findOne({ user: user._id });
   }
 
-  // Send the token response, including customer ID if available
-  sendTokenResponse(user, 200, res, customer ? customer._id : null);
+  // Create user data response
+  const userData = {
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    phone: user.phone,
+    createdAt: user.createdAt,
+    customerId: customer?._id || null
+  };
+
+  // Send the token response with user data
+  sendTokenResponse(user, 200, res, userData);
 });
 
+// Updated sendTokenResponse function
+const sendTokenResponse = (user, statusCode, res, userData) => {
+  // Create token
+  const token = user.getSignedJwtToken();
+
+  const options = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true
+  };
+
+  if (process.env.NODE_ENV === 'production') {
+    options.secure = true;
+  }
+
+  res
+    .status(statusCode)
+    .cookie('token', token, options)
+    .json({
+      success: true,
+      token,
+      user: userData
+    });
+};
 // @desc    Log user out / clear cookie
 // @route   GET /api/v1/auth/logout
 // @access  Private
@@ -348,26 +423,26 @@ exports.verifyEmail = asyncHandler(async (req, res, next) => {
 });
 
 // Get token from model, create cookie and send response
-const sendTokenResponse = (user, statusCode, res) => {
-  // Create token
-  const token = user.getSignedJwtToken();
+// const sendTokenResponse = (user, statusCode, res) => {
+//   // Create token
+//   const token = user.getSignedJwtToken();
 
-  const options = {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
-    ),
-    httpOnly: true
-  };
+//   const options = {
+//     expires: new Date(
+//       Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+//     ),
+//     httpOnly: true
+//   };
 
-  if (process.env.NODE_ENV === 'production') {
-    options.secure = true;
-  }
+//   if (process.env.NODE_ENV === 'production') {
+//     options.secure = true;
+//   }
 
-  res
-    .status(statusCode)
-    .cookie('token', token, options)
-    .json({
-      success: true,
-      token
-    });
-}; 
+//   res
+//     .status(statusCode)
+//     .cookie('token', token, options)
+//     .json({
+//       success: true,
+//       token
+//     });
+// }; 
