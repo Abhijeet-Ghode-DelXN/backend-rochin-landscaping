@@ -42,24 +42,15 @@ router.get('/', advancedResults(
   ]
 ), getAppointments);
 
-router.get('/:id', getAppointment);
-
-// Customer specific routes
-// 🔒 Customer specific routes
-router.get('/availability', getAvailableTimeSlots); // Must come first
+// Specific routes must come before parameterized routes
+router.get('/availability', getAvailableTimeSlots);
 router.get('/my-appointments', protect, authorize('customer'), getMyAppointments);
+router.get('/calendar', getCalendarAppointments);
+
+// Parameterized routes
+router.get('/:id', getAppointment);
 router.put('/:id/reschedule-request', protect, authorize('customer'), requestReschedule);
-
-
-// Calendar route - accessible to all authenticated users
-router.get('/calendar',  getCalendarAppointments);
-
-// Photo upload route - for professionals/admins
 router.post('/:id/photos', protect, authorize('admin', 'professional'), uploadServicePhotos);
-
-// Example route definition
-// router.get('/appointments/availability', getAvailableTimeSlots); // ✅ No protect middleware
-
 
 // Admin and Professional routes
 router.post('/', protect, authorize('customer'), createAppointment);
