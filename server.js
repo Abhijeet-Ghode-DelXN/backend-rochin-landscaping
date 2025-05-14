@@ -65,6 +65,10 @@ const businessSettingRoutes = require('./src/routes/business-setting.routes');
 const contactRoutes = require('./src/routes/contact');
 
 
+// Import the contact route
+const messageRoutes = require('./src/routes/message.routes');
+
+
 // Mount routers
 app.use(`${API_PREFIX}/auth`, authRoutes);
 app.use(`${API_PREFIX}/users`, userRoutes);
@@ -81,6 +85,10 @@ app.use(`${API_PREFIX}/business-settings`, businessSettingRoutes);
 
 // Mount the contact route here
 app.use(`${API_PREFIX}/api/contact`, contactRoutes);
+
+
+// Add this route to the mounted routers
+app.use(`${API_PREFIX}/message`, messageRoutes);
 
 // Welcome route
 app.get('/', (req, res) => {
