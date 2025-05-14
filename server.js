@@ -25,16 +25,33 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Security middleware
-app.use(helmet());
-// app.use(cors());
-app.use(cors({
-  origin: function (origin, callback) {
-    // You can validate dynamic origins here (e.g., from DB)
-    callback(null, true);
-  },
-  credentials: true
+app.use(helmet({
+  crossOriginResourcePolicy: false, // Disable if you're handling CORS elsewhere
 }));
 
+// Enable CORS with specific origin
+// Configure allowed origins
+const allowedOrigins = [
+  // 'http://localhost:3000',
+  'https://booking-one-omega.vercel.app'
+];
+
+// CORS configuration
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+}));
 // Add this before your routes
 app.use(fileUpload({
   createParentPath: true,
