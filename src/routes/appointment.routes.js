@@ -67,7 +67,7 @@ router.get('/my-appointments', protect, authorize('customer'), getMyAppointments
 router.get('/calendar', getCalendarAppointments);
 
 // Parameterized routes
-router.get('/:id', protect, getAppointment);
+router.get('/:id', getAppointment);
 router.put('/:id/reschedule-request', protect, authorize('customer'), requestReschedule);
 router.post('/:id/photos', protect, authorize('admin', 'professional'), uploadServicePhotos);
 
