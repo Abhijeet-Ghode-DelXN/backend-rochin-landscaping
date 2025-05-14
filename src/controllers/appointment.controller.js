@@ -9,14 +9,41 @@ const cloudinary = require('../utils/cloudinary');
 
 // @desc    Get all appointments
 // @route   GET /api/v1/appointments
-// @access  Private/Admin
+// @access  Public/Private
 exports.getAppointments = asyncHandler(async (req, res, next) => {
+  // If status=Completed is specified, allow public access
+  if (req.query.status === 'Completed') {
+    // Add photos to the query
+    res.advancedResults.data = await Promise.all(res.advancedResults.data.map(async (appointment) => {
+      const populatedAppointment = await Appointment.findById(appointment._id)
+        .populate({
+          path: 'customer',
+          select: 'address',
+          populate: {
+            path: 'user',
+            select: 'name phone'
+          }
+        })
+        .populate('service', 'name category')
+        .populate('photos');
+      return populatedAppointment;
+    }));
+    return res.status(200).json(res.advancedResults);
+  }
+
+  // For other queries, check if user is authorized
+  if (!req.user || !['admin', 'professional'].includes(req.user.role)) {
+    return next(
+      new ErrorResponse('Not authorized to access appointments', 403)
+    );
+  }
+
   res.status(200).json(res.advancedResults);
 });
 
 // @desc    Get single appointment
 // @route   GET /api/v1/appointments/:id
-// @access  Private
+// @access  Public/Private
 exports.getAppointment = asyncHandler(async (req, res, next) => {
   const appointment = await Appointment.findById(req.params.id)
     .populate({
@@ -47,6 +74,21 @@ exports.getAppointment = asyncHandler(async (req, res, next) => {
     );
   }
 
+  // Allow public access for completed appointments
+  if (appointment.status === 'Completed') {
+    return res.status(200).json({
+      success: true,
+      data: appointment
+    });
+  }
+
+  // For non-completed appointments, check authorization
+  if (!req.user) {
+    return next(
+      new ErrorResponse(`Not authorized to access this appointment`, 403)
+    );
+  }
+
   // Check if user is authorized to view
   if (req.user.role === 'customer') {
     const customer = await Customer.findOne({ user: req.user.id });
@@ -62,12 +104,6 @@ exports.getAppointment = asyncHandler(async (req, res, next) => {
     data: appointment
   });
 });
-
-
-
-
-
-// Add to appointment.controller.js
 
 // @desc    Get available time slots
 // @route   GET /api/v1/appointments/availability
@@ -147,8 +183,6 @@ exports.getAvailableTimeSlots = asyncHandler(async (req, res, next) => {
     data: availableSlots
   });
 });
-
-
 
 // @desc    Create new appointment
 // @route   POST /api/v1/appointments
@@ -461,6 +495,13 @@ exports.uploadServicePhotos = asyncHandler(async (req, res, next) => {
     );
   }
 
+  // Check if appointment is completed
+  if (appointment.status !== 'Completed') {
+    return next(
+      new ErrorResponse(`Photos can only be uploaded for completed appointments`, 400)
+    );
+  }
+
   // Check if user is authorized to upload photos
   if (req.user.role !== 'admin' && req.user.role !== 'professional') {
     return next(
@@ -477,35 +518,54 @@ exports.uploadServicePhotos = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`Please specify photoType as 'beforeService' or 'afterService'`, 400));
   }
 
-  const photos = Array.isArray(req.files.photos) 
-    ? req.files.photos 
-    : [req.files.photos];
+  const photos = Array.isArray(req.files.photos) ? req.files.photos : [req.files.photos];
+  const uploadPromises = [];
 
-  const uploadPromises = photos.map(async photo => {
+  for (const photo of photos) {
     // Make sure the file is a photo
-    if (!photo.mimetype.startsWith('image')) {
-      throw new ErrorResponse(`Please upload only image files`, 400);
+    if (!photo.mimetype.startsWith('image/')) {
+      return next(new ErrorResponse(`Please upload only image files`, 400));
     }
 
-    // Check filesize
-    if (photo.size > process.env.MAX_FILE_UPLOAD) {
-      throw new ErrorResponse(
-        `Please upload images less than ${process.env.MAX_FILE_UPLOAD}`,
-        400
-      );
+    // Check filesize (5MB)
+    const maxSize = 5 * 1024 * 1024;
+    if (photo.size > maxSize) {
+      return next(new ErrorResponse(`Please upload images less than 5MB`, 400));
     }
 
-    // Upload to cloudinary
-    const result = await cloudinary.uploader.upload(photo.tempFilePath, {
-      folder: `landscaping/appointments/${appointment._id}/${req.body.photoType}`
+    // Create upload promise
+    const uploadPromise = new Promise((resolve, reject) => {
+      try {
+        // Convert the file buffer to base64
+        const base64Data = photo.data.toString('base64');
+        const dataUri = `data:${photo.mimetype};base64,${base64Data}`;
+
+        // Upload to cloudinary
+        cloudinary.uploader.upload(
+          dataUri,
+          {
+            folder: `landscaping/appointments/${appointment._id}/${req.body.photoType}`,
+            resource_type: 'auto'
+          },
+          (error, result) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve({
+                url: result.secure_url,
+                caption: req.body.caption || '',
+                uploadedAt: Date.now()
+              });
+            }
+          }
+        );
+      } catch (err) {
+        reject(err);
+      }
     });
 
-    return {
-      url: result.secure_url,
-      caption: req.body.caption || '',
-      uploadedAt: Date.now()
-    };
-  });
+    uploadPromises.push(uploadPromise);
+  }
 
   try {
     const uploadedPhotos = await Promise.all(uploadPromises);

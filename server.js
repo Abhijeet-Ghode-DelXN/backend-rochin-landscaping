@@ -37,9 +37,13 @@ app.use(cors({
 
 // Add this before your routes
 app.use(fileUpload({
-  createParentPath: true, // Creates upload directory if not exists
-  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB limit
-  abortOnLimit: true, // Return 413 when file too large
+  createParentPath: true,
+  limits: { 
+    fileSize: 5 * 1024 * 1024 // 5MB limit
+  },
+  abortOnLimit: true,
+  useTempFiles: false,
+  debug: process.env.NODE_ENV === 'development'
 }));
 // API version
 const API_PREFIX = '/api/v1';

@@ -19,56 +19,42 @@ const router = express.Router();
 const { protect, authorize } = require('../middlewares/auth');
 const advancedResults = require('../middlewares/advancedResults');
 
-// Customer specific routes
-// 🔒 Customer specific routes
-router.get('/availability', getAvailableTimeSlots); // Must come first
+// Public routes
+router.get('/', advancedResults(
+  Appointment,
+  [
+    {
+      path: 'customer',
+      select: 'address',
+      populate: {
+        path: 'user',
+        select: 'name phone'
+      }
+    },
+    {
+      path: 'service',
+      select: 'name category'
+    },
+    {
+      path: 'crew.leadProfessional',
+      select: 'name'
+    }
+  ]
+), getAppointments);
+
+// Specific routes must come before parameterized routes
+router.get('/availability', getAvailableTimeSlots);
 router.get('/my-appointments', protect, authorize('customer'), getMyAppointments);
+router.get('/calendar', getCalendarAppointments);
+
+// Parameterized routes
+router.get('/:id', getAppointment);
 router.put('/:id/reschedule-request', protect, authorize('customer'), requestReschedule);
-
-
-// Calendar route - accessible to all authenticated users
-router.get('/calendar', protect, getCalendarAppointments);
-
-// Photo upload route - for professionals/admins
 router.post('/:id/photos', protect, authorize('admin', 'professional'), uploadServicePhotos);
 
-// Example route definition
-// router.get('/appointments/availability', getAvailableTimeSlots); // ✅ No protect middleware
-
-
 // Admin and Professional routes
-router.route('/')
-  .get(
-    protect, 
-    authorize('admin', 'professional'), 
-    advancedResults(
-      Appointment,
-      [
-        {
-          path: 'customer',
-          select: 'address',
-          populate: {
-            path: 'user',
-            select: 'name phone'
-          }
-        },
-        {
-          path: 'service',
-          select: 'name category'
-        },
-        {
-          path: 'crew.leadProfessional',
-          select: 'name'
-        }
-      ]
-    ),
-    getAppointments
-  )
-  .post(protect, authorize('customer'), createAppointment);
-
-router.route('/:id')
-  .get(protect, getAppointment)
-  .put(protect, authorize('admin', 'professional'), updateAppointment)
-  .delete(protect, authorize('admin'), deleteAppointment);
+router.post('/', protect, authorize('customer'), createAppointment);
+router.put('/:id', protect, authorize('admin', 'professional'), updateAppointment);
+router.delete('/:id', protect, authorize('admin'), deleteAppointment);
 
 module.exports = router; 
