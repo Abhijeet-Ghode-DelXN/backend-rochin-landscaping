@@ -249,9 +249,93 @@ exports.createAppointment = asyncHandler(async (req, res, next) => {
   });
 });
 
+// // @desc    Update appointment
+// // @route   PUT /api/v1/appointments/:id
+// // @access  Private/Admin
+// exports.updateAppointment = asyncHandler(async (req, res, next) => {
+//   let appointment = await Appointment.findById(req.params.id);
+
+//   if (!appointment) {
+//     return next(
+//       new ErrorResponse(`Appointment not found with id of ${req.params.id}`, 404)
+//     );
+//   }
+
+//   // Check if user is authorized to update
+//   if (req.user.role !== 'admin' && req.user.role !== 'professional') {
+//     return next(
+//       new ErrorResponse(`Not authorized to update this appointment`, 403)
+//     );
+//   }
+
+//   appointment = await Appointment.findByIdAndUpdate(req.params.id, req.body, {
+//     new: true,
+//     runValidators: true
+//   });
+
+//   // Check if status changed to 'Completed' and update completion details
+//   if (req.body.status === 'Completed' && appointment.status === 'Completed') {
+//     appointment.completionDetails.completedAt = Date.now();
+//     await appointment.save();
+    
+//     // Notify customer
+//     try {
+//       const customer = await Customer.findById(appointment.customer).populate('user');
+//       if (customer && customer.user.email) {
+//         await sendEmail({
+//           email: customer.user.email,
+//           subject: 'Service Completed',
+//           message: `Your landscaping service has been completed. Thank you for your business!`
+//         });
+
+//         appointment.notificationsStatus.completionSent = true;
+//         await appointment.save();
+//       }
+//     } catch (err) {
+//       console.log('Completion notification failed:', err);
+//     }
+//   }
+
+//   // Check if date or time changed, send reschedule notification
+//   if ((req.body.date && req.body.date !== appointment.date.toISOString().split('T')[0]) || 
+//       (req.body.timeSlot && (
+//         req.body.timeSlot.startTime !== appointment.timeSlot.startTime ||
+//         req.body.timeSlot.endTime !== appointment.timeSlot.endTime
+//       ))) {
+//     try {
+//       const customer = await Customer.findById(appointment.customer).populate('user');
+//       if (customer && customer.user.email) {
+//         const formattedDate = new Date(appointment.date).toLocaleString('en-US', {
+//           weekday: 'long',
+//           year: 'numeric',
+//           month: 'long',
+//           day: 'numeric'
+//         });
+
+//         await sendEmail({
+//           email: customer.user.email,
+//           subject: 'Appointment Rescheduled',
+//           message: `Your landscaping appointment has been rescheduled to ${formattedDate} from ${appointment.timeSlot.startTime} to ${appointment.timeSlot.endTime}. Please contact us if you have any questions.`
+//         });
+//       }
+//     } catch (err) {
+//       console.log('Reschedule notification failed:', err);
+//     }
+//   }
+
+//   res.status(200).json({
+//     success: true,
+//     data: appointment
+//   });
+// });
+
+
+
+
+
 // @desc    Update appointment
 // @route   PUT /api/v1/appointments/:id
-// @access  Private/Admin
+// @access  Private (admin, professional, or customer for own appointment with limited fields)
 exports.updateAppointment = asyncHandler(async (req, res, next) => {
   let appointment = await Appointment.findById(req.params.id);
 
@@ -261,24 +345,55 @@ exports.updateAppointment = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // Check if user is authorized to update
-  if (req.user.role !== 'admin' && req.user.role !== 'professional') {
+  const userRole = req.user.role;
+  const userCustomerId = req.user.customerId; // Only present if role is 'customer'
+
+  // If user is admin or professional: allow full update
+  if (userRole === 'admin' || userRole === 'professional') {
+    appointment = await Appointment.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    });
+  }
+  // If user is customer: restrict update to own appointment and only date/timeSlot
+  else if (userRole === 'customer') {
+    // Check if the appointment belongs to the customer
+    if (appointment.customer.toString() !== userCustomerId) {
+      return next(
+        new ErrorResponse(`Not authorized to update this appointment`, 403)
+      );
+    }
+
+    // Only allow date and timeSlot fields
+    const allowedFields = ['date', 'timeSlot'];
+    const invalidFields = Object.keys(req.body).filter(
+      (key) => !allowedFields.includes(key)
+    );
+    if (invalidFields.length > 0) {
+      return next(
+        new ErrorResponse(
+          `Customers are only allowed to update 'date' and 'timeSlot'. You sent: ${invalidFields.join(', ')}`,
+          403
+        )
+      );
+    }
+
+    // Update only the allowed fields
+    if (req.body.date) appointment.date = req.body.date;
+    if (req.body.timeSlot) appointment.timeSlot = req.body.timeSlot;
+
+    await appointment.save();
+  } else {
     return next(
       new ErrorResponse(`Not authorized to update this appointment`, 403)
     );
   }
 
-  appointment = await Appointment.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true
-  });
-
   // Check if status changed to 'Completed' and update completion details
   if (req.body.status === 'Completed' && appointment.status === 'Completed') {
     appointment.completionDetails.completedAt = Date.now();
     await appointment.save();
-    
-    // Notify customer
+
     try {
       const customer = await Customer.findById(appointment.customer).populate('user');
       if (customer && customer.user.email) {
@@ -297,11 +412,11 @@ exports.updateAppointment = asyncHandler(async (req, res, next) => {
   }
 
   // Check if date or time changed, send reschedule notification
-  if ((req.body.date && req.body.date !== appointment.date.toISOString().split('T')[0]) || 
-      (req.body.timeSlot && (
-        req.body.timeSlot.startTime !== appointment.timeSlot.startTime ||
-        req.body.timeSlot.endTime !== appointment.timeSlot.endTime
-      ))) {
+  if ((req.body.date && req.body.date !== appointment.date.toISOString().split('T')[0]) ||
+    (req.body.timeSlot && (
+      req.body.timeSlot.startTime !== appointment.timeSlot.startTime ||
+      req.body.timeSlot.endTime !== appointment.timeSlot.endTime
+    ))) {
     try {
       const customer = await Customer.findById(appointment.customer).populate('user');
       if (customer && customer.user.email) {
@@ -328,6 +443,17 @@ exports.updateAppointment = asyncHandler(async (req, res, next) => {
     data: appointment
   });
 });
+
+
+
+
+
+
+
+
+
+
+
 
 // @desc    Delete appointment
 // @route   DELETE /api/v1/appointments/:id

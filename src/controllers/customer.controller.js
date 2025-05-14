@@ -140,19 +140,72 @@ exports.updateCustomer = asyncHandler(async (req, res, next) => {
 // @desc    Update current customer profile
 // @route   PUT /api/v1/customers/me
 // @access  Private/Customer
+// exports.updateMyProfile = asyncHandler(async (req, res, next) => {
+//   let customer = await Customer.findOne({ user: req.user.id });
+
+//   if (!customer) {
+//     return next(
+//       new ErrorResponse(`No customer profile found for this user`, 404)
+//     );
+//   }
+
+//   customer = await Customer.findByIdAndUpdate(customer._id, req.body, {
+//     new: true,
+//     runValidators: true
+//   });
+
+//   res.status(200).json({
+//     success: true,
+//     data: customer
+//   });
+// });
+
+
+
+
+
+// @desc    Update current customer profile
+// @route   PUT /api/v1/customers/me
+// @access  Private/Customer
 exports.updateMyProfile = asyncHandler(async (req, res, next) => {
-  let customer = await Customer.findOne({ user: req.user.id });
+  // Find the customer profile
+  let customer = await Customer.findOne({ user: req.user.id }).populate('user');
 
   if (!customer) {
-    return next(
-      new ErrorResponse(`No customer profile found for this user`, 404)
-    );
+    return next(new ErrorResponse(`No customer profile found for this user`, 404));
   }
 
-  customer = await Customer.findByIdAndUpdate(customer._id, req.body, {
+  // Update user data if provided
+  if (req.body.user) {
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      {
+        name: req.body.user.name,
+        email: req.body.user.email
+      },
+      { new: true, runValidators: true }
+    );
+
+    // Update customer's reference to user if needed
+    customer.user = user;
+  }
+
+  // Update customer data
+  const fieldsToUpdate = {
+    phone: req.body.phone,
+    address: req.body.address,
+    propertyDetails: req.body.propertyDetails
+  };
+
+  // Remove undefined fields
+  Object.keys(fieldsToUpdate).forEach(
+    key => fieldsToUpdate[key] === undefined && delete fieldsToUpdate[key]
+  );
+
+  customer = await Customer.findByIdAndUpdate(customer._id, fieldsToUpdate, {
     new: true,
     runValidators: true
-  });
+  }).populate('user');
 
   res.status(200).json({
     success: true,
