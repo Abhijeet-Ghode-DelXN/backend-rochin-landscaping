@@ -3,16 +3,13 @@ const router = express.Router();
 const announcementController = require('../controllers/announcementController');
 const { protect, authorize } = require('../middlewares/auth');
 
-// Public route to get active announcement
+// Public routes - no authentication needed
 router.get('/active', announcementController.getActiveAnnouncement);
-
-// Protected routes - require authentication
-router.use(protect);
-router.use(authorize('admin')); // Only admin can manage announcements
-
-router.post('/', announcementController.createAnnouncement);
 router.get('/', announcementController.getAnnouncements);
-router.put('/:id', announcementController.updateAnnouncement);
-router.delete('/:id', announcementController.deleteAnnouncement);
+
+// Protected routes - require admin authentication
+router.post('/', protect, authorize('admin'), announcementController.createAnnouncement);
+router.put('/:id', protect, authorize('admin'), announcementController.updateAnnouncement);
+router.delete('/:id', protect, authorize('admin'), announcementController.deleteAnnouncement);
 
 module.exports = router; 

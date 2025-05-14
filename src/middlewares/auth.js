@@ -7,16 +7,14 @@ const User = require('../models/user.model');
 exports.protect = asyncHandler(async (req, res, next) => {
   let token;
 
-  console.log('Auth Headers:', req.headers.authorization);
+  console.log('Auth Headers:', req.headers.authorization || 'No authorization header');
 
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
-  ) {
+  // Check if authorization header exists and has Bearer token
+  if (req.headers && req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     // Set token from Bearer token in header
     token = req.headers.authorization.split(' ')[1];
     console.log('Token from Authorization header:', token);
-  } else if (req.cookies.token) {
+  } else if (req.cookies && req.cookies.token) {
     // Set token from cookie
     token = req.cookies.token;
     console.log('Token from cookie:', token);
@@ -53,6 +51,46 @@ exports.protect = asyncHandler(async (req, res, next) => {
   } catch (err) {
     console.error('Token verification error:', err.message);
     return next(new ErrorResponse('Not authorized to access this route', 401));
+  }
+});
+
+// Optional authentication - proceed even if no token
+exports.optional = asyncHandler(async (req, res, next) => {
+  let token;
+
+  // Check if authorization header exists and has Bearer token
+  if (req.headers && req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    // Set token from Bearer token in header
+    token = req.headers.authorization.split(' ')[1];
+  } else if (req.cookies && req.cookies.token) {
+    // Set token from cookie
+    token = req.cookies.token;
+  }
+
+  // If no token, continue without authentication
+  if (!token) {
+    console.log('No token found, continuing as unauthenticated');
+    return next();
+  }
+
+  try {
+    // Verify token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Find user and attach to request
+    const user = await User.findById(decoded.id).select('-password');
+    
+    if (user) {
+      // Attach both the user and the decoded token to the request
+      req.user = user;
+      req.tokenData = decoded; // Contains the raw token data including role
+    }
+
+    next();
+  } catch (err) {
+    // Token is invalid but we still continue (optional auth)
+    console.error('Invalid token, continuing as unauthenticated:', err.message);
+    next();
   }
 });
 

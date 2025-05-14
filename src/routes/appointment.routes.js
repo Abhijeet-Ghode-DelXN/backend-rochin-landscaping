@@ -16,7 +16,7 @@ const Appointment = require('../models/appointment.model');
 
 const router = express.Router();
 
-const { protect, authorize } = require('../middlewares/auth');
+const { protect, authorize, optional } = require('../middlewares/auth');
 const advancedResults = require('../middlewares/advancedResults');
 
 // Debug middleware
@@ -27,8 +27,8 @@ router.use((req, res, next) => {
   next();
 });
 
-// Public routes
-router.get('/', advancedResults(
+// Routes for admin and professional
+router.get('/admin', advancedResults(
   Appointment,
   [
     {
@@ -49,6 +49,17 @@ router.get('/', advancedResults(
     }
   ]
 ), protect, authorize('admin', 'professional'), getAppointments);
+
+// Public route for listing appointments (limited data)
+router.get('/', optional, advancedResults(
+  Appointment,
+  [
+    {
+      path: 'service',
+      select: 'name category'
+    }
+  ]
+), getAppointments);
 
 // Specific routes must come before parameterized routes
 router.get('/availability', getAvailableTimeSlots);
