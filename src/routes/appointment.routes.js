@@ -19,6 +19,14 @@ const router = express.Router();
 const { protect, authorize } = require('../middlewares/auth');
 const advancedResults = require('../middlewares/advancedResults');
 
+// Debug middleware
+router.use((req, res, next) => {
+  console.log('Appointments Route - Headers:', req.headers);
+  console.log('Appointments Route - Method:', req.method);
+  console.log('Appointments Route - Path:', req.path);
+  next();
+});
+
 // Public routes
 router.get('/', advancedResults(
   Appointment,
@@ -40,7 +48,7 @@ router.get('/', advancedResults(
       select: 'name'
     }
   ]
-), getAppointments);
+), protect, authorize('admin', 'professional'), getAppointments);
 
 // Specific routes must come before parameterized routes
 router.get('/availability', getAvailableTimeSlots);
@@ -48,7 +56,7 @@ router.get('/my-appointments', protect, authorize('customer'), getMyAppointments
 router.get('/calendar', getCalendarAppointments);
 
 // Parameterized routes
-router.get('/:id', getAppointment);
+router.get('/:id', protect, getAppointment);
 router.put('/:id/reschedule-request', protect, authorize('customer'), requestReschedule);
 router.post('/:id/photos', protect, authorize('admin', 'professional'), uploadServicePhotos);
 

@@ -64,6 +64,8 @@ const businessSettingRoutes = require('./src/routes/business-setting.routes');
 // Import the contact route
 const contactRoutes = require('./src/routes/contact');
 
+// Import the announcements route
+const announcementsRoutes = require('./src/routes/announcements');
 
 // Mount routers
 app.use(`${API_PREFIX}/auth`, authRoutes);
@@ -78,9 +80,11 @@ app.use(`${API_PREFIX}/professionals`, professionalRoutes);
 app.use(`${API_PREFIX}/reports`, reportRoutes);
 app.use(`${API_PREFIX}/business-settings`, businessSettingRoutes);
 
-
 // Mount the contact route here
 app.use(`${API_PREFIX}/api/contact`, contactRoutes);
+
+// Mount the announcements route here
+app.use(`${API_PREFIX}/announcements`, announcementsRoutes);
 
 // Welcome route
 app.get('/', (req, res) => {
