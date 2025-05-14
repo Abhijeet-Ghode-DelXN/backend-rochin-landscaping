@@ -32,7 +32,7 @@ app.use(helmet({
 // Enable CORS with specific origin
 // Configure allowed origins
 const allowedOrigins = [
-  // 'http://localhost:3000',
+  'http://localhost:3000',
   'https://booking-one-omega.vercel.app'
 ];
 
