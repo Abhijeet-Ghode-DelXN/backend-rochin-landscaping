@@ -177,7 +177,8 @@ exports.deleteGallery = asyncHandler(async (req, res, next) => {
     await cloudinary.uploader.destroy(image.publicId);
   }
 
-  await gallery.remove();
+  await Gallery.findByIdAndDelete(req.params.id);
+
 
   res.status(200).json({
     success: true,
@@ -190,6 +191,7 @@ exports.deleteGallery = asyncHandler(async (req, res, next) => {
 // @access  Private/Admin
 exports.deleteImage = asyncHandler(async (req, res, next) => {
   const gallery = await Gallery.findById(req.params.id);
+
 
   if (!gallery) {
     return next(new ErrorResponse(`Gallery not found with id of ${req.params.id}`, 404));
