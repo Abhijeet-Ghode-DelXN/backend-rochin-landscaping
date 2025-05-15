@@ -509,7 +509,7 @@ exports.uploadServicePhotos = asyncHandler(async (req, res, next) => {
     );
   }
 
-  if (!req.files || !req.files.photos) {
+  if (!req.body.photos || !Array.isArray(req.body.photos) || req.body.photos.length === 0) {
     return next(new ErrorResponse(`Please upload at least one photo`, 400));
   }
 
@@ -518,34 +518,16 @@ exports.uploadServicePhotos = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`Please specify photoType as 'beforeService' or 'afterService'`, 400));
   }
 
-  const photos = Array.isArray(req.files.photos) ? req.files.photos : [req.files.photos];
-  const uploadPromises = [];
-
-  for (const photo of photos) {
-    // Make sure the file is a photo
-    if (!photo.mimetype.startsWith('image/')) {
-      return next(new ErrorResponse(`Please upload only image files`, 400));
-    }
-
-    // Check filesize (5MB)
-    const maxSize = 5 * 1024 * 1024;
-    if (photo.size > maxSize) {
-      return next(new ErrorResponse(`Please upload images less than 5MB`, 400));
-    }
-
-    // Create upload promise
-    const uploadPromise = new Promise((resolve, reject) => {
+  const uploadPromises = req.body.photos.map(photo => {
+    return new Promise((resolve, reject) => {
       try {
-        // Convert the file buffer to base64
-        const base64Data = photo.data.toString('base64');
-        const dataUri = `data:${photo.mimetype};base64,${base64Data}`;
-
         // Upload to cloudinary
         cloudinary.uploader.upload(
-          dataUri,
+          `data:${photo.contentType};base64,${photo.data}`,
           {
             folder: `landscaping/appointments/${appointment._id}/${req.body.photoType}`,
-            resource_type: 'auto'
+            resource_type: 'auto',
+            public_id: photo.name.split('.')[0] // Use filename without extension as public_id
           },
           (error, result) => {
             if (error) {
@@ -553,7 +535,8 @@ exports.uploadServicePhotos = asyncHandler(async (req, res, next) => {
             } else {
               resolve({
                 url: result.secure_url,
-                caption: req.body.caption || '',
+                publicId: result.public_id,
+                caption: '',
                 uploadedAt: Date.now()
               });
             }
@@ -563,9 +546,7 @@ exports.uploadServicePhotos = asyncHandler(async (req, res, next) => {
         reject(err);
       }
     });
-
-    uploadPromises.push(uploadPromise);
-  }
+  });
 
   try {
     const uploadedPhotos = await Promise.all(uploadPromises);

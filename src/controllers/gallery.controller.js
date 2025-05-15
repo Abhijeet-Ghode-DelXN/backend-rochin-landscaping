@@ -7,43 +7,64 @@ const ErrorResponse = require('../utils/errorResponse');
 // @route   POST /api/v1/gallery
 // @access  Private/Admin
 exports.createGallery = asyncHandler(async (req, res, next) => {
-  const { title, description, location, category, projectDate, tags, clientName, projectDuration } = req.body;
+  console.log('Request received - Files:', req.files); // Debug log
+  console.log('Request received - Body:', req.body); // Debug log
+
+  // Validate required fields
+  const { title, description, location, category, projectDate } = req.body;
   
+  if (!title || !description || !location || !category || !projectDate) {
+    return next(new ErrorResponse('Missing required fields', 400));
+  }
+
   // Handle image uploads
   const images = [];
+  
   if (req.files && req.files.images) {
+    // Convert single file to array for consistent processing
     const files = Array.isArray(req.files.images) ? req.files.images : [req.files.images];
     
-    for (const file of files) {
-      const result = await cloudinary.uploader.upload(file.tempFilePath, {
-        folder: 'gallery',
-        resource_type: 'auto'
-      });
-      
-      images.push({
-        url: result.secure_url,
-        publicId: result.public_id,
-        caption: req.body.captions ? req.body.captions[files.indexOf(file)] : ''
-      });
+    try {
+      for (const file of files) {
+        const result = await cloudinary.uploader.upload(file.tempFilePath, {
+          folder: 'gallery',
+          resource_type: 'auto'
+        });
+        
+        images.push({
+          url: result.secure_url,
+          publicId: result.public_id,
+          caption: req.body.captions ? req.body.captions[files.indexOf(file)] : ''
+        });
+      }
+    } catch (uploadError) {
+      console.error('Cloudinary upload error:', uploadError);
+      return next(new ErrorResponse('Error uploading images to Cloudinary', 500));
     }
   }
 
-  const gallery = await Gallery.create({
-    title,
-    description,
-    location,
-    category,
-    projectDate,
-    images,
-    tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
-    clientName,
-    projectDuration
-  });
+  try {
+    const gallery = await Gallery.create({
+      title,
+      description,
+      location,
+      category,
+      projectDate,
+      images,
+      tags: req.body.tags ? req.body.tags.split(',').map(tag => tag.trim()) : [],
+      clientName: req.body.clientName || '',
+      projectDuration: req.body.projectDuration || '',
+      status: req.body.status || 'draft'
+    });
 
-  res.status(201).json({
-    success: true,
-    data: gallery
-  });
+    res.status(201).json({
+      success: true,
+      data: gallery
+    });
+  } catch (dbError) {
+    console.error('Database error:', dbError);
+    return next(new ErrorResponse('Error creating gallery in database', 500));
+  }
 });
 
 // @desc    Get all gallery entries

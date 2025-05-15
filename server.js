@@ -17,7 +17,9 @@ connectDB();
 const app = express();
 
 // Body parser
-app.use(express.json());
+// app.use(express.json());
+// With this:
+app.use(express.json({ limit: '50mb' }));
 
 // Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
@@ -37,30 +39,43 @@ const allowedOrigins = [
 ];
 
 // CORS configuration
-app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     // Allow requests with no origin (like mobile apps or curl requests)
+//     if (!origin) return callback(null, true);
     
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: false, // Changed to false
+//     if (allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   credentials: false, // Changed to false
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+// }));
+
+app.use(cors({
+  origin: true,   // This allows requests from any origin
+  credentials: false,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
+
 // Add this before your routes
 app.use(fileUpload({
+  useTempFiles: true,
+  tempFileDir: '/tmp/', // Use absolute path for temp files
   createParentPath: true,
   limits: { 
-    fileSize: 5 * 1024 * 1024 // 5MB limit
+    fileSize: 50 * 1024 * 1024, // 50MB limit (adjust as needed)
+    files: 10 // Maximum number of files
   },
-  abortOnLimit: true,
-  useTempFiles: false,
-  debug: process.env.NODE_ENV === 'development'
+  abortOnLimit: false, // Set to false to handle limits gracefully
+  safeFileNames: true,
+  preserveExtension: true,
+  debug: process.env.NODE_ENV === 'development',
+  responseOnLimit: 'File size limit has been reached'
 }));
 // API version
 const API_PREFIX = '/api/v1';
