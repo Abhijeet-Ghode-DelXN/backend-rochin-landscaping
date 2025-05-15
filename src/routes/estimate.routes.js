@@ -24,7 +24,7 @@ router.get('/my-estimates', protect, authorize('customer'), getMyEstimates);
 router.put('/:id/approve', protect, authorize('customer'), approveEstimate);
 
 // Photo upload route
-router.post('/:id/photos', protect, uploadEstimatePhotos);
+router.post('/:id/photos', uploadEstimatePhotos);
 
 // Admin routes
 router.route('/')

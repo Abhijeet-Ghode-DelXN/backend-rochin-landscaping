@@ -157,13 +157,13 @@ exports.uploadEstimatePhotos = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // Check if user is authorized
-  if (req.user.role !== 'admin' && req.user.role !== 'professional' &&
-      estimate.customer.toString() !== req.user.id) {
-    return next(
-      new ErrorResponse(`Not authorized to upload photos to this estimate`, 403)
-    );
-  }
+  // // Check if user is authorized
+  // if (req.user.role !== 'admin' && req.user.role !== 'professional' &&
+  //     estimate.customer.toString() !== req.user.id) {
+  //   return next(
+  //     new ErrorResponse(`Not authorized to upload photos to this estimate`, 403)
+  //   );
+  // }
 
   if (!req.files || !req.files.photos) {
     return next(new ErrorResponse(`Please upload at least one photo`, 400));
@@ -180,12 +180,12 @@ exports.uploadEstimatePhotos = asyncHandler(async (req, res, next) => {
     }
 
     // Check filesize
-    if (photo.size > process.env.MAX_FILE_UPLOAD) {
-      throw new ErrorResponse(
-        `Please upload images less than ${process.env.MAX_FILE_UPLOAD}`,
-        400
-      );
-    }
+    // if (photo.size > process.env.MAX_FILE_UPLOAD) {
+    //   throw new ErrorResponse(
+    //     `Please upload images less than ${process.env.MAX_FILE_UPLOAD}`,
+    //     400
+    //   );
+    // }
 
     // Upload to cloudinary
     const result = await cloudinary.uploader.upload(photo.tempFilePath, {
