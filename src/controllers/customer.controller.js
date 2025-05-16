@@ -17,7 +17,8 @@ exports.getCustomer = asyncHandler(async (req, res, next) => {
   const customer = await Customer.findById(req.params.id)
     .populate('user', 'name email phone')
     .populate('appointments')
-    .populate('estimates');
+    .populate('estimates')
+    .lean({ virtuals: true }); // Add this to include virtuals
 
   if (!customer) {
     return next(
@@ -30,6 +31,10 @@ exports.getCustomer = asyncHandler(async (req, res, next) => {
     data: customer
   });
 });
+
+
+
+
 
 // @desc    Get current customer profile
 // @route   GET /api/v1/customers/me
@@ -117,25 +122,68 @@ exports.createCustomer = asyncHandler(async (req, res, next) => {
 // @desc    Update customer profile
 // @route   PUT /api/v1/customers/:id
 // @access  Private/Admin
+// exports.updateCustomer = asyncHandler(async (req, res, next) => {
+//   let customer = await Customer.findById(req.params.id);
+
+//   if (!customer) {
+//     return next(
+//       new ErrorResponse(`Customer not found with id of ${req.params.id}`, 404)
+//     );
+//   }
+
+//   customer = await Customer.findByIdAndUpdate(req.params.id, req.body, {
+//     new: true,
+//     runValidators: true
+//   });
+
+//   res.status(200).json({
+//     success: true,
+//     data: customer
+//   });
+// });
+
 exports.updateCustomer = asyncHandler(async (req, res, next) => {
-  let customer = await Customer.findById(req.params.id);
+  const { user, address } = req.body;
+  
+  // First update the user
+  const updatedUser = await User.findByIdAndUpdate(
+    req.body.userId, // You'll need to send this from frontend
+    {
+      name: user.name,
+      email: user.email,
+      phone: user.phone
+    },
+    { new: true, runValidators: true }
+  );
+
+  // Then update the customer
+  const customer = await Customer.findByIdAndUpdate(
+    req.params.id,
+    {
+      address: {
+        street: address.street,
+        city: address.city,
+        state: address.state,
+        zipCode: address.zipCode,
+        country: address.country
+      }
+    },
+    { new: true, runValidators: true }
+  ).populate('user');
 
   if (!customer) {
-    return next(
-      new ErrorResponse(`Customer not found with id of ${req.params.id}`, 404)
-    );
+    return next(new ErrorResponse(`Customer not found`, 404));
   }
-
-  customer = await Customer.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true
-  });
 
   res.status(200).json({
     success: true,
     data: customer
   });
 });
+
+
+
+
 
 // @desc    Update current customer profile
 // @route   PUT /api/v1/customers/me

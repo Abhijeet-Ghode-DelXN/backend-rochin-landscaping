@@ -92,7 +92,9 @@ const CustomerSchema = new mongoose.Schema({
     type: String
   }
 }, {
-  timestamps: true
+  timestamps: true,
+   toJSON: { virtual: true },  // Include virtuals in JSON responses
+  toObject: { virtual: true } // Include virtuals when calling .toObject()
 });
 
 // Virtual for all appointments
