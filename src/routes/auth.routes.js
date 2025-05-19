@@ -8,7 +8,9 @@ const {
   resetPassword, 
   updateDetails, 
   updatePassword, 
-  verifyEmail 
+  verifyEmail ,
+  handlePasswordLink,
+  setPassword
 } = require('../controllers/auth.controller');
 
 const router = express.Router();
@@ -24,5 +26,7 @@ router.put('/resetpassword/:resettoken', resetPassword);
 router.put('/updatedetails', protect, updateDetails);
 router.put('/updatepassword', protect, updatePassword);
 router.get('/verify-email/:verificationtoken', verifyEmail);
+router.get('/set-password/:token', handlePasswordLink);
+router.post('/set-password',setPassword); 
 
 module.exports = router; 
