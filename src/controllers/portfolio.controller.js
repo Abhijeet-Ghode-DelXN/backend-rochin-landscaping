@@ -206,17 +206,20 @@ exports.deleteImage = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`Portfolio not found with id of ${req.params.id}`, 404));
   }
 
-  const image = portfolio.images.id(req.params.imageId);
+  // Find the image index
+  const imageIndex = portfolio.images.findIndex(img => img._id.toString() === req.params.imageId);
 
-  if (!image) {
+  if (imageIndex === -1) {
     return next(new ErrorResponse(`Image not found with id of ${req.params.imageId}`, 404));
   }
+
+  const image = portfolio.images[imageIndex];
 
   // Delete from cloudinary
   await cloudinary.uploader.destroy(image.publicId);
 
-  // Remove from portfolio
-  image.remove();
+  // Remove from portfolio using splice
+  portfolio.images.splice(imageIndex, 1);
   await portfolio.save();
 
   res.status(200).json({

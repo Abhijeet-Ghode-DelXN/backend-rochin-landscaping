@@ -187,31 +187,46 @@ exports.deleteGallery = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Delete image from gallery
-// @route   DELETE /api/v1/gallery/:id/images/:imageId
+// @route   DELETE /api/v1/gallery/:galleryId/images/:imageId
 // @access  Private/Admin
 exports.deleteImage = asyncHandler(async (req, res, next) => {
-  const gallery = await Gallery.findById(req.params.id);
+  const { galleryId, imageId } = req.params;
 
+  if (!galleryId || !imageId) {
+    return next(new ErrorResponse('Gallery ID and Image ID are required', 400));
+  }
 
+  // Find the gallery
+  const gallery = await Gallery.findById(galleryId);
   if (!gallery) {
-    return next(new ErrorResponse(`Gallery not found with id of ${req.params.id}`, 404));
+    return next(new ErrorResponse(`Gallery not found with id of ${galleryId}`, 404));
   }
 
-  const image = gallery.images.id(req.params.imageId);
-
-  if (!image) {
-    return next(new ErrorResponse(`Image not found with id of ${req.params.imageId}`, 404));
+  // Find the image in the gallery
+  const imageIndex = gallery.images.findIndex(img => img._id && img._id.toString() === imageId);
+  if (imageIndex === -1) {
+    return next(new ErrorResponse(`Image not found with id of ${imageId}`, 404));
   }
 
-  // Delete from cloudinary
-  await cloudinary.uploader.destroy(image.publicId);
+  const image = gallery.images[imageIndex];
 
-  // Remove from gallery
-  image.remove();
-  await gallery.save();
+  try {
+    // Delete from Cloudinary if publicId exists
+    if (image.publicId) {
+      await cloudinary.uploader.destroy(image.publicId);
+    }
 
-  res.status(200).json({
-    success: true,
-    data: gallery
-  });
+    // Remove image from gallery's images array
+    gallery.images.splice(imageIndex, 1);
+    await gallery.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Image deleted successfully',
+      data: gallery
+    });
+  } catch (error) {
+    console.error('Error deleting image:', error);
+    return next(new ErrorResponse('Error deleting image', 500));
+  }
 }); 

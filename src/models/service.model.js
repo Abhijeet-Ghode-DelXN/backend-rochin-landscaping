@@ -23,6 +23,7 @@ const ServiceSchema = new mongoose.Schema({
       'Landscaping Design',
       'Irrigation',
       'Seasonal',
+      'Residential',
       'Other'
     ]
   },
