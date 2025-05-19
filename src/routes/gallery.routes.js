@@ -16,29 +16,13 @@ const validate = require('../middlewares/validators/validate');
 router.get('/', getGalleries);
 router.get('/:id', getGallery);
 
-// Protected routes (Admin only)
-router.post(
-  '/',
-  [protect, authorize('admin'), createGalleryValidation, validate],
-  createGallery
-);
+// Protected routes
+router.use(protect);
+router.use(authorize('admin'));
 
-router.put(
-  '/:id',
-  [protect, authorize('admin'), updateGalleryValidation, validate],
-  updateGallery
-);
-
-router.delete(
-  '/:id',
-  [protect, authorize('admin')],
-  deleteGallery
-);
-
-router.delete(
-  '/:id/images/:imageId',
-  [protect, authorize('admin')],
-  deleteImage
-);
+router.post('/', createGallery);
+router.put('/:id', updateGallery);
+router.delete('/:id', deleteGallery);
+router.delete('/:galleryId/images/:imageId', deleteImage);
 
 module.exports = router; 
