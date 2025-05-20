@@ -273,7 +273,7 @@ exports.deleteCustomer = asyncHandler(async (req, res, next) => {
     );
   }
 
-  await customer.remove();
+   await customer.deleteOne(); 
 
   res.status(200).json({
     success: true,

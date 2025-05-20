@@ -40,6 +40,12 @@ const UserSchema = new mongoose.Schema({
   resetPasswordExpire: Date,
   emailVerificationToken: String,
   emailVerificationExpire: Date,
+  needsPasswordReset: {
+    type: Boolean,
+    default: false
+  },
+  passwordSetupToken: String,
+  passwordSetupExpire: Date,
   lastLogin: Date,
   createdAt: {
     type: Date,
@@ -50,6 +56,9 @@ const UserSchema = new mongoose.Schema({
   toJSON: { virtuals: true },
   toObject: { virtuals: true }
 });
+
+
+
 
 // Encrypt password using bcrypt
 UserSchema.pre('save', async function(next) {
@@ -106,5 +115,27 @@ UserSchema.methods.getEmailVerificationToken = function() {
 
   return verificationToken;
 };
+
+
+
+// Generate password setup token
+UserSchema.methods.getPasswordSetupToken = function() {
+  // Generate token
+  const resetToken = crypto.randomBytes(20).toString('hex');
+
+  // Hash token and set to field
+  this.passwordSetupToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  // Set expire (24 hours)
+  this.passwordSetupExpire = Date.now() + 24 * 60 * 60 * 1000;
+
+  return resetToken;
+};
+
+
+
 
 module.exports = mongoose.model('User', UserSchema); 
