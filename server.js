@@ -94,6 +94,7 @@ const reportRoutes = require('./src/routes/report.routes');
 const businessSettingRoutes = require('./src/routes/business-setting.routes');
 const galleryRoutes = require('./src/routes/gallery.routes');
 const portfolioRoutes = require('./src/routes/portfolio.routes');
+const heroImageRoutes = require('./src/routes/hero-image');
 
 // Import the contact route
 const contactRoutes = require('./src/routes/contact');
@@ -118,6 +119,7 @@ app.use(`${API_PREFIX}/reports`, reportRoutes);
 app.use(`${API_PREFIX}/business-settings`, businessSettingRoutes);
 app.use(`${API_PREFIX}/gallery`, galleryRoutes);
 app.use(`${API_PREFIX}/portfolio`, portfolioRoutes);
+app.use(`${API_PREFIX}/hero-image`, heroImageRoutes);
 
 // Mount the contact route here
 app.use(`${API_PREFIX}/api/contact`, contactRoutes);
@@ -151,4 +153,4 @@ process.on('unhandledRejection', (err) => {
   console.log(`Error: ${err.message}`);
   // Close server & exit process
   server.close(() => process.exit(1));
-}); 
+});
