@@ -249,90 +249,6 @@ exports.createAppointment = asyncHandler(async (req, res, next) => {
   });
 });
 
-// // @desc    Update appointment
-// // @route   PUT /api/v1/appointments/:id
-// // @access  Private/Admin
-// exports.updateAppointment = asyncHandler(async (req, res, next) => {
-//   let appointment = await Appointment.findById(req.params.id);
-
-//   if (!appointment) {
-//     return next(
-//       new ErrorResponse(`Appointment not found with id of ${req.params.id}`, 404)
-//     );
-//   }
-
-//   // Check if user is authorized to update
-//   if (req.user.role !== 'admin' && req.user.role !== 'professional') {
-//     return next(
-//       new ErrorResponse(`Not authorized to update this appointment`, 403)
-//     );
-//   }
-
-//   appointment = await Appointment.findByIdAndUpdate(req.params.id, req.body, {
-//     new: true,
-//     runValidators: true
-//   });
-
-//   // Check if status changed to 'Completed' and update completion details
-//   if (req.body.status === 'Completed' && appointment.status === 'Completed') {
-//     appointment.completionDetails.completedAt = Date.now();
-//     await appointment.save();
-    
-//     // Notify customer
-//     try {
-//       const customer = await Customer.findById(appointment.customer).populate('user');
-//       if (customer && customer.user.email) {
-//         await sendEmail({
-//           email: customer.user.email,
-//           subject: 'Service Completed',
-//           message: `Your landscaping service has been completed. Thank you for your business!`
-//         });
-
-//         appointment.notificationsStatus.completionSent = true;
-//         await appointment.save();
-//       }
-//     } catch (err) {
-//       console.log('Completion notification failed:', err);
-//     }
-//   }
-
-//   // Check if date or time changed, send reschedule notification
-//   if ((req.body.date && req.body.date !== appointment.date.toISOString().split('T')[0]) || 
-//       (req.body.timeSlot && (
-//         req.body.timeSlot.startTime !== appointment.timeSlot.startTime ||
-//         req.body.timeSlot.endTime !== appointment.timeSlot.endTime
-//       ))) {
-//     try {
-//       const customer = await Customer.findById(appointment.customer).populate('user');
-//       if (customer && customer.user.email) {
-//         const formattedDate = new Date(appointment.date).toLocaleString('en-US', {
-//           weekday: 'long',
-//           year: 'numeric',
-//           month: 'long',
-//           day: 'numeric'
-//         });
-
-//         await sendEmail({
-//           email: customer.user.email,
-//           subject: 'Appointment Rescheduled',
-//           message: `Your landscaping appointment has been rescheduled to ${formattedDate} from ${appointment.timeSlot.startTime} to ${appointment.timeSlot.endTime}. Please contact us if you have any questions.`
-//         });
-//       }
-//     } catch (err) {
-//       console.log('Reschedule notification failed:', err);
-//     }
-//   }
-
-//   res.status(200).json({
-//     success: true,
-//     data: appointment
-//   });
-// });
-
-
-
-
-
 // @desc    Update appointment
 // @route   PUT /api/v1/appointments/:id
 // @access  Private (admin, professional, or customer for own appointment with limited fields)
@@ -443,17 +359,6 @@ exports.updateAppointment = asyncHandler(async (req, res, next) => {
     data: appointment
   });
 });
-
-
-
-
-
-
-
-
-
-
-
 
 // @desc    Delete appointment
 // @route   DELETE /api/v1/appointments/:id
@@ -691,20 +596,44 @@ exports.getCalendarAppointments = asyncHandler(async (req, res, next) => {
     .populate('crew.leadProfessional', 'name')
     .sort({ date: 1 });
 
-  // Format for calendar display
+  // Format for calendar display with null checks
   const calendarAppointments = appointments.map(apt => {
+    // Get service name with fallback
+    const serviceName = apt.service?.name || 'Unassigned Service';
+    
+    // Get customer address with fallback
+    const customerAddress = apt.customer?.address || 'No Address';
+    
+    // Get start and end times with validation
+    const startTime = apt.timeSlot?.startTime || '00:00';
+    const endTime = apt.timeSlot?.endTime || '00:00';
+    
+    // Create date objects with validation
+    const startDate = new Date(`${apt.date.toISOString().split('T')[0]}T${startTime}`);
+    const endDate = new Date(`${apt.date.toISOString().split('T')[0]}T${endTime}`);
+    
+    // Validate dates
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+      console.error(`Invalid date for appointment ${apt._id}:`, {
+        date: apt.date,
+        startTime,
+        endTime
+      });
+      return null;
+    }
+
     return {
       id: apt._id,
-      title: apt.service.name,
-      start: new Date(`${apt.date.toISOString().split('T')[0]}T${apt.timeSlot.startTime}`),
-      end: new Date(`${apt.date.toISOString().split('T')[0]}T${apt.timeSlot.endTime}`),
-      color: apt.calendarColor,
-      status: apt.status,
-      customer: apt.customer,
-      packageType: apt.packageType,
+      title: `${serviceName} - ${customerAddress}`,
+      start: startDate,
+      end: endDate,
+      color: apt.calendarColor || '#3174ad', // Default color if calendarColor is not set
+      status: apt.status || 'Scheduled',
+      customer: apt.customer || null,
+      packageType: apt.packageType || 'Standard',
       recurring: apt.recurringType !== 'One-time'
     };
-  });
+  }).filter(Boolean); // Remove any null entries from invalid dates
 
   res.status(200).json({
     success: true,

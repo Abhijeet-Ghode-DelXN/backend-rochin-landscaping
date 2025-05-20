@@ -18,6 +18,8 @@ const router = express.Router();
 
 const { protect, authorize, optional } = require('../middlewares/auth');
 const advancedResults = require('../middlewares/advancedResults');
+const asyncHandler = require('../middlewares/async');
+const ErrorResponse = require('../utils/errorResponse');
 
 // Debug middleware
 router.use((req, res, next) => {
@@ -64,7 +66,22 @@ router.get('/', optional, advancedResults(
 // Specific routes must come before parameterized routes
 router.get('/availability', getAvailableTimeSlots);
 router.get('/my-appointments', protect, authorize('customer'), getMyAppointments);
-router.get('/calendar', getCalendarAppointments);
+router.get('/calendar', 
+  protect, // Ensure user is authenticated
+  authorize('admin', 'professional'), // Ensure user has proper role
+  asyncHandler(async (req, res, next) => {
+    // Verify user object exists
+    if (!req.user) {
+      return next(new ErrorResponse('Not authenticated', 401));
+    }
+    // Verify user has proper role
+    if (!['admin', 'professional'].includes(req.user.role)) {
+      return next(new ErrorResponse('Not authorized to access calendar', 403));
+    }
+    next();
+  }),
+  getCalendarAppointments
+);
 
 // Parameterized routes
 router.get('/:id', getAppointment);

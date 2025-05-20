@@ -167,6 +167,11 @@ AppointmentSchema.virtual('calendarColor').get(function() {
     'Other': '#6610f2' // purple
   };
 
+  // Check if service exists and has a category
+  if (!this.service || !this.service.category) {
+    return '#6c757d'; // Default gray color for unknown services
+  }
+
   return colorMap[this.service.category] || '#6c757d';
 });
 
