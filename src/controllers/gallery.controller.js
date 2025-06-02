@@ -51,6 +51,7 @@ exports.createGallery = asyncHandler(async (req, res, next) => {
       category,
       projectDate,
       images,
+      thumbnailIndex: req.body.thumbnailIndex ? parseInt(req.body.thumbnailIndex) : 0, // Ensure this is included
       tags: req.body.tags ? req.body.tags.split(',').map(tag => tag.trim()) : [],
       clientName: req.body.clientName || '',
       projectDuration: req.body.projectDuration || '',
@@ -67,34 +68,35 @@ exports.createGallery = asyncHandler(async (req, res, next) => {
   }
 });
 
+// // @desc    Get all gallery entries
+// // @route   GET /api/v1/gallery
+// // @access  Public
+// exports.getGalleries = asyncHandler(async (req, res, next) => {
+//   const galleries = await Gallery.find().sort('-createdAt');
+  
+//   res.status(200).json({
+//     success: true,
+//     count: galleries.length,
+//     data: galleries.map(gallery => ({
+//       ...gallery.toObject(),
+//       thumbnailIndex: gallery.thumbnailIndex || 0 // Ensure it's always included
+//     }))
+//   });
+// });
+
 // @desc    Get all gallery entries
 // @route   GET /api/v1/gallery
 // @access  Public
 exports.getGalleries = asyncHandler(async (req, res, next) => {
-  const { category, status, search } = req.query;
+  const galleries = await Gallery.find().sort('-createdAt');
   
-  // Build query
-  let query = {};
-  
-  if (category) {
-    query.category = category;
-  }
-  
-  if (status) {
-    query.status = status;
-  }
-  
-  if (search) {
-    query.$text = { $search: search };
-  }
-
-  const galleries = await Gallery.find(query)
-    .sort({ createdAt: -1 });
-
   res.status(200).json({
     success: true,
     count: galleries.length,
-    data: galleries
+    data: galleries.map(gallery => ({
+      ...gallery.toObject(),
+      thumbnailIndex: gallery.thumbnailIndex || 0 // Ensure it's always included
+    }))
   });
 });
 
@@ -117,11 +119,65 @@ exports.getGallery = asyncHandler(async (req, res, next) => {
 // @desc    Update gallery entry
 // @route   PUT /api/v1/gallery/:id
 // @access  Private/Admin
+// exports.updateGallery = asyncHandler(async (req, res, next) => {
+//   let gallery = await Gallery.findById(req.params.id);
+
+//   if (!gallery) {
+//     return next(new ErrorResponse(`Gallery not found with id of ${req.params.id}`, 404));
+//   }
+
+//   // Handle new image uploads
+//   if (req.files && req.files.images) {
+//     const files = Array.isArray(req.files.images) ? req.files.images : [req.files.images];
+    
+//     for (const file of files) {
+//       const result = await cloudinary.uploader.upload(file.tempFilePath, {
+//         folder: 'gallery',
+//         resource_type: 'auto'
+//       });
+      
+//       gallery.images.push({
+//         url: result.secure_url,
+//         publicId: result.public_id,
+//         caption: req.body.captions ? req.body.captions[files.indexOf(file)] : ''
+//       });
+//     }
+//   }
+
+//   // Update other fields
+//   const updateFields = ['title', 'description', 'location', 'category', 'projectDate', 'status', 'clientName', 'projectDuration'];
+//   updateFields.forEach(field => {
+//     if (req.body[field]) {
+//       gallery[field] = req.body[field];
+//     }
+//   });
+
+//   if (req.body.tags) {
+//     gallery.tags = req.body.tags.split(',').map(tag => tag.trim());
+//   }
+
+//   await gallery.save();
+
+//   res.status(200).json({
+//     success: true,
+//     data: gallery
+//   });
+// });
+
+
+// @desc    Update gallery entry
+// @route   PUT /api/v1/gallery/:id
+// @access  Private/Admin
 exports.updateGallery = asyncHandler(async (req, res, next) => {
   let gallery = await Gallery.findById(req.params.id);
 
   if (!gallery) {
     return next(new ErrorResponse(`Gallery not found with id of ${req.params.id}`, 404));
+  }
+
+  // Handle thumbnail index update - this should come first
+  if (req.body.thumbnailIndex !== undefined) {
+    gallery.thumbnailIndex = parseInt(req.body.thumbnailIndex);
   }
 
   // Handle new image uploads
@@ -142,8 +198,8 @@ exports.updateGallery = asyncHandler(async (req, res, next) => {
     }
   }
 
-  // Update other fields
-  const updateFields = ['title', 'description', 'location', 'category', 'projectDate', 'status', 'clientName', 'projectDuration'];
+  // Update other fields including thumbnailIndex
+  const updateFields = ['title', 'description', 'location', 'category', 'projectDate', 'status', 'clientName', 'projectDuration', 'thumbnailIndex'];
   updateFields.forEach(field => {
     if (req.body[field]) {
       gallery[field] = req.body[field];
@@ -156,11 +212,18 @@ exports.updateGallery = asyncHandler(async (req, res, next) => {
 
   await gallery.save();
 
-  res.status(200).json({
+ res.status(200).json({
     success: true,
-    data: gallery
+    data: {
+      ...gallery.toObject(),
+      thumbnailIndex: gallery.thumbnailIndex // Ensure it's included in response
+    }
   });
 });
+
+
+
+
 
 // @desc    Delete gallery entry
 // @route   DELETE /api/v1/gallery/:id

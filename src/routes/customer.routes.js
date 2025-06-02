@@ -2,13 +2,15 @@ const express = require('express');
 const {
   getCustomers,
   getCustomer,
-  createCustomer,
+  createCustomerByAdmin,
   updateCustomer,
   deleteCustomer,
   getCustomerHistory,
   getMyProfile,
   updateMyProfile,
-  getMyServiceHistory
+  getMyServiceHistory,
+   uploadPropertyImages,
+   deletePropertyImage
 } = require('../controllers/customer.controller');
 
 const Customer = require('../models/customer.model');
@@ -34,7 +36,13 @@ router.route('/')
     }),
     getCustomers
   )
-  .post(protect, authorize('admin'), createCustomer);
+  .post(protect, authorize('admin'), createCustomerByAdmin);
+
+router.route('/:id/property-images')
+  .post(protect, uploadPropertyImages);
+
+router.route('/:id/property-images/:imageId')
+  .delete(protect, deletePropertyImage);
 
 router.route('/:id')
   .get(protect, authorize('admin'), getCustomer)

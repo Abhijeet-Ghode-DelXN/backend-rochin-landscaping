@@ -5,6 +5,7 @@ const Customer = require('../models/customer.model');
 const User = require('../models/user.model');
 const cloudinary = require('../utils/cloudinary');
 const sendEmail = require('../utils/sendEmail');
+const Service = require('../models/service.model'); // Adjust the path as needed
 
 // @desc    Get all estimates
 // @route   GET /api/v1/estimates
@@ -28,7 +29,7 @@ exports.getEstimate = asyncHandler(async (req, res, next) => {
     })
     .populate({
       path: 'services.service',
-      select: 'name description basePrice'
+      select: 'name category description basePrice'
     })
     .populate({
       path: 'assignedTo',
@@ -91,32 +92,80 @@ exports.createEstimate = asyncHandler(async (req, res, next) => {
 // @desc    Update estimate
 // @route   PUT /api/v1/estimates/:id
 // @access  Private/Admin
+// exports.updateEstimate = asyncHandler(async (req, res, next) => {
+//   let estimate = await Estimate.findById(req.params.id);
+
+//   if (!estimate) {
+//     return next(
+//       new ErrorResponse(`Estimate not found with id of ${req.params.id}`, 404)
+//     );
+//   }
+
+//   // Make sure user is admin
+//   if (req.user.role !== 'admin') {
+//     return next(
+//       new ErrorResponse(`Not authorized to update this estimate`, 403)
+//     );
+//   }
+
+//  estimate = await Estimate.findByIdAndUpdate(req.params.id, req.body, {
+//   new: true,
+//   runValidators: true
+// }).populate('services.service'); // 👈 this is key
+
+// // estimate = await Estimate.findByIdAndUpdate(req.params.id, req.body, {
+// //     new: true,
+// //     runValidators: true
+// //   });
+
+
+//   res.status(200).json({
+//     success: true,
+//     data: estimate
+//   });
+// });
+
+
 exports.updateEstimate = asyncHandler(async (req, res, next) => {
-  let estimate = await Estimate.findById(req.params.id);
+  let estimate = await Estimate.findById(req.params.id).populate('services.service');
 
   if (!estimate) {
-    return next(
-      new ErrorResponse(`Estimate not found with id of ${req.params.id}`, 404)
-    );
+    return next(new ErrorResponse(`Estimate not found with id of ${req.params.id}`, 404));
   }
 
   // Make sure user is admin
   if (req.user.role !== 'admin') {
-    return next(
-      new ErrorResponse(`Not authorized to update this estimate`, 403)
-    );
+    return next(new ErrorResponse(`Not authorized to update this estimate`, 403));
   }
 
-  estimate = await Estimate.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true
-  });
+  // Update service names if they changed
+  for (const serviceItem of req.body.services) {
+    if (serviceItem.service.name) {
+      await Service.findByIdAndUpdate(
+        serviceItem.service._id,
+        { name: serviceItem.service.name },
+        { new: true }
+      );
+    }
+  }
+
+  // Update the estimate
+  estimate = await Estimate.findByIdAndUpdate(
+    req.params.id, 
+    req.body, 
+    {
+      new: true,
+      runValidators: true
+    }
+  ).populate('services.service');
 
   res.status(200).json({
     success: true,
     data: estimate
   });
 });
+
+
 
 // @desc    Delete estimate
 // @route   DELETE /api/v1/estimates/:id

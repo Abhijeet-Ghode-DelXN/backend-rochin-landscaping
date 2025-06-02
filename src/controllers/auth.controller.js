@@ -195,9 +195,30 @@ exports.register = asyncHandler(async (req, res, next) => {
         state: 'N/A',
         zipCode: '00000'
       },
-      discounts: {
-        firstService: 10 // 10% discount
-      }
+     
+      // discounts: {
+      //   firstService: 10 // 10% discount
+      // },
+       propertyDetails: {
+  size: 1000,
+  image: {
+    url: "", // Initialize with empty string or default image
+    publicId: ""
+  },
+  features: {
+    hasFrontYard: true,
+    hasBackYard: true,
+    hasTrees: false,
+    hasGarden: false,
+    hasSprinklerSystem: false
+  }
+},
+          servicePreferences: {
+            preferredTimeOfDay: 'Any'
+          },
+          notificationPreferences: {
+            email: true
+          }
     };
 
     await Customer.create(customerData);
@@ -225,7 +246,8 @@ exports.register = asyncHandler(async (req, res, next) => {
     res.status(200).json({
       success: true,
       data: {
-        message: 'Registration successful. Please check your email to set your password.'
+        message: 'Registration successful. Please check your email to set your password.',
+        userId: user._id 
       }
     });
   } catch (err) {

@@ -48,6 +48,10 @@ const gallerySchema = new mongoose.Schema({
     enum: ['draft', 'published', 'archived'],
     default: 'draft'
   },
+  thumbnailIndex: {
+    type: Number,
+    default: 0
+  },
   tags: [{
     type: String,
     trim: true
@@ -68,9 +72,14 @@ const gallerySchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-}, {
+},
+
+
+ {
   timestamps: true
 });
+
+
 
 // Add index for better search performance
 gallerySchema.index({ title: 'text', description: 'text', location: 'text' });
