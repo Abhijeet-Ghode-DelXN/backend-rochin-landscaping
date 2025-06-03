@@ -33,10 +33,12 @@ const CustomerSchema = new mongoose.Schema({
       type: Number, // in square feet
     //   required: [true, 'Please add property size']
     },
-//     propertyPhotos: [{
-//   type: String, // This would typically be a URL or file path
-//   required: false
-// }],
+propertyImages: [{
+    url: String,
+    publicId: String,
+    caption: String,
+    isFeatured: Boolean
+  }],
 
 images: [{
     url: String,

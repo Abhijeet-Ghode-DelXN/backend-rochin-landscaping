@@ -264,6 +264,11 @@ exports.updateAppointment = asyncHandler(async (req, res, next) => {
   const userRole = req.user.role;
   const userCustomerId = req.user.customerId; // Only present if role is 'customer'
 
+  // Store original values before update
+  const originalDate = appointment.date;
+  const originalTimeSlot = { ...appointment.timeSlot };
+  const originalStatus = appointment.status;
+
   // If user is admin or professional: allow full update
   if (userRole === 'admin' || userRole === 'professional') {
     appointment = await Appointment.findByIdAndUpdate(req.params.id, req.body, {
@@ -305,8 +310,8 @@ exports.updateAppointment = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // Check if status changed to 'Completed' and update completion details
-  if (req.body.status === 'Completed' && appointment.status === 'Completed') {
+  // Check if status changed to 'Completed'
+  if (req.body.status === 'Completed' && originalStatus !== 'Completed') {
     appointment.completionDetails.completedAt = Date.now();
     await appointment.save();
 
@@ -327,30 +332,36 @@ exports.updateAppointment = asyncHandler(async (req, res, next) => {
     }
   }
 
-  // Check if date or time changed, send reschedule notification
-  if ((req.body.date && req.body.date !== appointment.date.toISOString().split('T')[0]) ||
-    (req.body.timeSlot && (
-      req.body.timeSlot.startTime !== appointment.timeSlot.startTime ||
-      req.body.timeSlot.endTime !== appointment.timeSlot.endTime
-    ))) {
-    try {
-      const customer = await Customer.findById(appointment.customer).populate('user');
-      if (customer && customer.user.email) {
-        const formattedDate = new Date(appointment.date).toLocaleString('en-US', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        });
+  // Check if date or time changed (only if status didn't change to Completed)
+  if (req.body.status !== 'Completed' || originalStatus === 'Completed') {
+    const dateChanged = req.body.date && 
+      new Date(req.body.date).toISOString().split('T')[0] !== originalDate.toISOString().split('T')[0];
+    
+    const timeChanged = req.body.timeSlot && (
+      req.body.timeSlot.startTime !== originalTimeSlot.startTime ||
+      req.body.timeSlot.endTime !== originalTimeSlot.endTime
+    );
 
-        await sendEmail({
-          email: customer.user.email,
-          subject: 'Appointment Rescheduled',
-          message: `Your landscaping appointment has been rescheduled to ${formattedDate} from ${appointment.timeSlot.startTime} to ${appointment.timeSlot.endTime}. Please contact us if you have any questions.`
-        });
+    if (dateChanged || timeChanged) {
+      try {
+        const customer = await Customer.findById(appointment.customer).populate('user');
+        if (customer && customer.user.email) {
+          const formattedDate = new Date(appointment.date).toLocaleString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+
+          await sendEmail({
+            email: customer.user.email,
+            subject: 'Appointment Rescheduled',
+            message: `Your landscaping appointment has been rescheduled to ${formattedDate} from ${appointment.timeSlot.startTime} to ${appointment.timeSlot.endTime}. Please contact us if you have any questions.`
+          });
+        }
+      } catch (err) {
+        console.log('Reschedule notification failed:', err);
       }
-    } catch (err) {
-      console.log('Reschedule notification failed:', err);
     }
   }
 
