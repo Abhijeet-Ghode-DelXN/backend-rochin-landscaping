@@ -7,39 +7,91 @@ const Service = require('../models/service.model');
 const sendEmail = require('../utils/sendEmail');
 const cloudinary = require('../utils/cloudinary');
 const moment = require('moment'); // For backend/Node.js files
+
+
+
+
 // @desc    Get all appointments
 // @route   GET /api/v1/appointments
 // @access  Public/Private
 exports.getAppointments = asyncHandler(async (req, res, next) => {
-  // If status=Completed is specified, allow public access
   if (req.query.status === 'Completed') {
-    // Add photos to the query
-    res.advancedResults.data = await Promise.all(res.advancedResults.data.map(async (appointment) => {
-      const populatedAppointment = await Appointment.findById(appointment._id)
+    try {
+      // Clear any existing population from advancedResults
+      req.query.populate = '';
+      
+      let appointments = await Appointment.find({ status: 'Completed' })
         .populate({
           path: 'customer',
-          select: 'address',
+          select: '-__v', // exclude version key
           populate: {
             path: 'user',
-            select: 'name phone'
+            model: 'User',
+            select: 'name email phone role'
           }
         })
+        .populate('createdBy', 'name email role')
         .populate('service', 'name category')
-        .populate('photos');
-      return populatedAppointment;
-    }));
-    return res.status(200).json(res.advancedResults);
+        .lean();
+
+      // Debug: Check what was actually populated
+      console.log('Populated data sample:', appointments[0]?.customer?.user);
+
+      return res.status(200).json({
+        success: true,
+        count: appointments.length,
+        data: appointments
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      return next(new ErrorResponse('Error fetching appointments', 500));
+    }
   }
 
-  // For other queries, check if user is authorized
+  // For other queries
   if (!req.user || !['admin', 'professional'].includes(req.user.role)) {
-    return next(
-      new ErrorResponse('Not authorized to access appointments', 403)
-    );
+    return next(new ErrorResponse('Not authorized', 403));
   }
 
-  res.status(200).json(res.advancedResults);
+  // Use advancedResults with consistent population
+  req.query.populate = [
+    {
+      path: 'customer',
+      populate: { path: 'user', select: 'name email phone' }
+    },
+    'service',
+    'createdBy'
+  ];
+
+  return res.status(200).json(res.advancedResults);
 });
+
+
+
+
+// exports.getAppointments = asyncHandler(async (req, res, next) => {
+//   if (!req.user || !['admin', 'professional'].includes(req.user.role)) {
+//     return next(new ErrorResponse('Not authorized to access appointments', 403));
+//   }
+
+//   const appointments = await Appointment.find()
+//     .populate({
+//       path: 'customer',
+//       select: 'address user',
+//       populate: {
+//         path: 'user',
+//         select: 'name email phone'
+//       }
+//     })
+//     .populate('service', 'name category');
+
+//   res.status(200).json({
+//     success: true,
+//     count: appointments.length,
+//     data: appointments
+//   });
+// });
+
 
 // @desc    Get single appointment
 // @route   GET /api/v1/appointments/:id
@@ -686,3 +738,10 @@ exports.getCalendarAppointments = asyncHandler(async (req, res, next) => {
     data: calendarAppointments
   });
 }); 
+
+
+
+
+
+
+

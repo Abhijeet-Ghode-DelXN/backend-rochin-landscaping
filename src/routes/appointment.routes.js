@@ -53,13 +53,26 @@ router.get('/admin', advancedResults(
 ), protect, authorize('admin', 'professional'), getAppointments);
 
 // Public route for listing appointments (limited data)
+// router.get('/', optional, advancedResults(
+//   Appointment,
+//   [
+//     {
+//       path: 'service',
+//       select: 'name category'
+//     }
+//   ]
+// ), getAppointments);
+
+// Use consistent population approach
 router.get('/', optional, advancedResults(
   Appointment,
   [
     {
-      path: 'service',
-      select: 'name category'
-    }
+      path: 'customer',
+      populate: { path: 'user', select: 'name email phone' }
+    },
+    'service',
+    'createdBy'
   ]
 ), getAppointments);
 
@@ -84,7 +97,8 @@ router.get('/calendar',
 );
 
 // Parameterized routes
-router.get('/:id', getAppointment);
+// router.get('/:id',getAppointment);
+router.get('/:id', protect, authorize('admin'),getAppointment);
 router.put('/:id/reschedule-request', protect, authorize('customer'), requestReschedule);
 router.post('/:id/photos', protect, authorize('admin', 'professional'), uploadServicePhotos);
 
@@ -92,5 +106,8 @@ router.post('/:id/photos', protect, authorize('admin', 'professional'), uploadSe
 router.post('/', protect, authorize('customer'), createAppointment);
 router.put('/:id', protect, authorize('admin', 'professional'), updateAppointment);
 router.delete('/:id', protect, authorize('admin'), deleteAppointment);
+
+
+
 
 module.exports = router; 

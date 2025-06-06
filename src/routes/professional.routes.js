@@ -7,7 +7,8 @@ const {
   deleteProfessional,
   getProfessionalWorkload,
   assignToAppointment,
-  getAvailableProfessionals
+  getAvailableProfessionals,
+  updateAppointmentCrew
 } = require('../controllers/professional.controller');
 
 const router = express.Router();
@@ -23,7 +24,7 @@ router.get('/available', getAvailableProfessionals);
 
 // Base professional routes
 router.route('/')
-  .get(getProfessionals)
+  .get(authorize('admin'), getProfessionals)
   .post(createProfessional);
 
 // Individual professional routes
@@ -31,6 +32,11 @@ router.route('/:id')
   .get(getProfessional)
   .put(updateProfessional)
   .delete(deleteProfessional);
+
+
+router
+  .route('/:id/crew')
+  .put(protect, authorize('admin'), updateAppointmentCrew);
 
 // Professional workload route
 router.get('/:id/workload', getProfessionalWorkload);
