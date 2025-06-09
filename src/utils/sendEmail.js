@@ -82,6 +82,7 @@ const sendEmail = async (options) => {
     // Always use real Gmail credentials if available
     if (process.env.EMAIL_USERNAME && process.env.EMAIL_PASSWORD) {
       const transporter = nodemailer.createTransport({
+        pool: true,
         service: process.env.EMAIL_SERVICE || 'gmail',
         auth: {
           user: process.env.EMAIL_USERNAME,

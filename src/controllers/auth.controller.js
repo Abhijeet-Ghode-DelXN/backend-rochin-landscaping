@@ -180,11 +180,11 @@ exports.register = asyncHandler(async (req, res, next) => {
   `;
 
   try {
-    await sendEmail({
+    sendEmail({
       email: user.email,
       subject: 'Complete Your Registration',
       html: message
-    });
+    }).catch(err => console.error('Email failed:', err));
 
     // Create customer profile
     const customerData = {

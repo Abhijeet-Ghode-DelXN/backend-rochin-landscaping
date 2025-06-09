@@ -311,6 +311,92 @@ exports.assignToAppointment = asyncHandler(async (req, res, next) => {
 
 
 
+// // @desc    Update crew assignment for appointment
+// // @route   PUT /api/v1/professionals/:id/crew
+// // @access  Private/Admin
+// exports.updateAppointmentCrew = asyncHandler(async (req, res, next) => {
+//   try {
+//     const appointment = await Appointment.findById(req.params.id);
+
+//     if (!appointment) {
+//       return res.status(404).json({
+//         success: false,
+//         error: `Appointment not found with id of ${req.params.id}`
+//       });
+//     }
+
+//     // Validate the request body
+//     const { leadProfessional, assignedTo } = req.body;
+
+//     if (!leadProfessional && (!assignedTo || assignedTo.length === 0)) {
+//       return res.status(400).json({
+//         success: false,
+//         error: 'Please provide at least leadProfessional or assignedTo'
+//       });
+//     }
+
+//     // Initialize crew if it doesn't exist
+//     if (!appointment.crew) {
+//       appointment.crew = {
+//         leadProfessional: null,
+//         assignedTo: []
+//       };
+//     }
+
+//     // Update lead professional if provided
+//     if (leadProfessional) {
+//       // Verify the professional exists
+//       const professional = await User.findOne({
+//         _id: leadProfessional,
+//         role: 'professional'
+//       });
+
+//       if (!professional) {
+//         return res.status(404).json({
+//           success: false,
+//           error: `Professional not found with id of ${leadProfessional}`
+//         });
+//       }
+
+//       appointment.crew.leadProfessional = leadProfessional;
+//     }
+
+//     // Update assigned team members if provided
+//     if (assignedTo && assignedTo.length > 0) {
+//       // Verify all professionals exist
+//       const professionals = await User.find({
+//         _id: { $in: assignedTo },
+//         role: 'professional'
+//       });
+
+//       if (professionals.length !== assignedTo.length) {
+//         return res.status(404).json({
+//           success: false,
+//           error: 'One or more professionals not found'
+//         });
+//       }
+
+//       appointment.crew.assignedTo = assignedTo;
+//     }
+
+//     const updatedAppointment = await appointment.save();
+
+//     res.status(200).json({
+//       success: true,
+//       data: updatedAppointment
+//     });
+//   } catch (error) {
+//     console.error('Error updating crew assignment:', error);
+//     res.status(500).json({
+//       success: false,
+//       error: 'Server error'
+//     });
+//   }
+// });
+
+
+
+
 // @desc    Update crew assignment for appointment
 // @route   PUT /api/v1/professionals/:id/crew
 // @access  Private/Admin
@@ -328,56 +414,81 @@ exports.updateAppointmentCrew = asyncHandler(async (req, res, next) => {
     // Validate the request body
     const { leadProfessional, assignedTo } = req.body;
 
-    if (!leadProfessional && (!assignedTo || assignedTo.length === 0)) {
+    if (!leadProfessional) {
       return res.status(400).json({
         success: false,
-        error: 'Please provide at least leadProfessional or assignedTo'
+        error: 'Please provide a lead professional'
       });
     }
 
-    // Initialize crew if it doesn't exist
-    if (!appointment.crew) {
-      appointment.crew = {
-        leadProfessional: null,
-        assignedTo: []
-      };
+    // Verify the lead professional exists
+    const leadProf = await User.findOne({
+      _id: leadProfessional,
+      role: 'professional'
+    });
+
+    if (!leadProf) {
+      return res.status(404).json({
+        success: false,
+        error: `Lead professional not found with id of ${leadProfessional}`
+      });
     }
 
-    // Update lead professional if provided
-    if (leadProfessional) {
-      // Verify the professional exists
-      const professional = await User.findOne({
-        _id: leadProfessional,
-        role: 'professional'
-      });
+    // Verify all team members exist
+    const teamMembers = await User.find({
+      _id: { $in: assignedTo || [] },
+      role: 'professional'
+    });
 
-      if (!professional) {
-        return res.status(404).json({
+    if (assignedTo && teamMembers.length !== assignedTo.length) {
+      return res.status(404).json({
+        success: false,
+        error: 'One or more team members not found'
+      });
+    }
+
+    // Check for scheduling conflicts
+    const dateStr = new Date(appointment.date).toISOString().split('T')[0];
+    
+    // Check lead professional availability
+    const isLeadAvailable = await checkProfessionalAvailability(
+      leadProfessional,
+      dateStr,
+      appointment.timeSlot.startTime,
+      appointment.timeSlot.endTime,
+      appointment._id // exclude current appointment
+    );
+
+    if (!isLeadAvailable) {
+      return res.status(400).json({
+        success: false,
+        error: 'Lead professional is not available during this time slot'
+      });
+    }
+
+    // Check team members availability
+    for (const memberId of assignedTo || []) {
+      const isAvailable = await checkProfessionalAvailability(
+        memberId,
+        dateStr,
+        appointment.timeSlot.startTime,
+        appointment.timeSlot.endTime,
+        appointment._id // exclude current appointment
+      );
+
+      if (!isAvailable) {
+        return res.status(400).json({
           success: false,
-          error: `Professional not found with id of ${leadProfessional}`
+          error: `Professional ${memberId} is not available during this time slot`
         });
       }
-
-      appointment.crew.leadProfessional = leadProfessional;
     }
 
-    // Update assigned team members if provided
-    if (assignedTo && assignedTo.length > 0) {
-      // Verify all professionals exist
-      const professionals = await User.find({
-        _id: { $in: assignedTo },
-        role: 'professional'
-      });
-
-      if (professionals.length !== assignedTo.length) {
-        return res.status(404).json({
-          success: false,
-          error: 'One or more professionals not found'
-        });
-      }
-
-      appointment.crew.assignedTo = assignedTo;
-    }
+    // Update the crew assignment
+    appointment.crew = {
+      leadProfessional: leadProfessional,
+      assignedTo: assignedTo || []
+    };
 
     const updatedAppointment = await appointment.save();
 
@@ -393,6 +504,33 @@ exports.updateAppointmentCrew = asyncHandler(async (req, res, next) => {
     });
   }
 });
+
+// Helper function to check professional availability
+async function checkProfessionalAvailability(professionalId, date, startTime, endTime, excludeAppointmentId) {
+  // Check if the professional has any conflicting appointments
+  const conflictingAppointments = await Appointment.find({
+    'crew.leadProfessional': professionalId,
+    date: new Date(date),
+    'timeSlot.startTime': { $lt: endTime },
+    'timeSlot.endTime': { $gt: startTime },
+    _id: { $ne: excludeAppointmentId }
+  });
+
+  if (conflictingAppointments.length > 0) {
+    return false;
+  }
+
+  // Also check if they're assigned as team members in other appointments
+  const conflictingTeamAssignments = await Appointment.find({
+    'crew.assignedTo': professionalId,
+    date: new Date(date),
+    'timeSlot.startTime': { $lt: endTime },
+    'timeSlot.endTime': { $gt: startTime },
+    _id: { $ne: excludeAppointmentId }
+  });
+
+  return conflictingTeamAssignments.length === 0;
+}
 
 
 
