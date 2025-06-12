@@ -115,6 +115,52 @@ exports.getDashboardStats = asyncHandler(async (req, res, next) => {
   });
 });
 
+// // @desc    Get appointment analytics
+// // @route   GET /api/v1/dashboard/appointments
+// // @access  Private/Admin
+// exports.getAppointmentAnalytics = asyncHandler(async (req, res, next) => {
+//   // Get appointments by status
+//   const appointmentsByStatus = await Appointment.aggregate([
+//     {
+//       $group: {
+//         _id: '$status',
+//         count: { $sum: 1 }
+//       }
+//     }
+//   ]);
+
+//   // Get appointments by day of week
+//   const appointmentsByDayOfWeek = await Appointment.aggregate([
+//     {
+//       $group: {
+//         _id: { $dayOfWeek: '$scheduledDate' },
+//         count: { $sum: 1 }
+//       }
+//     },
+//     {
+//       $sort: { _id: 1 }
+//     }
+//   ]);
+
+//   // Get appointment completion rate
+//   const totalAppointments = await Appointment.countDocuments();
+//   const completedAppointments = await Appointment.countDocuments({ status: 'completed' });
+//   const completionRate = totalAppointments > 0 ? (completedAppointments / totalAppointments) * 100 : 0;
+
+//   res.status(200).json({
+//     success: true,
+//     data: {
+//       appointmentsByStatus,
+//       appointmentsByDayOfWeek,
+//       completionRate: Math.round(completionRate * 100) / 100
+//     }
+//   });
+// });
+
+
+
+
+
 // @desc    Get appointment analytics
 // @route   GET /api/v1/dashboard/appointments
 // @access  Private/Admin
@@ -133,7 +179,7 @@ exports.getAppointmentAnalytics = asyncHandler(async (req, res, next) => {
   const appointmentsByDayOfWeek = await Appointment.aggregate([
     {
       $group: {
-        _id: { $dayOfWeek: '$scheduledDate' },
+        _id: { $dayOfWeek: '$date' },
         count: { $sum: 1 }
       }
     },
@@ -142,9 +188,25 @@ exports.getAppointmentAnalytics = asyncHandler(async (req, res, next) => {
     }
   ]);
 
+  // Get appointments by month
+  const appointmentsByMonth = await Appointment.aggregate([
+    {
+      $group: {
+        _id: { 
+          year: { $year: "$date" },
+          month: { $month: "$date" }
+        },
+        count: { $sum: 1 }
+      }
+    },
+    {
+      $sort: { "_id.year": 1, "_id.month": 1 }
+    }
+  ]);
+
   // Get appointment completion rate
   const totalAppointments = await Appointment.countDocuments();
-  const completedAppointments = await Appointment.countDocuments({ status: 'completed' });
+  const completedAppointments = await Appointment.countDocuments({ status: 'Completed' });
   const completionRate = totalAppointments > 0 ? (completedAppointments / totalAppointments) * 100 : 0;
 
   res.status(200).json({
@@ -152,10 +214,17 @@ exports.getAppointmentAnalytics = asyncHandler(async (req, res, next) => {
     data: {
       appointmentsByStatus,
       appointmentsByDayOfWeek,
+      appointmentsByMonth,
       completionRate: Math.round(completionRate * 100) / 100
     }
   });
 });
+
+
+
+
+
+
 
 // @desc    Get revenue analytics
 // @route   GET /api/v1/dashboard/revenue
@@ -243,6 +312,10 @@ exports.getRevenueAnalytics = asyncHandler(async (req, res, next) => {
     }
   });
 });
+
+
+
+
 
 // @desc    Get customer analytics
 // @route   GET /api/v1/dashboard/customers

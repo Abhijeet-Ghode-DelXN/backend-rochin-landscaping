@@ -284,89 +284,110 @@ exports.createCustomerByAdmin = asyncHandler(async (req, res, next) => {
 
 const cloudinary = require('cloudinary').v2;
 
+
+
+// const cloudinary = require('cloudinary').v2;
+
 exports.uploadPropertyImages = asyncHandler(async (req, res, next) => {
-  const customer = await Customer.findById(req.params.id);
-
-  if (!customer) {
-    return next(new ErrorResponse('Customer not found', 404));
-  }
-
-  if (!req.files?.files) {
-    return next(new ErrorResponse('Please upload files', 400));
-  }
-
-  // Initialize propertyDetails.images array if it doesn't exist
-  customer.propertyDetails = customer.propertyDetails || {};
-  customer.propertyDetails.images = customer.propertyDetails.images || [];
-
-  // Handle single file upload (convert to array for consistency)
-  const files = Array.isArray(req.files.files) ? req.files.files : [req.files.files];
-
   try {
-    // Process each file
-    const uploadPromises = files.map(async (file) => {
+    // 1. Find the customer
+    const customer = await Customer.findById(req.params.id);
+    if (!customer) {
+      return next(new ErrorResponse('Customer not found', 404));
+    }
+
+    // 2. Extract files correctly
+    let files = [];
+    if (req.files) {
+      // Handle single file upload
+      if (req.files.file && !Array.isArray(req.files.file)) {
+        files = [req.files.file];
+      } 
+      // Handle multiple files
+      else if (req.files.files && Array.isArray(req.files.files)) {
+        files = req.files.files;
+      }
+      // Handle field named 'images'
+      else if (req.files.images) {
+        files = Array.isArray(req.files.images) ? req.files.images : [req.files.images];
+      }
+    }
+
+    if (files.length === 0) {
+      return next(new ErrorResponse('Please upload at least one image file', 400));
+    }
+
+    // 3. Process uploads
+    const uploadPromises = files.map(file => {
       // Validate file
       if (!file.mimetype.startsWith('image')) {
-        throw new ErrorResponse('Please upload only image files', 400);
+        throw new Error(`File ${file.name} is not an image`);
+      }
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        throw new Error(`File ${file.name} exceeds size limit of 5MB`);
       }
 
-      if (file.size > process.env.MAX_FILE_UPLOAD) {
-        throw new ErrorResponse(`File ${file.name} is too large`, 400);
-      }
-
-      // Upload to Cloudinary
-      const uploadStream = () => {
-        if (file.tempFilePath) {
-          return cloudinary.uploader.upload(file.tempFilePath, {
-            folder: 'property-images',
-            public_id: `property_${customer._id}_${Date.now()}_${Math.random().toString(36).substring(7)}`,
-            resource_type: 'image'
-          });
-        } else {
-          return new Promise((resolve, reject) => {
-            const stream = cloudinary.uploader.upload_stream({
-              folder: 'property-images',
-              public_id: `property_${customer._id}_${Date.now()}_${Math.random().toString(36).substring(7)}`,
-              resource_type: 'image'
-            }, (error, result) => {
-              if (error) return reject(error);
-              resolve(result);
-            });
-
-            const bufferStream = new Readable();
-            bufferStream.push(file.data);
-            bufferStream.push(null);
-            bufferStream.pipe(stream);
-          });
-        }
-      };
-
-      const result = await uploadStream();
-
-      return {
-        url: result.secure_url,
-        publicId: result.public_id,
-        createdAt: new Date()
-      };
+      return cloudinary.uploader.upload(file.tempFilePath, {
+        folder: 'property_images',
+      });
     });
 
-    // Wait for all uploads to complete
-    const uploadedImages = await Promise.all(uploadPromises);
+    const uploadResults = await Promise.all(uploadPromises);
 
-    // Add new images to customer's propertyDetails
-    customer.propertyDetails.images.push(...uploadedImages);
-    await customer.save();
+    // 4. Prepare images data for database
+    const imagesToAdd = uploadResults.map(result => ({
+      url: result.secure_url,
+      publicId: result.public_id,
+      createdAt: new Date()
+    }));
 
+    // 5. Update customer with new images
+    const updatedCustomer = await Customer.findByIdAndUpdate(
+      req.params.id,
+      { 
+        $push: { 
+          'propertyDetails.images': {
+            $each: imagesToAdd,
+            $position: 0 // Add new images at the beginning
+          } 
+        } 
+      },
+      { 
+        new: true,
+        runValidators: true,
+        select: 'propertyDetails.images' // Only return the images array
+      }
+    );
+
+    if (!updatedCustomer) {
+      throw new Error('Failed to update customer with new images');
+    }
+
+    // 6. Return the updated images array
     res.status(200).json({
       success: true,
-      data: uploadedImages
+      data: updatedCustomer.propertyDetails.images
     });
 
   } catch (err) {
     console.error('Upload error:', err);
-    return next(new ErrorResponse(err.message || 'Image upload failed', 500));
+    
+    // Clean up any uploaded images if error occurred
+    if (uploadResults) {
+      await Promise.all(
+        uploadResults.map(result => 
+          cloudinary.uploader.destroy(result.public_id).catch(e => console.error(e))
+        )
+      );
+    }
+    
+    return next(
+      new ErrorResponse(err.message || 'Image upload failed', err.statusCode || 500)
+    );
   }
 });
+
+
 
 exports.deletePropertyImage = asyncHandler(async (req, res, next) => {
   const customer = await Customer.findById(req.params.id);
@@ -380,27 +401,30 @@ exports.deletePropertyImage = asyncHandler(async (req, res, next) => {
   }
 
   const imageId = req.params.imageId;
-  const imageIndex = customer.propertyDetails.images.findIndex(
-    img => img._id.toString() === imageId || img.publicId === imageId
+  
+  // Find the image by either _id (MongoDB ID) or publicId (Cloudinary ID)
+  const imageToDelete = customer.propertyDetails.images.find(
+    img => (img._id && img._id.toString() === imageId) || img.publicId === imageId
   );
 
-  if (imageIndex === -1) {
+  if (!imageToDelete) {
     return next(new ErrorResponse('Image not found', 404));
   }
-
-  const imageToDelete = customer.propertyDetails.images[imageIndex];
 
   try {
     // Delete from Cloudinary
     await cloudinary.uploader.destroy(imageToDelete.publicId);
 
-    // Remove from array
-    customer.propertyDetails.images.splice(imageIndex, 1);
+    // Remove from database array - safely handle cases where _id might be undefined
+    customer.propertyDetails.images = customer.propertyDetails.images.filter(
+      img => (img._id ? img._id.toString() !== imageId : true) && img.publicId !== imageId
+    );
+    
     await customer.save();
 
     res.status(200).json({
       success: true,
-      data: {}
+      data: customer.propertyDetails.images // Return updated images array
     });
   } catch (err) {
     console.error('Delete error:', err);

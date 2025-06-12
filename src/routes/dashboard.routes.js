@@ -3,7 +3,8 @@ const {
   getDashboardStats,
   getAppointmentAnalytics,
   getRevenueAnalytics,
-  getCustomerAnalytics
+  getCustomerAnalytics,
+  getMonthlyAppointments
 } = require('../controllers/dashboard.controller');
 
 const router = express.Router();
@@ -18,5 +19,8 @@ router.get('/', getDashboardStats);
 router.get('/appointments', getAppointmentAnalytics);
 router.get('/revenue', getRevenueAnalytics);
 router.get('/customers', getCustomerAnalytics);
+
+
+// router.get('/monthly-appointments', getMonthlyAppointments);
 
 module.exports = router; 

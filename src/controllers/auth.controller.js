@@ -202,7 +202,7 @@ exports.register = asyncHandler(async (req, res, next) => {
        propertyDetails: {
   size: 1000,
   images: [], // Initialize as empty array or with actual image objects
-    propertyImages: [], // Initialize as empty array
+    
   features: {
     hasFrontYard: true,
     hasBackYard: true,

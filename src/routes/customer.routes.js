@@ -44,6 +44,8 @@ router.route('/:id/property-images')
 router.route('/:id/property-images/:imageId')
   .delete(protect, deletePropertyImage);
 
+  
+
 router.route('/:id')
   .get(protect, authorize('admin'), getCustomer)
   .put(protect, authorize('admin'), updateCustomer)

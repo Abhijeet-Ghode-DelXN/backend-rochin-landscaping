@@ -600,27 +600,31 @@ exports.requestReschedule = asyncHandler(async (req, res, next) => {
   const { requestedDate, requestedTime, reason } = req.body;
 
   if (!requestedDate || !requestedTime) {
-    return next(
-      new ErrorResponse(`Please provide requested date and time`, 400)
-    );
+    return next(new ErrorResponse(`Please provide requested date and time`, 400));
   }
 
   const appointment = await Appointment.findById(req.params.id);
 
   if (!appointment) {
-    return next(
-      new ErrorResponse(`Appointment not found with id of ${req.params.id}`, 404)
-    );
+    return next(new ErrorResponse(`Appointment not found with id of ${req.params.id}`, 404));
   }
 
   // Verify customer owns this appointment
   const customer = await Customer.findOne({ user: req.user.id });
   if (!customer || appointment.customer.toString() !== customer._id.toString()) {
-    return next(
-      new ErrorResponse(`Not authorized to reschedule this appointment`, 403)
-    );
+    return next(new ErrorResponse(`Not authorized to reschedule this appointment`, 403));
   }
 
+  // Parse the time slot (assuming format "HH:MM - HH:MM")
+  const [startTime, endTime] = requestedTime.split(' - ');
+
+  // Update the appointment with new date/time
+  appointment.date = requestedDate;
+  appointment.timeSlot = {
+    startTime: startTime.trim(),
+    endTime: endTime.trim()
+  };
+  
   // Add reschedule request to notes
   if (!appointment.notes.customer) {
     appointment.notes.customer = '';

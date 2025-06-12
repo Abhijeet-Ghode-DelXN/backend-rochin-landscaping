@@ -33,17 +33,13 @@ const CustomerSchema = new mongoose.Schema({
       type: Number, // in square feet
     //   required: [true, 'Please add property size']
     },
-propertyImages: [{
-    url: String,
-    publicId: String,
-    caption: String,
-    isFeatured: Boolean
-  }],
+
 
 images: [{
-    url: String,
-    publicId: String
-  }],
+      url: String,
+      publicId: String,
+      createdAt: Date
+    }],
 
     features: {
       hasFrontYard: {
