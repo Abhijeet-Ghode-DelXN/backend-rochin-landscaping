@@ -410,17 +410,76 @@ exports.getMyEstimates = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc    Approve estimate package
-// @route   PUT /api/v1/estimates/:id/approve
-// @access  Private/Customer
+// // @desc    Approve estimate package
+// // @route   PUT /api/v1/estimates/:id/approve
+// // @access  Private/Customer
+// exports.approveEstimate = asyncHandler(async (req, res, next) => {
+//   const { packageName } = req.body;
+
+//   if (!packageName) {
+//     return next(new ErrorResponse(`Please provide the package name to approve`, 400));
+//   }
+
+//   let estimate = await Estimate.findById(req.params.id);
+
+//   if (!estimate) {
+//     return next(
+//       new ErrorResponse(`Estimate not found with id of ${req.params.id}`, 404)
+//     );
+//   }
+
+//   // Get customer
+//   const customer = await Customer.findOne({ user: req.user.id });
+
+//   if (!customer) {
+//     return next(new ErrorResponse(`No customer profile found`, 404));
+//   }
+
+//   // Verify customer owns this estimate
+//   if (estimate.customer.toString() !== customer._id.toString()) {
+//     return next(new ErrorResponse(`Not authorized to approve this estimate`, 403));
+//   }
+
+//   // Verify the package exists
+//   const packageExists = estimate.packages.some(pkg => pkg.name === packageName);
+  
+//   if (!packageExists) {
+//     return next(new ErrorResponse(`Package "${packageName}" not found in this estimate`, 404));
+//   }
+
+//   // Update estimate status
+//   estimate.status = 'Approved';
+//   estimate.approvedPackage = packageName;
+//   await estimate.save();
+
+//   // Notify admin about estimate approval
+//   const admins = await User.find({ role: 'admin' });
+  
+//   if (admins.length > 0) {
+//     try {
+//       await sendEmail({
+//         email: admins[0].email,
+//         subject: 'Estimate Approved',
+//         message: `Estimate ${estimate.estimateNumber} has been approved by ${req.user.name}. Approved package: ${packageName}`
+//       });
+//     } catch (err) {
+//       console.log('Email notification failed:', err);
+//     }
+//   }
+
+//   res.status(200).json({
+//     success: true,
+//     data: estimate
+//   });
+// }); 
+
+
+
+// @desc    Update estimate
+// @route   PUT /api/v1/estimates/:id
+// @access  Private/Admin
 exports.approveEstimate = asyncHandler(async (req, res, next) => {
-  const { packageName } = req.body;
-
-  if (!packageName) {
-    return next(new ErrorResponse(`Please provide the package name to approve`, 400));
-  }
-
-  let estimate = await Estimate.findById(req.params.id);
+  let estimate = await Estimate.findById(req.params.id).populate('customer', 'user phone');
 
   if (!estimate) {
     return next(
@@ -428,42 +487,41 @@ exports.approveEstimate = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // Get customer
-  const customer = await Customer.findOne({ user: req.user.id });
+  // Check if status is being updated to Approved
+  const isApproving = req.body.status === 'Approved' && estimate.status !== 'Approved';
 
-  if (!customer) {
-    return next(new ErrorResponse(`No customer profile found`, 404));
-  }
+  // Update estimate
+  estimate = await Estimate.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+  }).populate({
+    path: 'customer',
+    populate: {
+      path: 'user',
+      select: 'name email'
+    }
+  });
 
-  // Verify customer owns this estimate
-  if (estimate.customer.toString() !== customer._id.toString()) {
-    return next(new ErrorResponse(`Not authorized to approve this estimate`, 403));
-  }
-
-  // Verify the package exists
-  const packageExists = estimate.packages.some(pkg => pkg.name === packageName);
-  
-  if (!packageExists) {
-    return next(new ErrorResponse(`Package "${packageName}" not found in this estimate`, 404));
-  }
-
-  // Update estimate status
-  estimate.status = 'Approved';
-  estimate.approvedPackage = packageName;
-  await estimate.save();
-
-  // Notify admin about estimate approval
-  const admins = await User.find({ role: 'admin' });
-  
-  if (admins.length > 0) {
+  // If status was updated to Approved, send notification
+  if (isApproving && estimate.customer?.user?.email) {
     try {
       await sendEmail({
-        email: admins[0].email,
-        subject: 'Estimate Approved',
-        message: `Estimate ${estimate.estimateNumber} has been approved by ${req.user.name}. Approved package: ${packageName}`
+        email: estimate.customer.user.email,
+        subject: 'Your Estimate Has Been Approved',
+        message: `Dear ${estimate.customer.user.name},\n\nYour estimate #${estimate.estimateNumber} has been approved by our team.\n\nThank you for choosing our services!\n\nBest regards,\nThe Landscaping Team`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #2d3748;">Estimate Approved</h2>
+            <p>Dear ${estimate.customer.user.name},</p>
+            <p>Your estimate <strong>#${estimate.estimateNumber}</strong> has been approved by our team.</p>
+            <p>Thank you for choosing our services!</p>
+            <p style="margin-top: 30px;">Best regards,<br>The Landscaping Team</p>
+          </div>
+        `
       });
     } catch (err) {
-      console.log('Email notification failed:', err);
+      console.error('Failed to send approval email:', err);
+      // Don't fail the request just because email failed
     }
   }
 
@@ -471,4 +529,4 @@ exports.approveEstimate = asyncHandler(async (req, res, next) => {
     success: true,
     data: estimate
   });
-}); 
+});

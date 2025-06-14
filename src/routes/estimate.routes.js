@@ -21,7 +21,7 @@ const advancedResults = require('../middlewares/advancedResults');
 // Customer-specific routes
 router.post('/request', protect, authorize('customer'), requestEstimate);
 router.get('/my-estimates', protect, authorize('customer'), getMyEstimates);
-router.put('/:id/approve', protect, authorize('customer'), approveEstimate);
+router.put('/:id', protect, authorize('admin'), approveEstimate);
 
 // Photo upload route
 router.post('/:id/photos', uploadEstimatePhotos);

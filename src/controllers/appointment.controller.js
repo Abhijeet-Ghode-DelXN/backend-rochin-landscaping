@@ -157,10 +157,90 @@ exports.getAppointment = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc    Get available time slots
+// // @desc    Get available time slots
+// // @route   GET /api/v1/appointments/availability
+// // @access  Public
+// exports.getAvailableTimeSlots = asyncHandler(async (req, res, next) => {
+//   const { date, serviceId } = req.query;
+
+//   // Validate input
+//   if (!date || !serviceId) {
+//     return next(new ErrorResponse('Please provide date and service ID', 400));
+//   }
+
+//   // Validate and parse date
+//   const selectedDate = new Date(date);
+//   if (isNaN(selectedDate)) {
+//     return next(new ErrorResponse('Invalid date format', 400));
+//   }
+
+//   // Get service details
+//   const service = await Service.findById(serviceId);
+//   if (!service) {
+//     return next(new ErrorResponse('Service not found', 404));
+//   }
+
+//   // Get business hours (you might want to store these in a config/model)
+//   const businessHours = {
+//     start: 8, // 8 AM
+//     end: 18,  // 6 PM
+//     slotInterval: 30 // minutes between slots
+//   };
+
+//   // Calculate time slots
+//   const startTime = new Date(selectedDate);
+//   startTime.setHours(businessHours.start, 0, 0, 0);
+
+//   const endTime = new Date(selectedDate);
+//   endTime.setHours(businessHours.end, 0, 0, 0);
+
+//   // Generate all possible slots
+//   const allSlots = [];
+//   let current = new Date(startTime);
+  
+//   while (current < endTime) {
+//     const slotEnd = new Date(current.getTime() + service.duration * 60000);
+//     if (slotEnd > endTime) break;
+    
+//     allSlots.push({
+//       start: current.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }),
+//       end: slotEnd.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' })
+//     });
+    
+//     current = new Date(current.getTime() + businessHours.slotInterval * 60000);
+//   }
+
+//   // Get existing appointments
+//   const appointments = await Appointment.find({
+//     date: {
+//       $gte: new Date(selectedDate.setHours(0, 0, 0, 0)),
+//       $lte: new Date(selectedDate.setHours(23, 59, 59, 999))
+//     }
+//   });
+
+//   // Filter out occupied slots
+//   const availableSlots = allSlots.filter(slot => {
+//     return !appointments.some(appointment => {
+//       const apptStart = new Date(`1970-01-01T${appointment.timeSlot.startTime}`);
+//       const apptEnd = new Date(`1970-01-01T${appointment.timeSlot.endTime}`);
+//       const slotStart = new Date(`1970-01-01T${slot.start}`);
+//       const slotEnd = new Date(`1970-01-01T${slot.end}`);
+      
+//       return (slotStart < apptEnd && slotEnd > apptStart);
+//     });
+//   });
+
+//   res.status(200).json({
+//     success: true,
+//     data: availableSlots
+//   });
+// });
+
+
+// @desc    Get all time slots with availability status
 // @route   GET /api/v1/appointments/availability
 // @access  Public
-exports.getAvailableTimeSlots = asyncHandler(async (req, res, next) => {
+exports.getTimeSlotsWithAvailability = asyncHandler(async (req, res, next) => {
   const { date, serviceId } = req.query;
 
   // Validate input
@@ -180,7 +260,7 @@ exports.getAvailableTimeSlots = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('Service not found', 404));
   }
 
-  // Get business hours (you might want to store these in a config/model)
+  // Get business hours
   const businessHours = {
     start: 8, // 8 AM
     end: 18,  // 6 PM
@@ -204,7 +284,8 @@ exports.getAvailableTimeSlots = asyncHandler(async (req, res, next) => {
     
     allSlots.push({
       start: current.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }),
-      end: slotEnd.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' })
+      end: slotEnd.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }),
+      available: true // initially mark all as available
     });
     
     current = new Date(current.getTime() + businessHours.slotInterval * 60000);
@@ -218,9 +299,9 @@ exports.getAvailableTimeSlots = asyncHandler(async (req, res, next) => {
     }
   });
 
-  // Filter out occupied slots
-  const availableSlots = allSlots.filter(slot => {
-    return !appointments.some(appointment => {
+  // Mark booked slots
+  const slotsWithAvailability = allSlots.map(slot => {
+    const isBooked = appointments.some(appointment => {
       const apptStart = new Date(`1970-01-01T${appointment.timeSlot.startTime}`);
       const apptEnd = new Date(`1970-01-01T${appointment.timeSlot.endTime}`);
       const slotStart = new Date(`1970-01-01T${slot.start}`);
@@ -228,13 +309,22 @@ exports.getAvailableTimeSlots = asyncHandler(async (req, res, next) => {
       
       return (slotStart < apptEnd && slotEnd > apptStart);
     });
+    
+    return {
+      ...slot,
+      available: !isBooked
+    };
   });
 
   res.status(200).json({
     success: true,
-    data: availableSlots
+    data: slotsWithAvailability
   });
 });
+
+
+
+
 
 // @desc    Create new appointment
 // @route   POST /api/v1/appointments
@@ -457,33 +547,74 @@ async function sendRescheduleEmail(appointment, originalValues) {
 
 
 
+// // @desc    Delete appointment
+// // @route   DELETE /api/v1/appointments/:id
+// // @access  Private/Admin
+// exports.deleteAppointment = asyncHandler(async (req, res, next) => {
+//   const appointment = await Appointment.findById(req.params.id);
+
+//   if (!appointment) {
+//     return next(
+//       new ErrorResponse(`Appointment not found with id of ${req.params.id}`, 404)
+//     );
+//   }
+
+//   // Check if user is authorized to delete
+//   if (req.user.role !== 'admin') {
+//     return next(
+//       new ErrorResponse(`Not authorized to delete this appointment`, 403)
+//     );
+//   }
+
+//   await Appointment.findByIdAndDelete(req.params.id);
+
+
+//   res.status(200).json({
+//     success: true,
+//     data: {}
+//   });
+// });
+
+
+
 // @desc    Delete appointment
 // @route   DELETE /api/v1/appointments/:id
-// @access  Private/Admin
+// @access  Private
 exports.deleteAppointment = asyncHandler(async (req, res, next) => {
   const appointment = await Appointment.findById(req.params.id);
 
   if (!appointment) {
-    return next(
-      new ErrorResponse(`Appointment not found with id of ${req.params.id}`, 404)
-    );
+    return next(new ErrorResponse('Appointment not found', 404));
   }
 
-  // Check if user is authorized to delete
-  if (req.user.role !== 'admin') {
-    return next(
-      new ErrorResponse(`Not authorized to delete this appointment`, 403)
-    );
+  // Admin can always delete
+  if (req.user.role === 'admin') {
+    await Appointment.findByIdAndDelete(req.params.id);
+    return res.status(200).json({ success: true, data: {} });
   }
 
-  await Appointment.findByIdAndDelete(req.params.id);
+  // For customers - since they only see their own appointments via my-appointments,
+  // we just need to enforce the 24-hour rule
+  if (req.user.role === 'customer') {
+    const now = new Date();
+    const appointmentDate = new Date(appointment.date);
+    const hoursBeforeAppointment = (appointmentDate - now) / (1000 * 60 * 60);
+    
+    if (hoursBeforeAppointment < 24) {
+      return next(new ErrorResponse(
+        'Appointments can only be canceled at least 24 hours before', 
+        400
+      ));
+    }
 
+    await Appointment.findByIdAndDelete(req.params.id);
+    return res.status(200).json({ success: true, data: {} });
+  }
 
-  res.status(200).json({
-    success: true,
-    data: {}
-  });
+  return next(new ErrorResponse('Not authorized', 403));
 });
+
+
 
 // @desc    Upload service photos
 // @route   POST /api/v1/appointments/:id/photos

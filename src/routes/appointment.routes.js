@@ -9,7 +9,8 @@ const {
   getMyAppointments,
   requestReschedule,
   getCalendarAppointments,
-  getAvailableTimeSlots
+  // getAvailableTimeSlots
+  getTimeSlotsWithAvailability
 } = require('../controllers/appointment.controller');
 
 const Appointment = require('../models/appointment.model');
@@ -77,7 +78,9 @@ router.get('/', optional, advancedResults(
 ), getAppointments);
 
 // Specific routes must come before parameterized routes
-router.get('/availability', getAvailableTimeSlots);
+// router.get('/availability', getAvailableTimeSlots);
+router.get('/availability', getTimeSlotsWithAvailability);
+
 router.get('/my-appointments', protect, authorize('customer'), getMyAppointments);
 router.get('/calendar', 
   protect, // Ensure user is authenticated
@@ -105,7 +108,7 @@ router.post('/:id/photos', protect, authorize('admin', 'professional'), uploadSe
 // Admin and Professional routes
 router.post('/', protect, authorize('customer'), createAppointment);
 router.put('/:id', protect, authorize('admin', 'professional'), updateAppointment);
-router.delete('/:id', protect, authorize('admin'), deleteAppointment);
+router.delete('/:id', protect, deleteAppointment);
 
 
 
