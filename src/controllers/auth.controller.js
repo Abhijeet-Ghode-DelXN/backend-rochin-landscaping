@@ -189,18 +189,30 @@ exports.register = asyncHandler(async (req, res, next) => {
     // Create customer profile
     const customerData = {
       user: user._id,
+      
       address: {
         street: 'N/A',
         city: 'N/A',
         state: 'N/A',
         zipCode: '00000'
       },
+
+
+  
      
       // discounts: {
       //   firstService: 10 // 10% discount
       // },
-       propertyDetails: {
+       propertyDetails: [{
+        name:'Primary Property',
   size: 1000,
+  propertyAddress: {
+      street: String,
+      city: String,
+      state: String,
+      zipCode: String,
+      country: String,
+ },
   images: [], // Initialize as empty array or with actual image objects
     
   features: {
@@ -210,7 +222,10 @@ exports.register = asyncHandler(async (req, res, next) => {
     hasGarden: false,
     hasSprinklerSystem: false
   }
-},
+}],
+
+
+
           servicePreferences: {
             preferredTimeOfDay: 'Any'
           },

@@ -28,7 +28,19 @@ const CustomerSchema = new mongoose.Schema({
       default: 'USA'
     }
   },
-  propertyDetails: {
+  propertyDetails: [{
+ name: {
+      type: String,
+      required: [true, 'Please add a property name'],
+      default: 'Primary Property'
+    },
+ propertyAddress: {
+      street: String,
+      city: String,
+      state: String,
+      zipCode: String,
+      country: String,
+ },
     size: {
       type: Number, // in square feet
     //   required: [true, 'Please add property size']
@@ -66,7 +78,9 @@ images: [{
     accessInstructions: {
       type: String
     }
-  },
+  }],
+
+
   servicePreferences: {
     preferredDays: [{
       type: String,

@@ -38,11 +38,18 @@ router.route('/')
   )
   .post(protect, authorize('admin'), createCustomerByAdmin);
 
-router.route('/:id/property-images')
-  .post(protect, uploadPropertyImages);
 
-router.route('/:id/property-images/:imageId')
-  .delete(protect, deletePropertyImage);
+  router.post(
+  '/:id/propertyDetails/:propertyIndex/images',
+   // Make sure you have proper multer middleware
+  uploadPropertyImages
+);
+
+router.delete(
+  '/:id/propertyDetails/:propertyIndex/images/:imageId',
+  deletePropertyImage
+);
+
 
   
 
