@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const tenantScopePlugin = require('./plugins/tenantScope.plugin');
 
 const gallerySchema = new mongoose.Schema({
   title: {
@@ -83,5 +84,9 @@ const gallerySchema = new mongoose.Schema({
 
 // Add index for better search performance
 gallerySchema.index({ title: 'text', description: 'text', location: 'text' });
+
+gallerySchema.plugin(tenantScopePlugin);
+
+gallerySchema.plugin(tenantScopePlugin);
 
 module.exports = mongoose.model('Gallery', gallerySchema); 

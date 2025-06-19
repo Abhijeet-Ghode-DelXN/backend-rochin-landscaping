@@ -3,10 +3,18 @@
     "_id": "5d7a514b5d2c12c7449be042",
     "name": "Admin User",
     "email": "admin@landscaping.com",
-    "role": "admin",
+    "role": "superAdmin",
     "password": "123456",
     "phone": "555-123-4567",
     "isEmailVerified": true
+  },
+  {
+    "_id": "60d5f2f5a8b7a8a8d8e8a8a9",
+    "name": "Jane Doe",
+    "email": "jane@rochinlandscaping.com",
+    "password": "password123",
+    "role": "tenantAdmin",
+    "tenantId": "60d5f2f5a8b7a8a8d8e8a8a8"
   },
   {
     "_id": "5d7a514b5d2c12c7449be043",

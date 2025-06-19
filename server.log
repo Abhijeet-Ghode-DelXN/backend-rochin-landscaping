@@ -1,0 +1,19 @@
+(node:11232) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:11232) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+Server running in production mode on port 5000
+MongoDB Connected: ac-q0etrwr-shard-00-01.sfnbxic.mongodb.net
+Auth Headers:
+Token from Authorization header:
+Verifying token with secret:
+Decoded token:
+Found user:
+User role:
+Token role:
+Tenant context updated for tenant: 684ff405b9f2379a78788f3e, user: 684ff406b9f2379a78788f45
+Checking role authorization:
+--- TENANT SCOPE PLUGIN: PRE-VALIDATE HOOK ---
+Tenant context store:
+Document is new.
+Assigning tenantId: 684ff405b9f2379a78788f3e
+--- END TENANT SCOPE PLUGIN ---

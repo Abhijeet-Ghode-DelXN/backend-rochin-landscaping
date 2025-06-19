@@ -13,6 +13,7 @@ const Service = require('../models/service.model');
 const Appointment = require('../models/appointment.model');
 const Estimate = require('../models/estimate.model');
 const Payment = require('../models/payment.model');
+const Tenant = require('../models/tenant.model');
 
 // Connect to DB
 mongoose.connect(process.env.MONGO_URI);
@@ -73,11 +74,59 @@ const deleteData = async () => {
   }
 };
 
+// Seed tenants and admins
+const seedTenantsAndAdmins = async () => {
+  try {
+    // Clear existing data
+    await Tenant.deleteMany();
+    await User.deleteMany();
+
+    // Create tenants
+    const tenant1 = await Tenant.create({
+      name: 'GreenScape',
+      subdomain: 'greenscape',
+      owner: new mongoose.Types.ObjectId(), // Placeholder, replace with actual owner if needed
+    });
+
+    const tenant2 = await Tenant.create({
+      name: 'UrbanGardens',
+      subdomain: 'urbangardens',
+      owner: new mongoose.Types.ObjectId(), // Placeholder
+    });
+
+    // Create admin users for each tenant
+    await User.create([
+      {
+        name: 'Admin GreenScape',
+        email: 'admin@greenscape.com',
+        password: 'password123',
+        role: 'tenantAdmin',
+        tenantId: tenant1._id,
+      },
+      {
+        name: 'Admin UrbanGardens',
+        email: 'admin@urbangardens.com',
+        password: 'password123',
+        role: 'tenantAdmin',
+        tenantId: tenant2._id,
+      },
+    ]);
+
+    console.log('Tenants and admin users seeded...'.cyan.inverse);
+    process.exit();
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+};
+
 if (process.argv[2] === '-i') {
   importData();
 } else if (process.argv[2] === '-d') {
   deleteData();
+} else if (process.argv[2] === '-t') {
+  seedTenantsAndAdmins();
 } else {
-  console.log('Please add proper flag: -i (import) or -d (delete)');
+  console.log('Please add proper flag: -i (import), -d (delete), or -t (seed tenants)');
   process.exit(1);
-} 
+}

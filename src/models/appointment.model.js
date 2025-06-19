@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const tenantScopePlugin = require('./plugins/tenantScope.plugin');
 
 const AppointmentSchema = new mongoose.Schema({
   customer: {
@@ -6,7 +7,6 @@ const AppointmentSchema = new mongoose.Schema({
     ref: 'Customer',
     required: true
   },
-
   service: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Service',
@@ -175,5 +175,9 @@ AppointmentSchema.virtual('calendarColor').get(function() {
 
   return colorMap[this.service.category] || '#6c757d';
 });
+
+AppointmentSchema.plugin(tenantScopePlugin);
+
+AppointmentSchema.plugin(tenantScopePlugin);
 
 module.exports = mongoose.model('Appointment', AppointmentSchema); 

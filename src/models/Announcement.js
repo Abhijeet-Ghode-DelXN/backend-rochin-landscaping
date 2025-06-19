@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const tenantScopePlugin = require('./plugins/tenantScope.plugin');
 
 const announcementSchema = new mongoose.Schema({
   title: {
@@ -24,5 +25,7 @@ const announcementSchema = new mongoose.Schema({
 }, {
   timestamps: true
 });
+
+announcementSchema.plugin(tenantScopePlugin);
 
 module.exports = mongoose.model('Announcement', announcementSchema); 

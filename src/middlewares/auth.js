@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 const asyncHandler = require('./async');
 const ErrorResponse = require('../utils/errorResponse');
 const User = require('../models/user.model');
+const tenantContext = require('../utils/tenantContext');
+const { validateTenantAccess } = require('./tenantResolver');
 
 // Protect routes
 exports.protect = asyncHandler(async (req, res, next) => {
@@ -47,7 +49,12 @@ exports.protect = asyncHandler(async (req, res, next) => {
     console.log('User role:', user.role);
     console.log('Token role:', decoded.role);
 
-    next();
+    // For non-superAdmin users, validate tenant access
+    if (user.role !== 'superAdmin') {
+      await validateTenantAccess(req, res, next);
+    } else {
+      next();
+    }
   } catch (err) {
     console.error('Token verification error:', err.message);
     return next(new ErrorResponse('Not authorized to access this route', 401));
@@ -84,9 +91,17 @@ exports.optional = asyncHandler(async (req, res, next) => {
       // Attach both the user and the decoded token to the request
       req.user = user;
       req.tokenData = decoded; // Contains the raw token data including role
-    }
 
-    next();
+      // For non-superAdmin users, validate tenant access
+      if (user.role !== 'superAdmin') {
+        await validateTenantAccess(req, res, next);
+      } else {
+      next();
+      }
+    } else {
+      // Continue without setting tenant context
+      next();
+    }
   } catch (err) {
     // Token is invalid but we still continue (optional auth)
     console.error('Invalid token, continuing as unauthenticated:', err.message);

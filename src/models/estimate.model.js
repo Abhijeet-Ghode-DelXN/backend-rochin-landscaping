@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
+const tenantScopePlugin = require('./plugins/tenantScope.plugin');
 
 const EstimateSchema = new mongoose.Schema({
-  customer: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Customer',
-    required: true
-  },
   services: [{
     service: {
       type: mongoose.Schema.Types.ObjectId,
@@ -136,5 +132,9 @@ EstimateSchema.pre('save', async function(next) {
   }
   next();
 });
+
+EstimateSchema.plugin(tenantScopePlugin);
+
+EstimateSchema.plugin(tenantScopePlugin);
 
 module.exports = mongoose.model('Estimate', EstimateSchema); 

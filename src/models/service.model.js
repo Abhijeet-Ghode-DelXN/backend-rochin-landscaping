@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
+const tenantScopePlugin = require('./plugins/tenantScope.plugin');
 
 const ServiceSchema = new mongoose.Schema({
+  tenantId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Tenant',
+    required: true,
+  },
   name: {
     type: String,
     required: [true, 'Please add a service name'],
@@ -107,5 +113,7 @@ const ServiceSchema = new mongoose.Schema({
     default: Date.now
   }
 });
+
+ServiceSchema.plugin(tenantScopePlugin);
 
 module.exports = mongoose.model('Service', ServiceSchema); 

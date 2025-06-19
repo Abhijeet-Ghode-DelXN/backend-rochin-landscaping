@@ -5,15 +5,23 @@
   "scripts": {
     "start": "nodemon server.js",
     "dev": "nodemon server.js",
-    "seed": "node src/utils/seeder.js"
+    "seed": "node src/utils/seed.js",
+    "create-admin": "node src/utils/createTenantAdmin.js",
+    "create-superadmin": "node src/utils/createSuperAdmin.js",
+    "create-custom-superadmin": "node src/utils/createCustomSuperAdmin.js",
+    "reset-superadmin": "node src/utils/resetSuperAdmin.js",
+    "check-superadmin": "node src/utils/checkSuperAdmin.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "Landscaping Service Management System API",
   "dependencies": {
+    "axios": "^1.10.0",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.41.0",
+    "colors": "^1.4.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",

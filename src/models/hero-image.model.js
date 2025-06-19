@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const tenantScopePlugin = require('./plugins/tenantScope.plugin');
 
 const heroImageSchema = new mongoose.Schema({
   url: {
@@ -20,5 +21,7 @@ const heroImageSchema = new mongoose.Schema({
 }, {
   timestamps: true
 });
+
+heroImageSchema.plugin(tenantScopePlugin);
 
 module.exports = mongoose.model('HeroImage', heroImageSchema); 

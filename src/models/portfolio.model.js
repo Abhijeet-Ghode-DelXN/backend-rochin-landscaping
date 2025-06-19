@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const tenantScopePlugin = require('./plugins/tenantScope.plugin');
 
 const portfolioSchema = new mongoose.Schema({
   title: {
@@ -102,5 +103,7 @@ const portfolioSchema = new mongoose.Schema({
 
 // Add index for better search performance
 portfolioSchema.index({ title: 'text', description: 'text', location: 'text', serviceType: 'text' });
+
+portfolioSchema.plugin(tenantScopePlugin);
 
 module.exports = mongoose.model('Portfolio', portfolioSchema); 

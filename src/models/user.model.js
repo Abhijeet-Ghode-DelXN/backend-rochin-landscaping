@@ -17,9 +17,16 @@ const UserSchema = new mongoose.Schema({
       'Please add a valid email'
     ]
   },
+  tenantId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Tenant',
+    required: function() {
+      return this.role !== 'superAdmin';
+    }
+  },
   role: {
     type: String,
-    enum: ['customer', 'professional', 'admin'],
+    enum: ['superAdmin', 'tenantAdmin', 'staff', 'customer'],
     default: 'customer'
   },
   password: {
@@ -57,9 +64,6 @@ const UserSchema = new mongoose.Schema({
   toObject: { virtuals: true }
 });
 
-
-
-
 // Encrypt password using bcrypt
 UserSchema.pre('save', async function(next) {
   if (!this.isModified('password')) {
@@ -72,7 +76,17 @@ UserSchema.pre('save', async function(next) {
 
 // Sign JWT and return
 UserSchema.methods.getSignedJwtToken = function() {
-  return jwt.sign({ id: this._id ,role: this.role}, process.env.JWT_SECRET, {
+  const payload = {
+    id: this._id,
+    role: this.role
+  };
+
+  // Add tenantId to payload if it exists (i.e., for non-SuperAdmin users)
+  if (this.tenantId) {
+    payload.tenantId = this.tenantId;
+  }
+
+  return jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE
   });
 };

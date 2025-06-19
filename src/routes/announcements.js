@@ -8,8 +8,8 @@ router.get('/active', announcementController.getActiveAnnouncement);
 router.get('/', announcementController.getAnnouncements);
 
 // Protected routes - require admin authentication
-router.post('/', protect, authorize('admin'), announcementController.createAnnouncement);
-router.put('/:id', protect, authorize('admin'), announcementController.updateAnnouncement);
-router.delete('/:id', protect, authorize('admin'), announcementController.deleteAnnouncement);
+router.post('/', protect, authorize('tenantAdmin'), announcementController.createAnnouncement);
+router.put('/:id', protect, authorize('tenantAdmin'), announcementController.updateAnnouncement);
+router.delete('/:id', protect, authorize('tenantAdmin'), announcementController.deleteAnnouncement);
 
 module.exports = router; 

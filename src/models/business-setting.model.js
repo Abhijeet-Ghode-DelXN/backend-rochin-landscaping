@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const tenantScopePlugin = require('./plugins/tenantScope.plugin');
 
 const BusinessSettingSchema = new mongoose.Schema({
   businessName: {
@@ -225,5 +226,9 @@ BusinessSettingSchema.statics.getSettings = async function() {
     }
   });
 };
+
+BusinessSettingSchema.plugin(tenantScopePlugin);
+
+BusinessSettingSchema.plugin(tenantScopePlugin);
 
 module.exports = mongoose.model('BusinessSetting', BusinessSettingSchema); 

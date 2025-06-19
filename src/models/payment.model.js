@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const tenantScopePlugin = require('./plugins/tenantScope.plugin');
 
 const PaymentSchema = new mongoose.Schema({
   customer: {
@@ -114,5 +115,7 @@ PaymentSchema.pre('save', async function(next) {
   }
   next();
 });
+
+PaymentSchema.plugin(tenantScopePlugin);
 
 module.exports = mongoose.model('Payment', PaymentSchema); 

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const tenantScopePlugin = require('./plugins/tenantScope.plugin');
 
 const CustomerSchema = new mongoose.Schema({
   user: {
@@ -126,4 +127,8 @@ CustomerSchema.virtual('estimates', {
 
 
 delete mongoose.models.Customer;
+CustomerSchema.plugin(tenantScopePlugin);
+
+CustomerSchema.plugin(tenantScopePlugin);
+
 module.exports = mongoose.model('Customer', CustomerSchema); 

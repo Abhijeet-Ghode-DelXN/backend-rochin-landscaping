@@ -1,5 +1,6 @@
 // models/Message.js
 const mongoose = require("mongoose");
+const tenantScopePlugin = require('./plugins/tenantScope.plugin');
 
 const messageSchema = new mongoose.Schema({
   content: {
@@ -11,6 +12,8 @@ const messageSchema = new mongoose.Schema({
     default: true,
   },
 });
+
+messageSchema.plugin(tenantScopePlugin);
 
 const Message = mongoose.model("Message", messageSchema);
 

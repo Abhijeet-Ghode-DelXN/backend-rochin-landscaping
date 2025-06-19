@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const connectDB = require('./src/config/db');
 const errorHandler = require('./src/middlewares/error');
 const fileUpload = require('express-fileupload');
+const cookieParser = require('cookie-parser');
 
 // Load env vars
 dotenv.config();
@@ -16,10 +17,16 @@ connectDB();
 // Initialize app
 const app = express();
 
+// Import tenant resolution middleware
+const { resolveTenant } = require('./src/middlewares/tenantResolver');
+
 // Body parser
 // app.use(express.json());
 // With this:
 app.use(express.json({ limit: '50mb' }));
+
+// Cookie parser
+app.use(cookieParser());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
@@ -39,27 +46,25 @@ const allowedOrigins = [
 ];
 
 // CORS configuration
-// app.use(cors({
-//   origin: function (origin, callback) {
-//     // Allow requests with no origin (like mobile apps or curl requests)
-//     if (!origin) return callback(null, true);
-    
-//     if (allowedOrigins.includes(origin)) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   },
-//   credentials: false, // Changed to false
-//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-// }));
-
 app.use(cors({
-  origin: true,   // This allows requests from any origin
-  credentials: false,
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Allow localhost and all its subdomains for development
+    if (origin.includes('localhost:3000') || origin.includes('127.0.0.1:3000')) {
+      return callback(null, true);
+    }
+    
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Allow cookies to be sent
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-Tenant-Subdomain']
 }));
 
 // Add this before your routes
@@ -77,6 +82,10 @@ app.use(fileUpload({
   debug: process.env.NODE_ENV === 'development',
   responseOnLimit: 'File size limit has been reached'
 }));
+
+// Resolve tenant from subdomain and set context
+app.use(resolveTenant);
+
 // API version
 const API_PREFIX = '/api/v1';
 
@@ -95,6 +104,7 @@ const businessSettingRoutes = require('./src/routes/business-setting.routes');
 const galleryRoutes = require('./src/routes/gallery.routes');
 const portfolioRoutes = require('./src/routes/portfolio.routes');
 const heroImageRoutes = require('./src/routes/hero-image');
+const adminRoutes = require('./src/routes/admin.routes');
 
 // Import the contact route
 const contactRoutes = require('./src/routes/contact');
@@ -104,6 +114,12 @@ const announcementsRoutes = require('./src/routes/announcements');
 
 // Import the message routes
 const messageRoutes = require('./src/routes/message.routes');
+
+// Import tenant routes
+const tenantRoutes = require('./src/routes/tenant.routes');
+
+// Import super admin routes
+const superAdminRoutes = require('./src/routes/super-admin.routes');
 
 // Mount routers
 app.use(`${API_PREFIX}/auth`, authRoutes);
@@ -120,6 +136,13 @@ app.use(`${API_PREFIX}/business-settings`, businessSettingRoutes);
 app.use(`${API_PREFIX}/gallery`, galleryRoutes);
 app.use(`${API_PREFIX}/portfolio`, portfolioRoutes);
 app.use(`${API_PREFIX}/hero-image`, heroImageRoutes);
+app.use(`${API_PREFIX}/admin`, adminRoutes);
+
+// Mount super admin routes
+app.use(`${API_PREFIX}/super-admin`, superAdminRoutes);
+
+// Mount tenant routes
+app.use(`${API_PREFIX}/tenant`, tenantRoutes);
 
 // Mount the contact route here
 app.use(`${API_PREFIX}/api/contact`, contactRoutes);
@@ -149,8 +172,17 @@ const server = app.listen(PORT, () => {
 });
 
 // Handle unhandled promise rejections
-process.on('unhandledRejection', (err) => {
+process.on('unhandledRejection', (err, promise) => {
   console.log(`Error: ${err.message}`);
   // Close server & exit process
   server.close(() => process.exit(1));
+});
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (err) => {
+  console.log(`UNCAUGHT EXCEPTION! Shutting down...`);
+  console.error(err.name, err.message);
+  server.close(() => {
+    process.exit(1);
+  });
 });
