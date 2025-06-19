@@ -70,7 +70,7 @@ exports.getMyProfile = asyncHandler(async (req, res, next) => {
   const customer = await Customer.findOne({ user: req.user.id })
     .populate('appointments')
     .populate('estimates')
-    .populate('user', 'name email phone'); // 👈 Only select needed fields
+    .populate('user', 'name email phone  address'); // 👈 Only select needed fields
 
   if (!customer) {
     return next(
@@ -284,32 +284,26 @@ exports.createCustomerByAdmin = asyncHandler(async (req, res, next) => {
 
 const cloudinary = require('cloudinary').v2;
 
-
-
-// const cloudinary = require('cloudinary').v2;
-
 exports.uploadPropertyImages = asyncHandler(async (req, res, next) => {
   try {
-    // 1. Find the customer
+    // 1. Find the customer and validate property index
     const customer = await Customer.findById(req.params.id);
     if (!customer) {
       return next(new ErrorResponse('Customer not found', 404));
     }
 
-    // 2. Extract files correctly
+    const propertyIndex = parseInt(req.params.propertyIndex);
+    if (isNaN(propertyIndex) || propertyIndex < 0 || propertyIndex >= customer.propertyDetails.length) {
+      return next(new ErrorResponse('Invalid property index', 400));
+    }
+
+    // 2. Extract files - use 'images' as the field name
     let files = [];
     if (req.files) {
-      // Handle single file upload
-      if (req.files.file && !Array.isArray(req.files.file)) {
-        files = [req.files.file];
-      } 
-      // Handle multiple files
-      else if (req.files.files && Array.isArray(req.files.files)) {
-        files = req.files.files;
-      }
-      // Handle field named 'images'
-      else if (req.files.images) {
+      if (req.files.images) {
         files = Array.isArray(req.files.images) ? req.files.images : [req.files.images];
+      } else {
+        return next(new ErrorResponse('Please upload files using the "images" field name', 400));
       }
     }
 
@@ -317,16 +311,14 @@ exports.uploadPropertyImages = asyncHandler(async (req, res, next) => {
       return next(new ErrorResponse('Please upload at least one image file', 400));
     }
 
-    // 3. Process uploads
+    // 3. Process uploads (same as before)
     const uploadPromises = files.map(file => {
-      // Validate file
       if (!file.mimetype.startsWith('image')) {
         throw new Error(`File ${file.name} is not an image`);
       }
-      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+      if (file.size > 5 * 1024 * 1024) {
         throw new Error(`File ${file.name} exceeds size limit of 5MB`);
       }
-
       return cloudinary.uploader.upload(file.tempFilePath, {
         folder: 'property_images',
       });
@@ -334,28 +326,28 @@ exports.uploadPropertyImages = asyncHandler(async (req, res, next) => {
 
     const uploadResults = await Promise.all(uploadPromises);
 
-    // 4. Prepare images data for database
+    // 4. Prepare images data
     const imagesToAdd = uploadResults.map(result => ({
       url: result.secure_url,
       publicId: result.public_id,
       createdAt: new Date()
     }));
 
-    // 5. Update customer with new images
+    // 5. Update the specific property's images array
+    const propertyPath = `propertyDetails.${propertyIndex}.images`;
     const updatedCustomer = await Customer.findByIdAndUpdate(
       req.params.id,
       { 
         $push: { 
-          'propertyDetails.images': {
+          [propertyPath]: {
             $each: imagesToAdd,
-            $position: 0 // Add new images at the beginning
+            $position: 0
           } 
         } 
       },
       { 
         new: true,
-        runValidators: true,
-        select: 'propertyDetails.images' // Only return the images array
+        runValidators: true
       }
     );
 
@@ -363,72 +355,87 @@ exports.uploadPropertyImages = asyncHandler(async (req, res, next) => {
       throw new Error('Failed to update customer with new images');
     }
 
-    // 6. Return the updated images array
+    // 6. Return the updated property details
     res.status(200).json({
       success: true,
-      data: updatedCustomer.propertyDetails.images
+      data: updatedCustomer.propertyDetails[propertyIndex].images
     });
 
   } catch (err) {
     console.error('Upload error:', err);
-    
-    // Clean up any uploaded images if error occurred
     if (uploadResults) {
       await Promise.all(
         uploadResults.map(result => 
           cloudinary.uploader.destroy(result.public_id).catch(e => console.error(e))
-        )
-      );
-    }
-    
-    return next(
-      new ErrorResponse(err.message || 'Image upload failed', err.statusCode || 500)
+      )
     );
+    }
+    return next(new ErrorResponse(err.message || 'Image upload failed', err.statusCode || 500));
   }
 });
 
 
 
 exports.deletePropertyImage = asyncHandler(async (req, res, next) => {
-  const customer = await Customer.findById(req.params.id);
-
-  if (!customer) {
-    return next(new ErrorResponse('Customer not found', 404));
-  }
-
-  if (!customer.propertyDetails?.images) {
-    return next(new ErrorResponse('No images found', 404));
-  }
-
-  const imageId = req.params.imageId;
-  
-  // Find the image by either _id (MongoDB ID) or publicId (Cloudinary ID)
-  const imageToDelete = customer.propertyDetails.images.find(
-    img => (img._id && img._id.toString() === imageId) || img.publicId === imageId
-  );
-
-  if (!imageToDelete) {
-    return next(new ErrorResponse('Image not found', 404));
-  }
-
   try {
-    // Delete from Cloudinary
+    const { id, propertyIndex, imageId } = req.params;
+
+    // 1. Find the customer
+    const customer = await Customer.findById(id);
+    if (!customer) {
+      return next(new ErrorResponse('Customer not found', 404));
+    }
+
+    // 2. Validate property index
+    const propIndex = parseInt(propertyIndex);
+    if (isNaN(propIndex)) {
+      return next(new ErrorResponse('Invalid property index', 400));
+    }
+
+    // 3. Find the image to delete
+    const property = customer.propertyDetails[propIndex];
+    if (!property) {
+      return next(new ErrorResponse('Property not found', 404));
+    }
+
+    const imageIndex = property.images.findIndex(img => img._id.toString() === imageId);
+    if (imageIndex === -1) {
+      return next(new ErrorResponse('Image not found', 404));
+    }
+
+    const imageToDelete = property.images[imageIndex];
+
+    // 4. Delete from Cloudinary
     await cloudinary.uploader.destroy(imageToDelete.publicId);
 
-    // Remove from database array - safely handle cases where _id might be undefined
-    customer.propertyDetails.images = customer.propertyDetails.images.filter(
-      img => (img._id ? img._id.toString() !== imageId : true) && img.publicId !== imageId
-    );
-    
-    await customer.save();
+    // 5. Remove from database
+    const updateQuery = {
+      $pull: {
+        [`propertyDetails.${propIndex}.images`]: { _id: imageId }
+      }
+    };
 
+    const updatedCustomer = await Customer.findByIdAndUpdate(
+      id,
+      updateQuery,
+      { new: true }
+    );
+
+    if (!updatedCustomer) {
+      throw new Error('Failed to update customer after image deletion');
+    }
+
+    // 6. Return success response
     res.status(200).json({
       success: true,
-      data: customer.propertyDetails.images // Return updated images array
+      data: updatedCustomer.propertyDetails[propIndex].images
     });
+
   } catch (err) {
-    console.error('Delete error:', err);
-    return next(new ErrorResponse('Image deletion failed', 500));
+    console.error('Delete image error:', err);
+    return next(
+      new ErrorResponse(err.message || 'Failed to delete image', err.statusCode || 500)
+    );
   }
 });
 
