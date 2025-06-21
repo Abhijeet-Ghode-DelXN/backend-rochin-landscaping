@@ -42,7 +42,8 @@ app.use(helmet({
 // Configure allowed origins
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://booking-one-omega.vercel.app'
+  'https://booking-one-omega.vercel.app',
+  'https://www.basketbuddy.in'
 ];
 
 // CORS configuration
