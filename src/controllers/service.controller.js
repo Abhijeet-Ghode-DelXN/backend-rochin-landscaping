@@ -5,12 +5,112 @@ const Service = require('../models/service.model');
 const cloudinary = require('../utils/cloudinary');
 const { Readable } = require('stream');
 
-// @desc    Get all services
-// @route   GET /api/v1/services
+// // @desc    Get all services
+// // @route   GET /api/v1/services
+// // @access  Public
+// exports.getServices = asyncHandler(async (req, res, next) => {
+//   res.status(200).json(res.advancedResults);
+// });
+
+
+
+// controllers/services.js
+
+
+
+// @desc    Get ALL services (public access)
+// @route   GET /api/v1/services/public
 // @access  Public
-exports.getServices = asyncHandler(async (req, res, next) => {
-  res.status(200).json(res.advancedResults);
+exports.getPublicServices = asyncHandler(async (req, res, next) => {
+  const { category, search, sort, limit } = req.query;
+  
+  // Build base query
+  let query = { isActive: true }; // Only show active services
+  
+  // Apply filters
+  if (category && category !== 'all') {
+    query.category = category;
+  }
+  
+  if (search) {
+    query.$or = [
+      { name: { $regex: search, $options: 'i' } },
+      { description: { $regex: search, $options: 'i' } }
+    ];
+  }
+  
+  // Sorting
+  let sortBy = '-createdAt';
+  if (sort) {
+    sortBy = sort.split(',').join(' ');
+  }
+  
+  // Pagination
+  let queryLimit = 20;
+  if (limit) {
+    queryLimit = Number(limit) > 50 ? 50 : Number(limit); // Max 50 items
+  }
+  
+  // Execute query with tenant population
+  const services = await Service.find(query)
+    .sort(sortBy)
+    .limit(queryLimit)
+    .populate('tenantId', 'name subdomain logo');
+  
+  res.status(200).json({
+    success: true,
+    count: services.length,
+    data: services
+  });
 });
+
+
+
+// @desc    Get all services for tenant admin
+// @route   GET /api/v1/services
+// @access  Private
+exports.getServices = asyncHandler(async (req, res, next) => {
+  const { category, search, sort } = req.query;
+  
+  // Build base query - ALWAYS filter by tenantId for tenant admins
+  let query = {};
+  
+  if (req.user.role === 'tenantAdmin') {
+    query.tenantId = req.user.tenantId; // Make sure this is being set correctly
+  }
+
+  // Apply additional filters
+  if (category && category !== 'all') {
+    query.category = category;
+  }
+  
+  if (search) {
+    query.$or = [
+      { name: { $regex: search, $options: 'i' } },
+      { description: { $regex: search, $options: 'i' } }
+    ];
+  }
+  
+  // Sorting
+  let sortBy = '-createdAt';
+  if (sort) {
+    sortBy = sort.split(',').join(' ');
+  }
+  
+  // Execute query
+  const services = await Service.find(query).sort(sortBy);
+  
+  res.status(200).json({
+    success: true,
+    count: services.length,
+    data: services
+  });
+});
+
+
+
+
+
 
 // @desc    Get single service
 // @route   GET /api/v1/services/:id
@@ -43,21 +143,53 @@ exports.getService = asyncHandler(async (req, res, next) => {
 // });
 
 
-exports.createService = async (req, res, next) => {
-  try {
-    // Add user to req.body
-    req.body.user = req.user.id;
+// exports.createService = async (req, res, next) => {
+//   try {
+//     // Add user to req.body
+//     req.body.user = req.user.id;
     
-    const service = await Service.create(req.body);
+//     const service = await Service.create(req.body);
 
-    res.status(201).json({
-      success: true,
-      data: service // Ensure response includes full service data with _id
-    });
-  } catch (err) {
-    next(err);
+//     res.status(201).json({
+//       success: true,
+//       data: service // Ensure response includes full service data with _id
+//     });
+//   } catch (err) {
+//     next(err);
+//   }
+// };
+
+
+
+
+
+// @desc    Create service
+// @route   POST /api/v1/services
+// @access  Private (Tenant Admin)
+exports.createService = asyncHandler(async (req, res, next) => {
+  // Only tenant admins can create services - fixed case sensitivity
+  if (req.user.role.toLowerCase() !== 'tenantadmin') {
+    return next(
+      new ErrorResponse(`User with role ${req.user.role} is not authorized to create services`, 403)
+    );
   }
-};
+  
+  // Add tenantId - fixed to use tenantContext or direct from user
+  req.body.tenantId = req.tenant?._id || req.user.tenantId || req.user.tenants[0]?.tenant;
+  req.body.createdBy = req.user.id;
+  
+  // Validate required fields
+  if (!req.body.name || !req.body.category) {
+    return next(new ErrorResponse('Name and category are required', 400));
+  }
+
+  const service = await Service.create(req.body);
+  
+  res.status(201).json({
+    success: true,
+    data: service
+  });
+});
 
 // @desc    Update service
 // @route   PUT /api/v1/services/:id

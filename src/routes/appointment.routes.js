@@ -10,7 +10,8 @@ const {
   requestReschedule,
   getCalendarAppointments,
   // getAvailableTimeSlots
-  getTimeSlotsWithAvailability
+  // getTimeSlotsWithAvailability
+  getAvailability
 } = require('../controllers/appointment.controller');
 
 const Appointment = require('../models/appointment.model');
@@ -79,19 +80,20 @@ router.get('/', optional, advancedResults(
 
 // Specific routes must come before parameterized routes
 // router.get('/availability', getAvailableTimeSlots);
-router.get('/availability', getTimeSlotsWithAvailability);
+// router.get('/availability', getTimeSlotsWithAvailability);
+router.get('/availability', getAvailability);
 
 router.get('/my-appointments', protect, authorize('customer'), getMyAppointments);
 router.get('/calendar', 
   protect, // Ensure user is authenticated
-  authorize('admin', 'professional'), // Ensure user has proper role
+  authorize('tenantAdmin', 'professional'), // Ensure user has proper role
   asyncHandler(async (req, res, next) => {
     // Verify user object exists
     if (!req.user) {
       return next(new ErrorResponse('Not authenticated', 401));
     }
     // Verify user has proper role
-    if (!['admin', 'professional'].includes(req.user.role)) {
+    if (!['tenantAdmin', 'professional'].includes(req.user.role)) {
       return next(new ErrorResponse('Not authorized to access calendar', 403));
     }
     next();
@@ -101,7 +103,7 @@ router.get('/calendar',
 
 // Parameterized routes
 // router.get('/:id',getAppointment);
-router.get('/:id', protect, authorize('admin'),getAppointment);
+router.get('/:id', protect, authorize('tenantAdmin'),getAppointment);
 router.put('/:id/reschedule-request', protect, authorize('customer'), requestReschedule);
 router.post('/:id/photos', protect, authorize('admin', 'professional'), uploadServicePhotos);
 

@@ -3,6 +3,7 @@ const asyncHandler = require('../middlewares/async');
 const Estimate = require('../models/estimate.model');
 const Customer = require('../models/customer.model');
 const User = require('../models/user.model');
+const Tenant = require('../models/tenant.model');
 const cloudinary = require('../utils/cloudinary');
 const sendEmail = require('../utils/sendEmail');
 const Service = require('../models/service.model'); // Adjust the path as needed
@@ -318,62 +319,79 @@ exports.uploadEstimatePhotos = asyncHandler(async (req, res, next) => {
 
 
 
-// @desc    Request estimate (Customer)
-// @route   POST /api/v1/estimates/request
-// @access  Private/Customer
 exports.requestEstimate = asyncHandler(async (req, res, next) => {
-  // Get customer profile
-  const customer = await Customer.findOne({ user: req.user.id });
-
-  if (!customer) {
-    return next(new ErrorResponse(`No customer profile found`, 404));
+  // Get tenantId from body or headers
+  const tenantId = req.body.tenantId || req.headers['x-tenant-id'];
+  
+  if (!tenantId) {
+    return next(new ErrorResponse('Tenant context is missing', 400));
   }
 
-  // Create estimate request
+  // Get customer profile
+  const customer = await Customer.findOne({ user: req.user.id });
+  if (!customer) {
+    return next(new ErrorResponse('No customer profile found', 404));
+  }
+
+  // Validate services
+  if (!req.body.services?.length) {
+    return next(new ErrorResponse('At least one service is required', 400));
+  }
+
+  // Verify tenant exists
+  const tenant = await Tenant.findById(tenantId);
+  if (!tenant) {
+    return next(new ErrorResponse('Invalid tenant ID', 404));
+  }
+
+  // Verify services belong to tenant
+  const serviceIds = req.body.services.map(s => s.service);
+  const services = await Service.find({
+    _id: { $in: serviceIds },
+    tenantId: tenantId
+  });
+
+  if (services.length !== serviceIds.length) {
+    return next(new ErrorResponse('Some services don\'t belong to this tenant', 400));
+  }
+
+  // Create estimate
   const estimateData = {
     customer: customer._id,
-    services: req.body.services,
+    tenant: tenantId,
+    services: req.body.services.map(s => ({
+      service: s.service,
+      quantity: s.quantity || 1,
+      package: s.package
+    })),
     property: {
-      address: req.body.property.address || customer.address,
-      size: req.body.property.size || customer.propertyDetails.size,
-      details: req.body.property.details
+      address: req.body.property?.address || customer.address,
+      size: req.body.property?.size || customer.propertyDetails?.size,
+      details: req.body.property?.details
     },
-    customerNotes: req.body.notes,
-    budget: req.body.budget,
-    accessInfo: req.body.accessInfo,
     status: 'Requested',
     createdBy: req.user.id
   };
 
   let estimate = await Estimate.create(estimateData);
 
-  // 💡 Populate customer details, their linked user, and service details
+  // Populate and respond
   estimate = await estimate.populate([
-    {
-      path: 'customer',
-      populate: { path: 'user' } // gets name, email from User model
-    },
-    {
-      path: 'services.service' // gets full service info
-    },
-    {
-      path: 'createdBy' // gets user info for who created
-    }
+    { path: 'customer', populate: { path: 'user' } },
+    { path: 'services.service' },
+    { path: 'createdBy' },
+    { path: 'tenant', populate: { path: 'user' } }
   ]);
 
-  // Notify admin about new estimate request
-  const admins = await User.find({ role: 'admin' });
-  
-  if (admins.length > 0) {
-    try {
-      await sendEmail({
-        email: admins[0].email,
-        subject: 'New Estimate Request',
-        message: `A new estimate request has been submitted by ${req.user.name}. Estimate ID: ${estimate.estimateNumber}`
-      });
-    } catch (err) {
-      console.log('Email notification failed:', err);
-    }
+  // Notify tenant (fail silently if email fails)
+  try {
+    await sendEmail({
+      email: estimate.tenant.user.email,
+      subject: 'New Estimate Request',
+      message: `New estimate request from ${req.user.name} (ID: ${estimate.estimateNumber})`
+    });
+  } catch (err) {
+    console.error('Email failed:', err);
   }
 
   res.status(201).json({
@@ -381,7 +399,6 @@ exports.requestEstimate = asyncHandler(async (req, res, next) => {
     data: estimate
   });
 });
-
 
 
 

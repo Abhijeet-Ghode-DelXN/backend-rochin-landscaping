@@ -7,7 +7,8 @@ const {
   deleteService,
   servicePhotoUpload,
   getServicesByCategory,
-  getServicePackages
+  getServicePackages,
+ getPublicServices
 } = require('../controllers/service.controller');
 
 const Service = require('../models/service.model');
@@ -19,7 +20,7 @@ const advancedResults = require('../middlewares/advancedResults');
 
 // Special routes
 router.route('/:id/photo')
-  .put(protect, authorize('admin'), servicePhotoUpload);
+  .put(protect, authorize('tenantAdmin'), servicePhotoUpload);
 
 router.route('/category/:category')
   .get(getServicesByCategory);
@@ -29,8 +30,13 @@ router.route('/:id/packages')
 
 // Standard CRUD routes
 router.route('/')
-  .get(advancedResults(Service), getServices)
-  .post(protect, authorize('admin'), createService); // Proper controller reference
+
+  .get(protect,advancedResults(Service), getServices)
+  .post(protect, authorize('tenantAdmin'), createService); // Proper controller reference
+
+
+router.route('/public')
+  .get(getPublicServices);
 
 router.route('/:id')
   .get(getService)

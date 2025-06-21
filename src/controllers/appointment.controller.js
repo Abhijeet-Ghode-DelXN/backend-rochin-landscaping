@@ -4,6 +4,7 @@ const Appointment = require('../models/appointment.model');
 const Customer = require('../models/customer.model');
 const User = require('../models/user.model');
 const Service = require('../models/service.model');
+const Tenant = require('../models/tenant.model');
 const sendEmail = require('../utils/sendEmail');
 const cloudinary = require('../utils/cloudinary');
 const moment = require('moment'); // For backend/Node.js files
@@ -11,61 +12,140 @@ const moment = require('moment'); // For backend/Node.js files
 
 
 
-// @desc    Get all appointments
-// @route   GET /api/v1/appointments
-// @access  Public/Private
-exports.getAppointments = asyncHandler(async (req, res, next) => {
-  if (req.query.status === 'Completed') {
-    try {
-      // Clear any existing population from advancedResults
-      req.query.populate = '';
+// // @desc    Get all appointments
+// // @route   GET /api/v1/appointments
+// // @access  Public/Private
+// exports.getAppointments = asyncHandler(async (req, res, next) => {
+//   if (req.query.status === 'Completed') {
+//     try {
+//       // Clear any existing population from advancedResults
+//       req.query.populate = '';
       
-      let appointments = await Appointment.find({ status: 'Completed' })
-        .populate({
-          path: 'customer',
-          select: '-__v', // exclude version key
-          populate: {
-            path: 'user',
-            model: 'User',
-            select: 'name email phone role'
-          }
-        })
-        .populate('createdBy', 'name email role')
-        .populate('service', 'name category')
-        .lean();
+//       let appointments = await Appointment.find({ status: 'Completed' })
+//         .populate({
+//           path: 'customer',
+//           select: '-__v', // exclude version key
+//           populate: {
+//             path: 'user',
+//             model: 'User',
+//             select: 'name email phone role'
+//           }
+//         })
+//         .populate('createdBy', 'name email role')
+//         .populate('service', 'name category')
+//         .lean();
 
-      // Debug: Check what was actually populated
-      console.log('Populated data sample:', appointments[0]?.customer?.user);
+//       // Debug: Check what was actually populated
+//       console.log('Populated data sample:', appointments[0]?.customer?.user);
 
-      return res.status(200).json({
-        success: true,
-        count: appointments.length,
-        data: appointments
-      });
-    } catch (error) {
-      console.error('Error:', error);
-      return next(new ErrorResponse('Error fetching appointments', 500));
-    }
+//       return res.status(200).json({
+//         success: true,
+//         count: appointments.length,
+//         data: appointments
+//       });
+//     } catch (error) {
+//       console.error('Error:', error);
+//       return next(new ErrorResponse('Error fetching appointments', 500));
+//     }
+//   }
+
+//   // For other queries
+//   if (!req.user || !['admin', 'professional'].includes(req.user.role)) {
+//     return next(new ErrorResponse('Not authorized', 403));
+//   }
+
+//   // Use advancedResults with consistent population
+//   req.query.populate = [
+//     {
+//       path: 'customer',
+//       populate: { path: 'user', select: 'name email phone' }
+//     },
+//     'service',
+//     'createdBy'
+//   ];
+
+//   return res.status(200).json(res.advancedResults);
+// });
+
+
+exports.getAppointments = asyncHandler(async (req, res, next) => {
+  if (req.user.role !== 'tenantAdmin') {
+    return res.status(403).json({
+      success: false,
+      message: 'Unauthorized access - Tenant admin role required'
+    });
   }
 
-  // For other queries
-  if (!req.user || !['admin', 'professional'].includes(req.user.role)) {
-    return next(new ErrorResponse('Not authorized', 403));
+  // 1. FIRST get ONLY services that belong to this tenant
+  const services = await Service.find({ 
+    tenantId: req.user.tenantId 
+  }).select('_id');
+
+  const serviceIds = services.map(s => s._id);
+
+  // 2. SIMPLE query - appointments must EITHER:
+  //    - Have tenantId directly set, OR
+  //    - Reference a service that belongs to this tenant
+  const query = {
+    $or: [
+      { tenantId: req.user.tenantId },
+      { service: { $in: serviceIds } }
+    ]
+  };
+
+  // Optional filters
+  if (req.query.status) query.status = req.query.status;
+  if (req.query.startDate && req.query.endDate) {
+    query.date = {
+      $gte: new Date(req.query.startDate),
+      $lte: new Date(req.query.endDate)
+    };
   }
 
-  // Use advancedResults with consistent population
+  // 3. Configure population WITHOUT strict matching
   req.query.populate = [
     {
       path: 'customer',
-      populate: { path: 'user', select: 'name email phone' }
+      select: '-__v',
+      populate: { 
+        path: 'user',
+        model: 'User',
+        select: 'name email phone'
+      }
     },
-    'service',
-    'createdBy'
+    {
+      path: 'service',
+      select: 'name category duration price tenantId'
+    },
+    {
+      path: 'createdBy',
+      select: 'name email'
+    }
   ];
 
-  return res.status(200).json(res.advancedResults);
-});
+  // 4. Execute query
+  req.query.filter = query;
+  const results = await res.advancedResults;
+  
+  // 5. Final filtering (just in case)
+  const filteredData = results.data.filter(appointment => {
+    // Either has matching tenantId directly
+    if (appointment.tenantId?.toString() === req.user.tenantId?.toString()) {
+      return true;
+    }
+    // Or references a service with matching tenantId
+    if (appointment.service?.tenantId?.toString() === req.user.tenantId?.toString()) {
+      return true;
+    }
+    return false;
+  });
 
+  return res.status(200).json({
+    ...results,
+    count: filteredData.length,
+    data: filteredData
+  });
+});
 
 
 
@@ -237,103 +317,351 @@ exports.getAppointment = asyncHandler(async (req, res, next) => {
 // });
 
 
-// @desc    Get all time slots with availability status
-// @route   GET /api/v1/appointments/availability
-// @access  Public
-exports.getTimeSlotsWithAvailability = asyncHandler(async (req, res, next) => {
-  const { date, serviceId } = req.query;
+// // @desc    Get all time slots with availability status
+// // @route   GET /api/v1/appointments/availability
+// // @access  Public
+// exports.getTimeSlotsWithAvailability = asyncHandler(async (req, res, next) => {
+//   const { date, serviceId } = req.query;
 
-  // Validate input
-  if (!date || !serviceId) {
-    return next(new ErrorResponse('Please provide date and service ID', 400));
+//   // Validate input
+//   if (!date || !serviceId) {
+//     return next(new ErrorResponse('Please provide date and service ID', 400));
+//   }
+
+//   // Validate and parse date
+//   const selectedDate = new Date(date);
+//   if (isNaN(selectedDate)) {
+//     return next(new ErrorResponse('Invalid date format', 400));
+//   }
+
+//   // Get service details
+//   const service = await Service.findById(serviceId);
+//   if (!service) {
+//     return next(new ErrorResponse('Service not found', 404));
+//   }
+
+//   // Business hours configuration
+//   const businessHours = {
+//     start: 8,  // 8 AM
+//     end: 18,   // 6 PM
+//     slotInterval: 30 // minutes
+//   };
+
+//   // Strict time normalization (HH:MM format)
+//   const normalizeTime = (timeStr) => {
+//     if (typeof timeStr !== 'string') timeStr = String(timeStr);
+//     const [hours, minutes] = timeStr.split(':').map(Number);
+//     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+//   };
+
+//   // Generate all possible time slots
+//   const allSlots = [];
+//   let currentHour = businessHours.start;
+//   let currentMinute = 0;
+
+//   while (currentHour < businessHours.end || 
+//         (currentHour === businessHours.end && currentMinute === 0)) {
+//     const startTime = normalizeTime(`${currentHour}:${currentMinute}`);
+    
+//     // Calculate end time based on service duration
+//     const endTime = new Date(0);
+//     endTime.setHours(currentHour, currentMinute + service.duration, 0, 0);
+//     const formattedEndTime = normalizeTime(`${endTime.getHours()}:${endTime.getMinutes()}`);
+    
+//     // Only add slot if it ends within business hours
+//     if (endTime.getHours() < businessHours.end || 
+//         (endTime.getHours() === businessHours.end && endTime.getMinutes() === 0)) {
+//       allSlots.push({
+//         start: startTime,
+//         end: formattedEndTime,
+//         available: true
+//       });
+//     }
+
+//     // Move to next slot
+//     currentMinute += businessHours.slotInterval;
+//     if (currentMinute >= 60) {
+//       currentHour += Math.floor(currentMinute / 60);
+//       currentMinute = currentMinute % 60;
+//     }
+//   }
+
+//   // Get existing appointments for this date and service
+//   const appointments = await Appointment.find({
+//     date: {
+//       $gte: new Date(selectedDate.setHours(0, 0, 0, 0)),
+//       $lte: new Date(selectedDate.setHours(23, 59, 59, 999))
+//     },
+//     service: serviceId
+//   }).select('timeSlot.startTime timeSlot.endTime');
+
+//   // Create exact booking map
+//   const exactBookings = new Map();
+//   appointments.forEach(app => {
+//     const start = normalizeTime(app.timeSlot.startTime);
+//     const end = normalizeTime(app.timeSlot.endTime);
+//     exactBookings.set(`${start}-${end}`, true);
+//   });
+
+//   // Mark availability (only exact matches)
+//   const availableSlots = allSlots.map(slot => {
+//     const slotKey = `${slot.start}-${slot.end}`;
+//     return {
+//       start: slot.start,
+//       end: slot.end,
+//       available: !exactBookings.has(slotKey)
+//     };
+//   });
+
+//   res.status(200).json({
+//     success: true,
+//     data: availableSlots
+//   });
+// });
+
+
+
+// exports.getAvailability = async (req, res) => {
+//   const { serviceId, date } = req.query;
+
+//   if (!serviceId || !date) {
+//     return res.status(400).json({ message: "serviceId and date are required" });
+//   }
+
+//   // Convert to date-only string (ignore time)
+//   const dateOnly = new Date(date).toISOString().split("T")[0];
+
+//   // Get service duration
+//   const service = await Service.findById(serviceId);
+//   if (!service) {
+//     return res.status(404).json({ message: "Service not found" });
+//   }
+
+//   const workingStartHour = 8; // 08:00
+//   const workingEndHour = 18;  // 18:00
+//   const slotDuration = service.duration; // Use service duration
+//   const slotInterval = 30;    // step every 30 min
+
+//   const slots = [];
+
+//   // Generate all possible time slots
+//   for (let hour = workingStartHour; hour < workingEndHour; hour++) {
+//     for (let minutes of [0, 30]) {
+//       // Skip if this would go past working hours
+//       if (hour === workingEndHour - 1 && minutes + slotDuration > 60) continue;
+      
+//       const start = new Date(`${dateOnly}T${String(hour).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:00`);
+//       const end = new Date(start.getTime() + slotDuration * 60000);
+
+//       // Skip slots that would end after working hours
+//       if (end.getHours() >= workingEndHour && end.getMinutes() > 0) continue;
+
+//       const startTime = start.toTimeString().substring(0, 5); // "HH:mm"
+//       const endTime = end.toTimeString().substring(0, 5);
+
+//       slots.push({
+//         startTime,
+//         endTime,
+//         available: true // Mark all as available initially
+//       });
+//     }
+//   }
+
+//   // Get booked appointments for this service and date
+//   const bookedAppointments = await Appointment.find({
+//     service: serviceId,
+//     date: {
+//       $gte: new Date(dateOnly),
+//       $lt: new Date(new Date(dateOnly).getTime() + 86400000) // Next day
+//     }
+//   });
+
+//   // Mark only exact matches as booked
+//   bookedAppointments.forEach(booking => {
+//     const bookedStart = booking.timeSlot.startTime.padStart(5, '0');
+//     const bookedEnd = booking.timeSlot.endTime.padStart(5, '0');
+    
+//     const slotIndex = slots.findIndex(
+//       s => s.startTime === bookedStart && s.endTime === bookedEnd
+//     );
+    
+//     if (slotIndex !== -1) {
+//       slots[slotIndex].available = false;
+//     }
+//   });
+
+//   return res.json({
+//     success: true,
+//     date: dateOnly,
+//     data: slots
+//   });
+// };
+
+
+
+
+
+exports.getAvailability = async (req, res) => {
+  const { serviceId, date } = req.query;
+
+  if (!serviceId || !date) {
+    return res.status(400).json({ message: "serviceId and date are required" });
   }
 
-  // Validate and parse date
-  const selectedDate = new Date(date);
-  if (isNaN(selectedDate)) {
-    return next(new ErrorResponse('Invalid date format', 400));
-  }
+  // Convert to date-only string (ignore time)
+  const dateOnly = new Date(date).toISOString().split("T")[0];
+  const today = new Date().toISOString().split("T")[0];
+  const isToday = dateOnly === today;
+  const currentTime = new Date();
 
-  // Get service details
+  // Get service duration
   const service = await Service.findById(serviceId);
   if (!service) {
-    return next(new ErrorResponse('Service not found', 404));
+    return res.status(404).json({ message: "Service not found" });
   }
 
-  // Get business hours
-  const businessHours = {
-    start: 8, // 8 AM
-    end: 18,  // 6 PM
-    slotInterval: 30 // minutes between slots
-  };
+  const workingStartHour = 8; // 08:00
+  const workingEndHour = 18;  // 18:00
+  const slotDuration = service.duration; // Use service duration
+  const slotInterval = 30;    // step every 30 min
 
-  // Calculate time slots
-  const startTime = new Date(selectedDate);
-  startTime.setHours(businessHours.start, 0, 0, 0);
+  const slots = [];
 
-  const endTime = new Date(selectedDate);
-  endTime.setHours(businessHours.end, 0, 0, 0);
+  // Generate all possible time slots
+  for (let hour = workingStartHour; hour < workingEndHour; hour++) {
+    for (let minutes of [0, 30]) {
+      // Skip if this would go past working hours
+      if (hour === workingEndHour - 1 && minutes + slotDuration > 60) continue;
+      
+      const start = new Date(`${dateOnly}T${String(hour).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:00`);
+      const end = new Date(start.getTime() + slotDuration * 60000);
 
-  // Generate all possible slots
-  const allSlots = [];
-  let current = new Date(startTime);
-  
-  while (current < endTime) {
-    const slotEnd = new Date(current.getTime() + service.duration * 60000);
-    if (slotEnd > endTime) break;
-    
-    allSlots.push({
-      start: current.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }),
-      end: slotEnd.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }),
-      available: true // initially mark all as available
-    });
-    
-    current = new Date(current.getTime() + businessHours.slotInterval * 60000);
+      // Skip slots that would end after working hours
+      if (end.getHours() >= workingEndHour && end.getMinutes() > 0) continue;
+
+      // For today's date, skip slots that are in the past
+      if (isToday && start < currentTime) {
+        continue;
+      }
+
+      const startTime = start.toTimeString().substring(0, 5); // "HH:mm"
+      const endTime = end.toTimeString().substring(0, 5);
+
+      slots.push({
+        startTime,
+        endTime,
+        available: true // Mark all as available initially
+      });
+    }
   }
 
-  // Get existing appointments
-  const appointments = await Appointment.find({
+  // Get booked appointments for this service and date
+  const bookedAppointments = await Appointment.find({
+    service: serviceId,
     date: {
-      $gte: new Date(selectedDate.setHours(0, 0, 0, 0)),
-      $lte: new Date(selectedDate.setHours(23, 59, 59, 999))
+      $gte: new Date(dateOnly),
+      $lt: new Date(new Date(dateOnly).getTime() + 86400000) // Next day
     }
   });
 
-  // Mark booked slots
-  const slotsWithAvailability = allSlots.map(slot => {
-    const isBooked = appointments.some(appointment => {
-      const apptStart = new Date(`1970-01-01T${appointment.timeSlot.startTime}`);
-      const apptEnd = new Date(`1970-01-01T${appointment.timeSlot.endTime}`);
-      const slotStart = new Date(`1970-01-01T${slot.start}`);
-      const slotEnd = new Date(`1970-01-01T${slot.end}`);
-      
-      return (slotStart < apptEnd && slotEnd > apptStart);
-    });
+  // Mark only exact matches as booked
+  bookedAppointments.forEach(booking => {
+    const bookedStart = booking.timeSlot.startTime.padStart(5, '0');
+    const bookedEnd = booking.timeSlot.endTime.padStart(5, '0');
     
-    return {
-      ...slot,
-      available: !isBooked
-    };
+    const slotIndex = slots.findIndex(
+      s => s.startTime === bookedStart && s.endTime === bookedEnd
+    );
+    
+    if (slotIndex !== -1) {
+      slots[slotIndex].available = false;
+    }
   });
 
-  res.status(200).json({
+  return res.json({
     success: true,
-    data: slotsWithAvailability
+    date: dateOnly,
+    data: slots
   });
-});
+};
 
 
+
+
+// // @desc    Create new appointment
+// // @route   POST /api/v1/appointments
+// // @access  Private/Admin
+// exports.createAppointment = asyncHandler(async (req, res, next) => {
+//   // Get logged-in user ID from token
+//   const userId = req.user.id;
+//   // Check customer exists
+//   // const customer = await Customer.findById(req.body.customer);
+//   // Find the Customer using the user ID
+//   const customer = await Customer.findOne({ user: userId });
+//   if (!customer) {
+//     return next(
+//       new ErrorResponse(`Customer not found with user id of ${userId}`, 404)
+//     );
+//   }
+//   // Replace the customer ID in request body with correct one
+//   req.body.customer = customer._id;
+//   // Check service exists
+//   const service = await Service.findById(req.body.service);
+//   if (!service) {
+//     return next(
+//       new ErrorResponse(`Service not found with id of ${req.body.service}`, 404)
+//     );
+//   }
+
+//   // Add user as creator
+//   // req.body.createdBy = req.user.id;
+
+//  // Add user as creator
+//  req.body.createdBy = userId;
+//   const appointment = await Appointment.create(req.body);
+
+//   // Get customer's user info for notification
+//   const customerUser = await User.findById(customer.user);
+
+//   // Send confirmation email to customer
+//   if (customerUser && customerUser.email) {
+//     try {
+//       const formattedDate = new Date(appointment.date).toLocaleString('en-US', {
+//         weekday: 'long',
+//         year: 'numeric',
+//         month: 'long',
+//         day: 'numeric'
+//       });
+      
+//       await sendEmail({
+//         email: customerUser.email,
+//         subject: 'Appointment Confirmation',
+//         message: `Your landscaping appointment has been scheduled for ${formattedDate} from ${appointment.timeSlot.startTime} to ${appointment.timeSlot.endTime}. Service: ${service.name}. Please contact us if you need to reschedule.`
+//       });
+
+//       // Update notification status
+//       appointment.notificationsStatus.confirmationSent = true;
+//       await appointment.save();
+//     } catch (err) {
+//       console.log('Email notification failed:', err);
+//     }
+//   }
+
+//   res.status(201).json({
+//     success: true,
+//     data: appointment
+//   });
+// });
 
 
 
 // @desc    Create new appointment
 // @route   POST /api/v1/appointments
-// @access  Private/Admin
+// @access  Private
 exports.createAppointment = asyncHandler(async (req, res, next) => {
   // Get logged-in user ID from token
   const userId = req.user.id;
-  // Check customer exists
-  // const customer = await Customer.findById(req.body.customer);
+
   // Find the Customer using the user ID
   const customer = await Customer.findOne({ user: userId });
   if (!customer) {
@@ -341,9 +669,8 @@ exports.createAppointment = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`Customer not found with user id of ${userId}`, 404)
     );
   }
-  // Replace the customer ID in request body with correct one
-  req.body.customer = customer._id;
-  // Check service exists
+
+  // Check service exists and get tenantId from it
   const service = await Service.findById(req.body.service);
   if (!service) {
     return next(
@@ -351,37 +678,68 @@ exports.createAppointment = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // Add user as creator
-  // req.body.createdBy = req.user.id;
+  // Prepare appointment data
+  const appointmentData = {
+    ...req.body,
+    tenantId: service.tenantId, // Set tenant from service
+    customer: customer._id,     // Set customer from logged in user
+    createdBy: userId           // Set creator
+  };
 
- // Add user as creator
- req.body.createdBy = userId;
-  const appointment = await Appointment.create(req.body);
+  // Create appointment
+  const appointment = await Appointment.create(appointmentData);
 
   // Get customer's user info for notification
   const customerUser = await User.findById(customer.user);
 
   // Send confirmation email to customer
-  if (customerUser && customerUser.email) {
+  if (customerUser?.email) {
     try {
       const formattedDate = new Date(appointment.date).toLocaleString('en-US', {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
-        day: 'numeric'
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
       });
+
+      // Get tenant info for email personalization
+      const tenant = await Tenant.findById(service.tenantId);
       
       await sendEmail({
         email: customerUser.email,
-        subject: 'Appointment Confirmation',
-        message: `Your landscaping appointment has been scheduled for ${formattedDate} from ${appointment.timeSlot.startTime} to ${appointment.timeSlot.endTime}. Service: ${service.name}. Please contact us if you need to reschedule.`
+        subject: `Appointment Confirmation - ${tenant?.name || 'Our Service'}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #2d3748;">Your Appointment is Confirmed</h2>
+            <p>Hello ${customerUser.name},</p>
+            
+            <div style="background: #f7fafc; padding: 16px; border-radius: 8px; margin: 16px 0;">
+              <h3 style="margin-top: 0; color: #4a5568;">Appointment Details</h3>
+              <p><strong>Service:</strong> ${service.name}</p>
+              <p><strong>Date & Time:</strong> ${formattedDate}</p>
+              <p><strong>Duration:</strong> ${appointment.timeSlot.endTime - appointment.timeSlot.startTime} minutes</p>
+              ${tenant?.phone ? `<p><strong>Contact:</strong> ${tenant.phone}</p>` : ''}
+            </div>
+
+            <p>If you need to reschedule or have any questions, please contact us.</p>
+            
+            <p style="margin-top: 24px;">Best regards,<br>
+            ${tenant?.name || 'The Service Team'}</p>
+          </div>
+        `
       });
 
       // Update notification status
-      appointment.notificationsStatus.confirmationSent = true;
+      appointment.notificationsStatus = {
+        confirmationSent: true,
+        sentAt: new Date()
+      };
       await appointment.save();
     } catch (err) {
-      console.log('Email notification failed:', err);
+      console.error('Email notification failed:', err);
+      // Don't fail the request just because email failed
     }
   }
 
@@ -724,9 +1082,118 @@ exports.getMyAppointments = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc    Request reschedule (Customer)
-// @route   PUT /api/v1/appointments/:id/reschedule-request
-// @access  Private/Customer
+// // // @desc    Request reschedule (Customer)
+// // // @route   PUT /api/v1/appointments/:id/reschedule-request
+// // // @access  Private/Customer
+// // exports.requestReschedule = asyncHandler(async (req, res, next) => {
+// //   const { requestedDate, requestedTime, reason } = req.body;
+
+// //   if (!requestedDate || !requestedTime) {
+// //     return next(new ErrorResponse(`Please provide requested date and time`, 400));
+// //   }
+
+// //   const appointment = await Appointment.findById(req.params.id);
+
+// //   if (!appointment) {
+// //     return next(new ErrorResponse(`Appointment not found with id of ${req.params.id}`, 404));
+// //   }
+
+// //   // Verify customer owns this appointment
+// //   const customer = await Customer.findOne({ user: req.user.id });
+// //   if (!customer || appointment.customer.toString() !== customer._id.toString()) {
+// //     return next(new ErrorResponse(`Not authorized to reschedule this appointment`, 403));
+// //   }
+
+// //   // Parse the time slot (assuming format "HH:MM - HH:MM")
+// //   const [startTime, endTime] = requestedTime.split(' - ');
+
+// //   // Update the appointment with new date/time
+// //   appointment.date = requestedDate;
+// //   appointment.timeSlot = {
+// //     startTime: startTime.trim(),
+// //     endTime: endTime.trim()
+// //   };
+  
+// //   // Add reschedule request to notes
+// //   if (!appointment.notes.customer) {
+// //     appointment.notes.customer = '';
+// //   }
+  
+// //   appointment.notes.customer += `\n[RESCHEDULE REQUEST] Date: ${requestedDate}, Time: ${requestedTime}, Reason: ${reason || 'Not provided'}`;
+// //   appointment.status = 'Rescheduled';
+  
+// //   await appointment.save();
+
+// //   // Notify admin about reschedule request
+// //   try {
+// //     const admins = await User.find({ role: 'admin' });
+// //     if (admins.length > 0) {
+// //       await sendEmail({
+// //         email: admins[0].email,
+// //         subject: 'Appointment Reschedule Request',
+// //         message: `Customer ${req.user.name} has requested to reschedule their appointment on ${new Date(appointment.date).toLocaleDateString()} to ${requestedDate} at ${requestedTime}. Reason: ${reason || 'Not provided'}`
+// //       });
+// //     }
+// //   } catch (err) {
+// //     console.log('Reschedule notification failed:', err);
+// //   }
+
+// //   res.status(200).json({
+// //     success: true,
+// //     data: appointment
+// //   });
+// // });
+
+
+
+// exports.requestReschedule = asyncHandler(async (req, res, next) => {
+//   const { requestedDate, requestedTime } = req.body;
+  
+//   // Parse time slot
+//   const [startTime, endTime] = requestedTime.split(' - ').map(t => t.trim());
+
+//   // Create datetime in UTC by combining date and time
+//   const newAppointmentDate = new Date(`${requestedDate}T${startTime}:00Z`);
+  
+//   // Get current time in UTC
+//   const now = new Date();
+//   const bufferTime = new Date(now.getTime() + 5 * 60 * 1000); // 5 minute buffer
+
+//   // Debug logs
+//   console.log("Received reschedule request:", {
+//     requestedDate,
+//     requestedTime,
+//     newAppointmentDate,
+//     now,
+//     bufferTime
+//   });
+
+//   if (newAppointmentDate < bufferTime) {
+//     return next(new ErrorResponse(`Cannot reschedule to a past date/time`, 400));
+//   }
+
+//   // Update appointment with UTC date
+//   appointment.date = newAppointmentDate;
+//   appointment.timeSlot = { startTime, endTime };
+//   appointment.status = 'Rescheduled';
+  
+//   // Add reschedule note with local time display
+//   const localDateStr = newAppointmentDate.toLocaleDateString();
+//   const localTimeStr = `${startTime}-${endTime}`;
+//   appointment.notes.customer = (appointment.notes.customer || '') + 
+//     `\n[RESCHEDULE REQUEST] Date: ${localDateStr}, Time: ${localTimeStr}, Reason: Customer requested reschedule`;
+
+//   await appointment.save();
+
+//   res.status(200).json({
+//     success: true,
+//     data: appointment
+//   });
+// });
+
+
+
+
 exports.requestReschedule = asyncHandler(async (req, res, next) => {
   const { requestedDate, requestedTime, reason } = req.body;
 
@@ -746,38 +1213,60 @@ exports.requestReschedule = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`Not authorized to reschedule this appointment`, 403));
   }
 
-  // Parse the time slot (assuming format "HH:MM - HH:MM")
-  const [startTime, endTime] = requestedTime.split(' - ');
+  // Parse time slot
+  const [startTime, endTime] = requestedTime.split(' - ').map(t => t.trim());
 
-  // Update the appointment with new date/time
-  appointment.date = requestedDate;
-  appointment.timeSlot = {
-    startTime: startTime.trim(),
-    endTime: endTime.trim()
-  };
+  // Create datetime in UTC by combining date and time
+  const newAppointmentDate = new Date(`${requestedDate}T${startTime}:00Z`);
   
-  // Add reschedule request to notes
-  if (!appointment.notes.customer) {
-    appointment.notes.customer = '';
+  // Get current time in UTC
+  const now = new Date();
+  const bufferTime = new Date(now.getTime() + 5 * 60 * 1000); // 5 minute buffer
+
+  if (newAppointmentDate < bufferTime) {
+    return next(new ErrorResponse(`Cannot reschedule to a past date/time`, 400));
   }
-  
-  appointment.notes.customer += `\n[RESCHEDULE REQUEST] Date: ${requestedDate}, Time: ${requestedTime}, Reason: ${reason || 'Not provided'}`;
+
+  // Update appointment with UTC date
+  appointment.date = newAppointmentDate;
+  appointment.timeSlot = { startTime, endTime };
   appointment.status = 'Rescheduled';
   
+  // Add reschedule note with local time display
+  const localDateStr = newAppointmentDate.toLocaleDateString();
+  const localTimeStr = `${startTime}-${endTime}`;
+  appointment.notes.customer = (appointment.notes.customer || '') + 
+    `\n[RESCHEDULE REQUEST] Date: ${localDateStr}, Time: ${localTimeStr}, Reason: ${reason || 'Not provided'}`;
+
   await appointment.save();
 
   // Notify admin about reschedule request
   try {
     const admins = await User.find({ role: 'admin' });
     if (admins.length > 0) {
+      // Format date for email in a user-friendly way
+      const formattedDate = newAppointmentDate.toLocaleString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZoneName: 'short'
+      });
+
       await sendEmail({
         email: admins[0].email,
         subject: 'Appointment Reschedule Request',
-        message: `Customer ${req.user.name} has requested to reschedule their appointment on ${new Date(appointment.date).toLocaleDateString()} to ${requestedDate} at ${requestedTime}. Reason: ${reason || 'Not provided'}`
+        message: `Customer ${req.user.name} has requested to reschedule their appointment to:
+        \n\nNew Date/Time: ${formattedDate}
+        \nTime Slot: ${startTime} - ${endTime}
+        \nReason: ${reason || 'Not provided'}`
       });
     }
   } catch (err) {
     console.log('Reschedule notification failed:', err);
+    // Don't fail the request if email fails
   }
 
   res.status(200).json({
@@ -785,6 +1274,7 @@ exports.requestReschedule = asyncHandler(async (req, res, next) => {
     data: appointment
   });
 });
+
 
 // @desc    Get appointments by date range
 // @route   GET /api/v1/appointments/calendar

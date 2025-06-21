@@ -29,7 +29,7 @@ router.get('/me/history', protect, authorize('customer'), getMyServiceHistory);
 router.route('/')
   .get(
     protect, 
-    authorize('admin'), 
+    authorize('tenantAdmin'), 
     advancedResults(Customer, {
       path: 'user',
       select: 'name email phone'

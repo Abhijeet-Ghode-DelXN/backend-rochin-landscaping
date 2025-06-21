@@ -106,30 +106,162 @@ const validator = require('validator');
 // @desc    Register user
 // @route   POST /api/v1/auth/register
 // @access  Public
+// exports.register = asyncHandler(async (req, res, next) => {
+//   const { name, email, password, role, phone } = req.body;
+
+  
+//   // Validate fields
+//   if (!name || !email || !password || !role) {
+//     return next(new ErrorResponse('Please provide all required fields', 400));
+//   }
+
+   
+//   // ✅ Step 1: Check email format with stricter validation using regex
+//   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
+
+
+//   if (!emailRegex.test(email)) {
+//     return next(new ErrorResponse('Invalid email format', 400));
+//   }
+//   // Password strength validation (minimum 8 characters)
+//   if (!validator.isLength(password, { min: 8 })) {
+//     return next(new ErrorResponse('Password must be at least 8 characters long', 400));
+//   }
+
+
+
+
+//   // Create user
+//   const user = await User.create({
+//     name,
+//     email,
+//     password,
+//     phone,
+//     role,
+    
+//   });
+
+//   // Create verification token
+//   const verificationToken = user.getEmailVerificationToken();
+//   await user.save({ validateBeforeSave: false });
+
+//   // Create verification URL
+//   const verificationUrl = `${req.protocol}://${req.get('host')}/api/v1/auth/verify-email/${verificationToken}`;
+//   const message = `You are receiving this email because you need to confirm your email address. Please make a GET request to: \n\n ${verificationUrl}`;
+//   console.log('Verification URL (dev):', verificationUrl);
+  
+//   try {
+//     try {
+//       await sendEmail({
+//         email: user.email,
+//         subject: 'Email Verification',
+//         message
+//       });
+//       console.log('Verification email sent successfully');
+//     } catch (emailError) {
+//       console.error('Email error, but continuing registration process:', emailError);
+//       // In development, we'll continue without sending email
+//       if (process.env.NODE_ENV === 'production') {
+//         throw emailError; // Only throw in production
+//       }
+//     }
+
+//     let customer = null;
+
+//     // Create customer profile
+//     const customerData = {
+//       user: user._id,
+      
+//       address: {
+//         street: 'N/A',
+//         city: 'N/A',
+//         state: 'N/A',
+//         zipCode: '00000'
+//       },
+
+
+  
+     
+//       // discounts: {
+//       //   firstService: 10 // 10% discount
+//       // },
+//        propertyDetails: [{
+//         name:'Primary Property',
+//   size: 1000,
+//   propertyAddress: {
+//       street: String,
+//       city: String,
+//       state: String,
+//       zipCode: String,
+//       country: String,
+//  },
+//   images: [], // Initialize as empty array or with actual image objects
+    
+//   features: {
+//     hasFrontYard: true,
+//     hasBackYard: true,
+//     hasTrees: false,
+//     hasGarden: false,
+//     hasSprinklerSystem: false
+//   }
+// }],
+
+
+
+//           servicePreferences: {
+//             preferredTimeOfDay: 'Any'
+//           },
+//           notificationPreferences: {
+//             email: true
+//           }
+//         };
+//         customer = await Customer.create(customerData);
+//         console.log('Customer profile created successfully:', customer);
+//       } catch (customerError) {
+//         console.error('Error creating customer profile:', customerError);
+//         // If customer creation fails, we should roll back user creation
+//         await User.findByIdAndDelete(user._id);
+//         return next(new ErrorResponse('Failed to create customer profile', 500));
+//       }
+//     }
+
+//     res.status(201).json({ 
+//       success: true, 
+//       message: 'User registered successfully. Please check your email to verify your account.' 
+//     });
+
+//   } catch (err) {
+//     console.error('Registration failed:', err);
+//     // Clean up created user if registration fails
+//     await User.findByIdAndDelete(user._id);
+//     next(err);
+//   }
+// });
+
+
+
+
+
+
 exports.register = asyncHandler(async (req, res, next) => {
   const { name, email, password, role, phone } = req.body;
 
-  
   // Validate fields
   if (!name || !email || !password || !role) {
     return next(new ErrorResponse('Please provide all required fields', 400));
   }
 
-   
   // ✅ Step 1: Check email format with stricter validation using regex
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
-
 
   if (!emailRegex.test(email)) {
     return next(new ErrorResponse('Invalid email format', 400));
   }
+
   // Password strength validation (minimum 8 characters)
   if (!validator.isLength(password, { min: 8 })) {
     return next(new ErrorResponse('Password must be at least 8 characters long', 400));
   }
-
-
-
 
   // Create user
   const user = await User.create({
@@ -138,7 +270,6 @@ exports.register = asyncHandler(async (req, res, next) => {
     password,
     phone,
     role,
-    
   });
 
   // Create verification token
@@ -149,7 +280,7 @@ exports.register = asyncHandler(async (req, res, next) => {
   const verificationUrl = `${req.protocol}://${req.get('host')}/api/v1/auth/verify-email/${verificationToken}`;
   const message = `You are receiving this email because you need to confirm your email address. Please make a GET request to: \n\n ${verificationUrl}`;
   console.log('Verification URL (dev):', verificationUrl);
-  
+
   try {
     try {
       await sendEmail({
@@ -171,59 +302,41 @@ exports.register = asyncHandler(async (req, res, next) => {
     // Create customer profile
     const customerData = {
       user: user._id,
-      
       address: {
         street: 'N/A',
         city: 'N/A',
         state: 'N/A',
         zipCode: '00000'
       },
-
-
-  
-     
-      // discounts: {
-      //   firstService: 10 // 10% discount
-      // },
-       propertyDetails: [{
-        name:'Primary Property',
-  size: 1000,
-  propertyAddress: {
-      street: String,
-      city: String,
-      state: String,
-      zipCode: String,
-      country: String,
- },
-  images: [], // Initialize as empty array or with actual image objects
-    
-  features: {
-    hasFrontYard: true,
-    hasBackYard: true,
-    hasTrees: false,
-    hasGarden: false,
-    hasSprinklerSystem: false
-  }
-}],
-
-
-
-          servicePreferences: {
-            preferredTimeOfDay: 'Any'
-          },
-          notificationPreferences: {
-            email: true
-          }
-        };
-        customer = await Customer.create(customerData);
-        console.log('Customer profile created successfully:', customer);
-      } catch (customerError) {
-        console.error('Error creating customer profile:', customerError);
-        // If customer creation fails, we should roll back user creation
-        await User.findByIdAndDelete(user._id);
-        return next(new ErrorResponse('Failed to create customer profile', 500));
+      propertyDetails: [{
+        name: 'Primary Property',
+        size: 1000,
+        propertyAddress: {
+          street: 'N/A',
+          city: 'N/A',
+          state: 'N/A',
+          zipCode: '00000',
+          country: 'N/A',
+        },
+        images: [], // Initialize as empty array or with actual image objects
+        features: {
+          hasFrontYard: true,
+          hasBackYard: true,
+          hasTrees: false,
+          hasGarden: false,
+          hasSprinklerSystem: false
+        }
+      }],
+      servicePreferences: {
+        preferredTimeOfDay: 'Any'
+      },
+      notificationPreferences: {
+        email: true
       }
-    }
+    };
+
+    customer = await Customer.create(customerData);
+    console.log('Customer profile created successfully:', customer);
 
     res.status(201).json({ 
       success: true, 
@@ -237,6 +350,9 @@ exports.register = asyncHandler(async (req, res, next) => {
     next(err);
   }
 });
+
+
+
 
 // @desc    Login user
 // @route   POST /api/v1/auth/login
