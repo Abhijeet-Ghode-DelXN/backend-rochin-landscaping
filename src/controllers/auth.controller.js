@@ -8,19 +8,6 @@ const sendEmail = require('../utils/sendEmail');
 const validator = require('validator');
 const { getTenantFrontendUrl } = require('../utils/tenantUrl');
 
-// Utility to ensure www and https:// in frontend URL
-function getWwwFrontendUrl() {
-  let url = process.env.FRONTEND_URL || '';
-  if (!/^https?:\/\//.test(url)) {
-    url = 'https://' + url;
-  }
-  // Add www if not present and not a localhost or IP
-  if (!/localhost|^\d+\.\d+\.\d+\.\d+/.test(url) && !/^https?:\/\/www\./.test(url)) {
-    url = url.replace(/^(https?:\/\/)/, '$1www.');
-  }
-  return url.replace(/\/$/, ''); // Remove trailing slash
-}
-
 // @desc    Register user (passwordless, sends password setup link)
 // @route   POST /api/v1/auth/register
 // @access  Public
@@ -83,7 +70,7 @@ exports.register = asyncHandler(async (req, res, next) => {
     setupUrl = getTenantFrontendUrl(tenant.subdomain, `/auth/set-password/${resetToken}`);
   } else {
     // Fallback for superAdmin or no tenant
-    setupUrl = `${getWwwFrontendUrl()}/auth/set-password/${resetToken}`;
+    setupUrl = `${process.env.FRONTEND_URL}/auth/set-password/${resetToken}`;
   }
   const message = `Welcome! Please set your password by visiting the following link:\n\n${setupUrl}\n\nThis link will expire in 1 hour.`;
 
@@ -247,10 +234,10 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
     if (tenant && tenant.subdomain) {
       resetUrl = getTenantFrontendUrl(tenant.subdomain, `/reset-password/${resetToken}`);
     } else {
-      resetUrl = `${getWwwFrontendUrl()}/reset-password/${resetToken}`;
+      resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
     }
   } else {
-    resetUrl = `${getWwwFrontendUrl()}/reset-password/${resetToken}`;
+    resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
   }
   const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please go to this URL to reset your password: \n\n ${resetUrl}`;
 
