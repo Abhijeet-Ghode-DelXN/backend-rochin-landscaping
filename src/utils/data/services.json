@@ -1,0 +1,151 @@
+[
+  {
+    "_id": "7d7a514b5d2c12c7449be042",
+    "name": "Basic Lawn Mowing",
+    "description": "Professional lawn mowing service including edging and cleanup.",
+    "category": "Lawn Maintenance",
+    "duration": 60,
+    "basePrice": 50,
+    "priceUnit": "flat",
+    "recurringOptions": {
+      "isRecurring": true,
+      "frequencies": ["One-time", "Weekly", "Bi-weekly", "Monthly"],
+      "discounts": {
+        "Weekly": 10,
+        "Bi-weekly": 5,
+        "Monthly": 3
+      }
+    },
+    "packages": [
+      {
+        "name": "Basic",
+        "description": "Standard lawn mowing service",
+        "additionalFeatures": ["Grass cutting", "Edge trimming"],
+        "priceMultiplier": 1
+      },
+      {
+        "name": "Standard",
+        "description": "Enhanced lawn mowing service",
+        "additionalFeatures": ["Grass cutting", "Edge trimming", "Sidewalk blowing", "Fertilizer application"],
+        "priceMultiplier": 1.5
+      },
+      {
+        "name": "Premium",
+        "description": "Complete lawn care service",
+        "additionalFeatures": ["Grass cutting", "Edge trimming", "Sidewalk blowing", "Fertilizer application", "Weed control", "Lawn inspection"],
+        "priceMultiplier": 2
+      }
+    ],
+    "isActive": true,
+    "image": "lawn-mowing.jpg"
+  },
+  {
+    "_id": "7d7a514b5d2c12c7449be043",
+    "name": "Garden Planting",
+    "description": "Professional garden planting and design service.",
+    "category": "Gardening",
+    "duration": 180,
+    "basePrice": 200,
+    "priceUnit": "flat",
+    "recurringOptions": {
+      "isRecurring": false,
+      "frequencies": ["One-time"]
+    },
+    "packages": [
+      {
+        "name": "Basic",
+        "description": "Simple garden planting",
+        "additionalFeatures": ["Plant installation", "Basic layout design"],
+        "priceMultiplier": 1
+      },
+      {
+        "name": "Standard",
+        "description": "Enhanced garden planting with better design",
+        "additionalFeatures": ["Plant installation", "Advanced layout design", "Soil preparation", "Mulch application"],
+        "priceMultiplier": 1.5
+      },
+      {
+        "name": "Premium",
+        "description": "Premium garden design and planting",
+        "additionalFeatures": ["Plant installation", "Professional landscape design", "Soil preparation", "Mulch application", "Decorative elements", "Irrigation setup"],
+        "priceMultiplier": 2.5
+      }
+    ],
+    "isActive": true,
+    "image": "garden-planting.jpg"
+  },
+  {
+    "_id": "7d7a514b5d2c12c7449be044",
+    "name": "Tree Pruning",
+    "description": "Professional tree pruning and trimming service.",
+    "category": "Tree Service",
+    "duration": 120,
+    "basePrice": 150,
+    "priceUnit": "hourly",
+    "recurringOptions": {
+      "isRecurring": true,
+      "frequencies": ["One-time", "Quarterly", "Annually"],
+      "discounts": {
+        "Quarterly": 2,
+        "Annually": 15
+      }
+    },
+    "packages": [
+      {
+        "name": "Basic",
+        "description": "Basic tree pruning service",
+        "additionalFeatures": ["Deadwood removal", "Shape pruning"],
+        "priceMultiplier": 1
+      },
+      {
+        "name": "Standard",
+        "description": "Comprehensive tree pruning service",
+        "additionalFeatures": ["Deadwood removal", "Shape pruning", "Crown thinning", "Health assessment"],
+        "priceMultiplier": 1.4
+      },
+      {
+        "name": "Premium",
+        "description": "Complete tree care service",
+        "additionalFeatures": ["Deadwood removal", "Shape pruning", "Crown thinning", "Health assessment", "Pest treatment", "Fertilization"],
+        "priceMultiplier": 2
+      }
+    ],
+    "isActive": true,
+    "image": "tree-pruning.jpg"
+  },
+  {
+    "_id": "7d7a514b5d2c12c7449be045",
+    "name": "Irrigation System Installation",
+    "description": "Professional installation of sprinkler and irrigation systems.",
+    "category": "Irrigation",
+    "duration": 360,
+    "basePrice": 800,
+    "priceUnit": "flat",
+    "recurringOptions": {
+      "isRecurring": false,
+      "frequencies": ["One-time"]
+    },
+    "packages": [
+      {
+        "name": "Basic",
+        "description": "Simple irrigation system",
+        "additionalFeatures": ["Sprinkler installation", "Basic timer setup"],
+        "priceMultiplier": 1
+      },
+      {
+        "name": "Standard",
+        "description": "Enhanced irrigation system",
+        "additionalFeatures": ["Sprinkler installation", "Smart timer setup", "Rain sensor", "Zone division"],
+        "priceMultiplier": 1.5
+      },
+      {
+        "name": "Premium",
+        "description": "Premium smart irrigation system",
+        "additionalFeatures": ["Sprinkler installation", "Smart timer setup", "Rain sensor", "Zone division", "Smart phone control", "Water usage monitoring", "Maintenance plan"],
+        "priceMultiplier": 2.2
+      }
+    ],
+    "isActive": true,
+    "image": "irrigation-system.jpg"
+  }
+] 

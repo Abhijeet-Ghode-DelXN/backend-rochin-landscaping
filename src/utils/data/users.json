@@ -1,0 +1,55 @@
+[
+  {
+    "_id": "5d7a514b5d2c12c7449be042",
+    "name": "Admin User",
+    "email": "admin@landscaping.com",
+    "role": "superAdmin",
+    "password": "123456",
+    "phone": "555-123-4567",
+    "isEmailVerified": true
+  },
+  {
+    "_id": "60d5f2f5a8b7a8a8d8e8a8a9",
+    "name": "Jane Doe",
+    "email": "jane@rochinlandscaping.com",
+    "password": "password123",
+    "role": "tenantAdmin",
+    "tenantId": "60d5f2f5a8b7a8a8d8e8a8a8"
+  },
+  {
+    "_id": "5d7a514b5d2c12c7449be043",
+    "name": "John Professional",
+    "email": "john@landscaping.com",
+    "role": "professional",
+    "password": "123456",
+    "phone": "555-234-5678",
+    "isEmailVerified": true
+  },
+  {
+    "_id": "5d7a514b5d2c12c7449be044",
+    "name": "Jane Professional",
+    "email": "jane@landscaping.com",
+    "role": "professional",
+    "password": "123456",
+    "phone": "555-345-6789",
+    "isEmailVerified": true
+  },
+  {
+    "_id": "5d7a514b5d2c12c7449be045",
+    "name": "Steve Customer",
+    "email": "steve@example.com",
+    "role": "customer",
+    "password": "123456",
+    "phone": "555-456-7890",
+    "isEmailVerified": true
+  },
+  {
+    "_id": "5d7a514b5d2c12c7449be046",
+    "name": "Mary Customer",
+    "email": "mary@example.com",
+    "role": "customer",
+    "password": "123456",
+    "phone": "555-567-8901",
+    "isEmailVerified": true
+  }
+] 
