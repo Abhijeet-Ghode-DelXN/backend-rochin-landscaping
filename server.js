@@ -58,12 +58,19 @@ app.use(cors({
       return callback(null, true);
     }
     
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+const basketbuddyRegex = /^https?:\/\/([a-z0-9-]+\.)*basketbuddy\.in$/;
+
+if (
+  origin.includes('localhost:3000') || 
+  origin.includes('127.0.0.1:3000') ||
+  allowedOrigins.includes(origin) ||
+  basketbuddyRegex.test(origin)
+) {
+  callback(null, true);
+} else {
+  callback(new Error('Not allowed by CORS'));
+}
+
   credentials: true, // Allow cookies to be sent
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-Tenant-Subdomain', 'x-tenant-id', 'x-tenant-subdomain' ]
