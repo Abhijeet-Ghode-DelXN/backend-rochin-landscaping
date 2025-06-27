@@ -13,7 +13,7 @@ const { createGalleryValidation, updateGalleryValidation } = require('../middlew
 const validate = require('../middlewares/validators/validate');
 
 // Public routes
-router.get('/',protect,authorize('tenantAdmin'), getGalleries);
+router.get('/',protect,authorize('tenantAdmin',), getGalleries);
 router.get('/:id', getGallery);
 
 // Protected routes

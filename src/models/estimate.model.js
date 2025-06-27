@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const tenantScopePlugin = require('./plugins/tenantScope.plugin');
 
 const EstimateSchema = new mongoose.Schema({
+  tenant: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Tenant',
+      required: true
+    },
   services: [{
     service: {
       type: mongoose.Schema.Types.ObjectId,

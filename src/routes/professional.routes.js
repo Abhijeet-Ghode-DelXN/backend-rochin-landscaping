@@ -17,14 +17,14 @@ const { protect, authorize } = require('../middlewares/auth');
 
 // Apply protection and authorization to all routes
 router.use(protect);
-router.use(authorize('admin'));
+router.use(authorize('tenantAdmin'));
 
 // Available professionals route
 router.get('/available', getAvailableProfessionals);
 
 // Base professional routes
 router.route('/')
-  .get(authorize('admin'), getProfessionals)
+  .get(authorize('tenantAdmin'), getProfessionals)
   .post(createProfessional);
 
 // Individual professional routes
@@ -36,7 +36,7 @@ router.route('/:id')
 
 router
   .route('/:id/crew')
-  .put(protect, authorize('admin'), updateAppointmentCrew);
+  .put(protect, authorize('tenantAdmin'), updateAppointmentCrew);
 
 // Professional workload route
 router.get('/:id/workload', getProfessionalWorkload);

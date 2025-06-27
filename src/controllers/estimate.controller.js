@@ -8,10 +8,51 @@ const cloudinary = require('../utils/cloudinary');
 const sendEmail = require('../utils/sendEmail');
 const Service = require('../models/service.model'); // Adjust the path as needed
 
+// controllers/estimate.controller.js
+
 // @desc    Get all estimates
 // @route   GET /api/v1/estimates
 // @access  Private/Admin
 exports.getEstimates = asyncHandler(async (req, res, next) => {
+  // Initialize query
+  let query;
+
+  // For super admin - get all estimates with tenant population
+  if (req.user.role === 'superAdmin') {
+    query = Estimate.find().populate('tenant', 'name subdomain');
+  } 
+  // For tenant admin/staff - get only their tenant's estimates
+  else if (req.user.tenantId) {
+    query = Estimate.find({ tenant: req.user.tenantId });
+  }
+  // For customers - get only their own estimates
+  else if (req.user.role === 'customer') {
+    query = Estimate.find({ customer: req.user.id });
+  } else {
+    return next(new ErrorResponse('Not authorized to access estimates', 403));
+  }
+
+  // Populate customer and service details
+  query = query
+    .populate({
+      path: 'customer',
+      select: 'user propertyDetails',
+      populate: {
+        path: 'user',
+        select: 'name email phone'
+      }
+    })
+    .populate({
+      path: 'services.service',
+      select: 'name description basePrice category'
+    })
+    .populate({
+      path: 'createdBy',
+      select: 'name email role'
+    })
+    .sort('-createdAt');
+
+  // Execute query with advanced results middleware
   res.status(200).json(res.advancedResults);
 });
 

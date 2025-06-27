@@ -5,7 +5,7 @@ const { protect, authorize } = require('../middlewares/auth');
 
 // Public routes - no authentication needed
 router.get('/active', announcementController.getActiveAnnouncement);
-router.get('/', announcementController.getAnnouncements);
+router.get('/',protect, authorize('tenantAdmin'),  announcementController.getAnnouncements);
 
 // Protected routes - require admin authentication
 router.post('/', protect, authorize('tenantAdmin'), announcementController.createAnnouncement);

@@ -782,7 +782,7 @@ exports.updateAppointment = asyncHandler(async (req, res, next) => {
   };
 
   // Update logic based on user role
-  if (req.user.role === 'admin' || req.user.role === 'professional') {
+  if (req.user.role === 'tenantAdmin' || req.user.role === 'professional') {
     appointment = await Appointment.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
@@ -1000,7 +1000,7 @@ exports.uploadServicePhotos = asyncHandler(async (req, res, next) => {
   }
 
   // Check if user is authorized to upload photos
-  if (req.user.role !== 'admin' && req.user.role !== 'professional') {
+  if (req.user.role !== 'tenantAdmin' && req.user.role !== 'professional') {
     return next(
       new ErrorResponse(`Not authorized to upload photos for this appointment`, 403)
     );

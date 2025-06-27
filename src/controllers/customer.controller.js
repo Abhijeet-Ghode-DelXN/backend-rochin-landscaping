@@ -637,14 +637,20 @@ exports.deleteCustomer = asyncHandler(async (req, res, next) => {
     );
   }
 
-   await customer.deleteOne(); 
+  // Check if the customer belongs to the tenant (for tenant admins)
+  if (req.user.role === 'tenantAdmin' && !customer.tenants.includes(req.user.tenantId)) {
+    return next(
+      new ErrorResponse(`Not authorized to delete this customer`, 403)
+    );
+  }
+
+  await customer.deleteOne(); 
 
   res.status(200).json({
     success: true,
     data: {}
   });
 });
-
 // @desc    Get customer service history
 // @route   GET /api/v1/customers/:id/history
 // @access  Private/Admin

@@ -105,11 +105,11 @@ router.get('/calendar',
 // router.get('/:id',getAppointment);
 router.get('/:id', protect, authorize('tenantAdmin'),getAppointment);
 router.put('/:id/reschedule-request', protect, authorize('customer'), requestReschedule);
-router.post('/:id/photos', protect, authorize('admin', 'professional'), uploadServicePhotos);
+router.post('/:id/photos', protect, authorize('tenantAdmin', 'professional'), uploadServicePhotos);
 
 // Admin and Professional routes
 router.post('/', protect, authorize('customer'), createAppointment);
-router.put('/:id', protect, authorize('admin', 'professional'), updateAppointment);
+router.put('/:id', protect, authorize('tenantAdmin', 'professional'), updateAppointment);
 router.delete('/:id', protect, deleteAppointment);
 
 

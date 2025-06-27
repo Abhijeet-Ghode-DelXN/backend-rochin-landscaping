@@ -36,7 +36,7 @@ router.route('/')
     }),
     getCustomers
   )
-  .post(protect, authorize('admin'), createCustomerByAdmin);
+  .post(protect, authorize('tenantAdmin'), createCustomerByAdmin);
 
 
   router.post(
@@ -54,10 +54,10 @@ router.delete(
   
 
 router.route('/:id')
-  .get(protect, authorize('admin'), getCustomer)
-  .put(protect, authorize('admin'), updateCustomer)
-  .delete(protect, authorize('admin'), deleteCustomer);
+  .get(protect, authorize('tenantAdmin'), getCustomer)
+  .put(protect, authorize('tenantAdmin'), updateCustomer)
+  .delete(protect, authorize('tenantAdmin'), deleteCustomer);
 
-router.get('/:id/history', protect, authorize('admin'), getCustomerHistory);
+router.get('/:id/history', protect, authorize('tenantAdmin'), getCustomerHistory);
 
 module.exports = router; 

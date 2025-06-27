@@ -11,10 +11,25 @@ exports.createAnnouncement = asyncHandler(async (req, res, next) => {
   res.status(201).json(announcement);
 });
 
-// Get all announcements
+// @desc    Get all announcements (tenant-specific)
+// @route   GET /api/v1/announcements
+// @access  Private
 exports.getAnnouncements = asyncHandler(async (req, res, next) => {
-  const announcements = await Announcement.find().sort({ createdAt: -1 });
-  res.json(announcements);
+  let query = {};
+  
+  // For non-superAdmin users, filter by tenant
+  if (req.user.role !== 'superAdmin' && req.user.tenantId) {
+    query.tenant = req.user.tenantId;
+  }
+
+  const announcements = await Announcement.find(query)
+    .sort({ createdAt: -1 })
+    .populate('tenant', 'name subdomain');
+    
+  res.status(200).json({
+    success: true,
+    data: announcements
+  });
 });
 
 // Get active announcement
