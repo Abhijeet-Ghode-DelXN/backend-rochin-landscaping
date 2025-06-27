@@ -50,24 +50,33 @@ const allowedOrigins = [
 // CORS configuration
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
-    
-    // Allow localhost and all its subdomains for development
-    if (origin.includes('localhost:3000') || origin.includes('127.0.0.1:3000')) {
+
+    const basketbuddyRegex = /^https?:\/\/([a-z0-9-]+\.)*basketbuddy\.in$/;
+
+    if (
+      origin.includes('localhost:3000') ||
+      origin.includes('127.0.0.1:3000') ||
+      allowedOrigins.includes(origin) ||
+      basketbuddyRegex.test(origin)
+    ) {
       return callback(null, true);
-    }
-    
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      return callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true, // Allow cookies to be sent
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-Tenant-Subdomain', 'x-tenant-id', 'x-tenant-subdomain' ]
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'X-Requested-With',
+    'X-Tenant-Subdomain',
+    'x-tenant-id',
+    'x-tenant-subdomain'
+  ]
 }));
+
 
 // Add this before your routes
 app.use(fileUpload({
