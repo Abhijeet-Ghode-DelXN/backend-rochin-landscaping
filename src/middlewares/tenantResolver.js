@@ -43,6 +43,7 @@ exports.resolveTenant = asyncHandler(async (req, res, next) => {
   // Prefer subdomain from host; fallback to custom header for SPA calls from main domain
   const headerSubdomain = req.headers['x-tenant-subdomain'];
   const subdomain = headerSubdomain || extractSubdomain(req.headers.host);
+  console.log('Tenant Resolver: headerSubdomain:', headerSubdomain, 'extracted subdomain:', subdomain);
   // Skip tenant resolution if request is to the API host itself (no tenant context)
   const apiLabelsToIgnore = (process.env.API_HOST_LABELS || 'backend-rochin-landscaping,api').split(',').map(l => l.trim()).filter(Boolean);
   if (!headerSubdomain && apiLabelsToIgnore.includes(subdomain)) {
@@ -58,8 +59,11 @@ exports.resolveTenant = asyncHandler(async (req, res, next) => {
   const tenant = await Tenant.findOne({ subdomain });
   
   if (!tenant) {
+    console.log('Tenant Resolver: No tenant found for subdomain:', subdomain);
     return next(new ErrorResponse(`Tenant not found for subdomain: ${subdomain}`, 404));
   }
+  console.log('Tenant Resolver: Tenant found:', tenant.name, tenant._id);
+  req.tenant = tenant;
   
   // Check if tenant is active
   if (tenant.subscription?.status === 'inactive') {

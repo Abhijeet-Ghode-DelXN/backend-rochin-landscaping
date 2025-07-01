@@ -11,10 +11,11 @@ const {
 const { protect, authorize } = require('../middlewares/auth');
 const { createGalleryValidation, updateGalleryValidation } = require('../middlewares/validators/gallery.validator');
 const validate = require('../middlewares/validators/validate');
+const tenantResolver = require('../middlewares/tenantResolver');
 
 // Public routes
-router.get('/',protect,authorize('tenantAdmin',), getGalleries);
-router.get('/:id', getGallery);
+router.get('/', tenantResolver.resolveTenant, getGalleries);
+router.get('/:id', tenantResolver.resolveTenant, getGallery);
 
 // Protected routes
 router.use(protect);

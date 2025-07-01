@@ -11,10 +11,11 @@ const {
 const { protect, authorize } = require('../middlewares/auth');
 const { createPortfolioValidation, updatePortfolioValidation } = require('../middlewares/validators/portfolio.validator');
 const validate = require('../middlewares/validators/validate');
+const tenantResolver = require('../middlewares/tenantResolver');
 
 // Public routes
-router.get('/', protect, authorize('tenantAdmin'), getPortfolios);
-router.get('/:id', getPortfolio);
+router.get('/', tenantResolver.resolveTenant, getPortfolios);
+router.get('/:id', tenantResolver.resolveTenant, getPortfolio);
 
 // Protected routes (Admin only)
 router.post(
