@@ -16,13 +16,14 @@ const {
 const router = express.Router();
 
 const { protect } = require('../middlewares/auth');
+const tenantResolver = require('../middlewares/tenantResolver');
 
 router.post('/register', register);
 router.post('/login', login);
 router.get('/logout', logout);
 router.get('/me', protect, getMe);
-router.post('/forgotpassword', forgotPassword);
-router.put('/resetpassword/:resettoken', resetPassword);
+router.post('/forgotpassword', tenantResolver.resolveTenant, forgotPassword);
+router.put('/resetpassword/:resettoken', tenantResolver.resolveTenant, resetPassword);
 router.put('/updatedetails', protect, updateDetails);
 router.put('/updatepassword', protect, updatePassword);
 router.get('/verify-email/:verificationtoken', verifyEmail);

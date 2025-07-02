@@ -241,7 +241,7 @@ exports.deleteTenant = asyncHandler(async (req, res, next) => {
   await Customer.deleteMany({ tenantId: tenant._id });
 
   // Delete tenant
-  await tenant.remove();
+  await tenant.deleteOne();
 
   res.status(200).json({
     success: true,
