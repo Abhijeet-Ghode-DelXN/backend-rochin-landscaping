@@ -255,7 +255,7 @@ exports.deleteTenant = asyncHandler(async (req, res, next) => {
 exports.suspendTenant = asyncHandler(async (req, res, next) => {
   const tenant = await Tenant.findByIdAndUpdate(
     req.params.id,
-    { status: 'suspended' },
+    { 'subscription.status': 'suspended' },
     { new: true }
   );
 
@@ -275,7 +275,7 @@ exports.suspendTenant = asyncHandler(async (req, res, next) => {
 exports.activateTenant = asyncHandler(async (req, res, next) => {
   const tenant = await Tenant.findByIdAndUpdate(
     req.params.id,
-    { status: 'active' },
+    { 'subscription.status': 'active' },
     { new: true }
   );
 

@@ -32,7 +32,7 @@ const tenantSchema = new mongoose.Schema({
     },
     status: {
       type: String,
-      enum: ['active', 'inactive', 'trialing'],
+      enum: ['active', 'inactive', 'trialing', 'suspended'],
       default: 'trialing',
     },
     startDate: Date,
