@@ -80,7 +80,8 @@ exports.getPortfolios = asyncHandler(async (req, res, next) => {
   // Always filter by tenant from context
   const tenantId = req.tenant?._id;
   if (!tenantId) {
-    return next(new ErrorResponse('Tenant context is required', 400));
+    // Main domain: return empty array instead of error
+    return res.status(200).json({ success: true, count: 0, data: [] });
   }
 
   const filter = { tenant: tenantId };
