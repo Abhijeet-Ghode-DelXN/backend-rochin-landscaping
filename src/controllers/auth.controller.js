@@ -139,6 +139,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   }
 
   // Password check
+  // 
   if (!(await user.matchPassword(password))) {
     return next(new ErrorResponse('Invalid credentials', 401));
   }
