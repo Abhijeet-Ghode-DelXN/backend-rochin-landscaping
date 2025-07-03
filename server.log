@@ -3,154 +3,164 @@
 [33m[nodemon] watching path(s): *.*[39m
 [33m[nodemon] watching extensions: js,mjs,cjs,json[39m
 [32m[nodemon] starting `node server.js`[39m
-(node:10488) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:13296) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
 (Use `node --trace-warnings ...` to show where the warning was created)
-(node:10488) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:13296) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
 Server running in production mode on port 5000
 MongoDB Connected: ac-q0etrwr-shard-00-00.sfnbxic.mongodb.net
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
-Tenant Resolver: Tenant found: DemoGardning new ObjectId('68591596ab1b5cb6d720b33e')
-No token found, continuing as unauthenticated
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
-Tenant Resolver: Tenant found: DemoGardning new ObjectId('68591596ab1b5cb6d720b33e')
-No token found, continuing as unauthenticated
 Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
 Tenant Resolver: Tenant found: DemoGardning new ObjectId('68591596ab1b5cb6d720b33e')
 Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
 Tenant Resolver: Tenant found: DemoGardning new ObjectId('68591596ab1b5cb6d720b33e')
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjNkZmI0YTZiMmExNmRhYTI2YjIzMCIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIiwidGhlbWVDb2xvciI6IiMxMEI5ODEifSwic3Vic2NyaXB0aW9uIjp7InBsYW4iOiJhbm51YWwiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA2LTIzVDAwOjAwOjAwLjAwMFoiLCJlbmREYXRlIjoiMjAyNi0wNi0yMlQwMDowMDowMC4wMDBaIn0sIl9pZCI6IjY4NTkxNTk2YWIxYjVjYjZkNzIwYjMzZSIsIm5hbWUiOiJEZW1vR2FyZG5pbmciLCJzdWJkb21haW4iOiJkZW1vZ2FyZG5pbmciLCJvd25lciI6IjY4NTkxNTk3YWIxYjVjYjZkNzIwYjM0MSIsImNyZWF0ZWRBdCI6IjIwMjUtMDYtMjNUMDg6NTE6MzUuMDAwWiIsIl9fdiI6MH0sImlhdCI6MTc1MTUyNDI5NCwiZXhwIjoxNzU0MTE2Mjk0fQ.R5-QZiHCqHhD_1n1_uViV498P_Mm1CIfEPuKO3qi1hc
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjNkZmI0YTZiMmExNmRhYTI2YjIzMCIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIiwidGhlbWVDb2xvciI6IiMxMEI5ODEifSwic3Vic2NyaXB0aW9uIjp7InBsYW4iOiJhbm51YWwiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA2LTIzVDAwOjAwOjAwLjAwMFoiLCJlbmREYXRlIjoiMjAyNi0wNi0yMlQwMDowMDowMC4wMDBaIn0sIl9pZCI6IjY4NTkxNTk2YWIxYjVjYjZkNzIwYjMzZSIsIm5hbWUiOiJEZW1vR2FyZG5pbmciLCJzdWJkb21haW4iOiJkZW1vZ2FyZG5pbmciLCJvd25lciI6IjY4NTkxNTk3YWIxYjVjYjZkNzIwYjM0MSIsImNyZWF0ZWRBdCI6IjIwMjUtMDYtMjNUMDg6NTE6MzUuMDAwWiIsIl9fdiI6MH0sImlhdCI6MTc1MTUyNDI5NCwiZXhwIjoxNzU0MTE2Mjk0fQ.R5-QZiHCqHhD_1n1_uViV498P_Mm1CIfEPuKO3qi1hc
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1NzUyLCJleHAiOjE3NTQxMTc3NTJ9.i0nyUnnieH3IEf4bbReQo4Vprr84VDIMPOMna-OmDwE
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1NzUyLCJleHAiOjE3NTQxMTc3NTJ9.i0nyUnnieH3IEf4bbReQo4Vprr84VDIMPOMna-OmDwE
 Verifying token with secret: Secret exists
 Decoded token: {
-  id: '6863dfb4a6b2a16daa26b230',
-  role: 'customer',
-  tenantId: {
-    settings: { timezone: 'UTC', themeColor: '#10B981' },
-    subscription: {
-      plan: 'annual',
-      status: 'active',
-      startDate: '2025-06-23T00:00:00.000Z',
-      endDate: '2026-06-22T00:00:00.000Z'
-    },
-    _id: '68591596ab1b5cb6d720b33e',
-    name: 'DemoGardning',
-    subdomain: 'demogardning',
-    owner: '68591597ab1b5cb6d720b341',
-    createdAt: '2025-06-23T08:51:35.000Z',
-    __v: 0
-  },
-  iat: 1751524294,
-  exp: 1754116294
+  id: '6852953fd31bed6c99159cf0',
+  role: 'superAdmin',
+  iat: 1751525752,
+  exp: 1754117752
 }
 Found user: Yes
-User role: customer
-Token role: customer
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Appointments Route - Headers: {
-  host: 'localhost:5000',
-  connection: 'keep-alive',
-  'sec-ch-ua-platform': '"Windows"',
-  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjNkZmI0YTZiMmExNmRhYTI2YjIzMCIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIiwidGhlbWVDb2xvciI6IiMxMEI5ODEifSwic3Vic2NyaXB0aW9uIjp7InBsYW4iOiJhbm51YWwiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA2LTIzVDAwOjAwOjAwLjAwMFoiLCJlbmREYXRlIjoiMjAyNi0wNi0yMlQwMDowMDowMC4wMDBaIn0sIl9pZCI6IjY4NTkxNTk2YWIxYjVjYjZkNzIwYjMzZSIsIm5hbWUiOiJEZW1vR2FyZG5pbmciLCJzdWJkb21haW4iOiJkZW1vZ2FyZG5pbmciLCJvd25lciI6IjY4NTkxNTk3YWIxYjVjYjZkNzIwYjM0MSIsImNyZWF0ZWRBdCI6IjIwMjUtMDYtMjNUMDg6NTE6MzUuMDAwWiIsIl9fdiI6MH0sImlhdCI6MTc1MTUyNDI5NCwiZXhwIjoxNzU0MTE2Mjk0fQ.R5-QZiHCqHhD_1n1_uViV498P_Mm1CIfEPuKO3qi1hc',
-  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
-  accept: 'application/json, text/plain, */*',
-  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
-  'sec-ch-ua-mobile': '?0',
-  origin: 'http://localhost:3000',
-  'sec-fetch-site': 'same-site',
-  'sec-fetch-mode': 'cors',
-  'sec-fetch-dest': 'empty',
-  referer: 'http://localhost:3000/',
-  'accept-encoding': 'gzip, deflate, br, zstd',
-  'accept-language': 'en-US,en;q=0.9',
-  'if-none-match': 'W/"24-YA2qaqoHN76SgtFfK4UBGqyVP1w"'
-}
-Appointments Route - Method: GET
-Appointments Route - Path: /my-appointments
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjNkZmI0YTZiMmExNmRhYTI2YjIzMCIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIiwidGhlbWVDb2xvciI6IiMxMEI5ODEifSwic3Vic2NyaXB0aW9uIjp7InBsYW4iOiJhbm51YWwiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA2LTIzVDAwOjAwOjAwLjAwMFoiLCJlbmREYXRlIjoiMjAyNi0wNi0yMlQwMDowMDowMC4wMDBaIn0sIl9pZCI6IjY4NTkxNTk2YWIxYjVjYjZkNzIwYjMzZSIsIm5hbWUiOiJEZW1vR2FyZG5pbmciLCJzdWJkb21haW4iOiJkZW1vZ2FyZG5pbmciLCJvd25lciI6IjY4NTkxNTk3YWIxYjVjYjZkNzIwYjM0MSIsImNyZWF0ZWRBdCI6IjIwMjUtMDYtMjNUMDg6NTE6MzUuMDAwWiIsIl9fdiI6MH0sImlhdCI6MTc1MTUyNDI5NCwiZXhwIjoxNzU0MTE2Mjk0fQ.R5-QZiHCqHhD_1n1_uViV498P_Mm1CIfEPuKO3qi1hc
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjNkZmI0YTZiMmExNmRhYTI2YjIzMCIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIiwidGhlbWVDb2xvciI6IiMxMEI5ODEifSwic3Vic2NyaXB0aW9uIjp7InBsYW4iOiJhbm51YWwiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA2LTIzVDAwOjAwOjAwLjAwMFoiLCJlbmREYXRlIjoiMjAyNi0wNi0yMlQwMDowMDowMC4wMDBaIn0sIl9pZCI6IjY4NTkxNTk2YWIxYjVjYjZkNzIwYjMzZSIsIm5hbWUiOiJEZW1vR2FyZG5pbmciLCJzdWJkb21haW4iOiJkZW1vZ2FyZG5pbmciLCJvd25lciI6IjY4NTkxNTk3YWIxYjVjYjZkNzIwYjM0MSIsImNyZWF0ZWRBdCI6IjIwMjUtMDYtMjNUMDg6NTE6MzUuMDAwWiIsIl9fdiI6MH0sImlhdCI6MTc1MTUyNDI5NCwiZXhwIjoxNzU0MTE2Mjk0fQ.R5-QZiHCqHhD_1n1_uViV498P_Mm1CIfEPuKO3qi1hc
+User role: superAdmin
+Token role: superAdmin
+Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1NzUyLCJleHAiOjE3NTQxMTc3NTJ9.i0nyUnnieH3IEf4bbReQo4Vprr84VDIMPOMna-OmDwE
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1NzUyLCJleHAiOjE3NTQxMTc3NTJ9.i0nyUnnieH3IEf4bbReQo4Vprr84VDIMPOMna-OmDwE
 Verifying token with secret: Secret exists
 Decoded token: {
-  id: '6863dfb4a6b2a16daa26b230',
-  role: 'customer',
-  tenantId: {
-    settings: { timezone: 'UTC', themeColor: '#10B981' },
-    subscription: {
-      plan: 'annual',
-      status: 'active',
-      startDate: '2025-06-23T00:00:00.000Z',
-      endDate: '2026-06-22T00:00:00.000Z'
-    },
-    _id: '68591596ab1b5cb6d720b33e',
-    name: 'DemoGardning',
-    subdomain: 'demogardning',
-    owner: '68591597ab1b5cb6d720b341',
-    createdAt: '2025-06-23T08:51:35.000Z',
-    __v: 0
-  },
-  iat: 1751524294,
-  exp: 1754116294
+  id: '6852953fd31bed6c99159cf0',
+  role: 'superAdmin',
+  iat: 1751525752,
+  exp: 1754117752
 }
 Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Appointments Route - Headers: {
-  host: 'localhost:5000',
-  connection: 'keep-alive',
-  'sec-ch-ua-platform': '"Windows"',
-  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjNkZmI0YTZiMmExNmRhYTI2YjIzMCIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIiwidGhlbWVDb2xvciI6IiMxMEI5ODEifSwic3Vic2NyaXB0aW9uIjp7InBsYW4iOiJhbm51YWwiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA2LTIzVDAwOjAwOjAwLjAwMFoiLCJlbmREYXRlIjoiMjAyNi0wNi0yMlQwMDowMDowMC4wMDBaIn0sIl9pZCI6IjY4NTkxNTk2YWIxYjVjYjZkNzIwYjMzZSIsIm5hbWUiOiJEZW1vR2FyZG5pbmciLCJzdWJkb21haW4iOiJkZW1vZ2FyZG5pbmciLCJvd25lciI6IjY4NTkxNTk3YWIxYjVjYjZkNzIwYjM0MSIsImNyZWF0ZWRBdCI6IjIwMjUtMDYtMjNUMDg6NTE6MzUuMDAwWiIsIl9fdiI6MH0sImlhdCI6MTc1MTUyNDI5NCwiZXhwIjoxNzU0MTE2Mjk0fQ.R5-QZiHCqHhD_1n1_uViV498P_Mm1CIfEPuKO3qi1hc',
-  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
-  accept: 'application/json, text/plain, */*',
-  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
-  'sec-ch-ua-mobile': '?0',
-  origin: 'http://localhost:3000',
-  'sec-fetch-site': 'same-site',
-  'sec-fetch-mode': 'cors',
-  'sec-fetch-dest': 'empty',
-  referer: 'http://localhost:3000/',
-  'accept-encoding': 'gzip, deflate, br, zstd',
-  'accept-language': 'en-US,en;q=0.9',
-  'if-none-match': 'W/"24-YA2qaqoHN76SgtFfK4UBGqyVP1w"'
-}
-Appointments Route - Method: GET
-Appointments Route - Path: /my-appointments
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjNkZmI0YTZiMmExNmRhYTI2YjIzMCIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIiwidGhlbWVDb2xvciI6IiMxMEI5ODEifSwic3Vic2NyaXB0aW9uIjp7InBsYW4iOiJhbm51YWwiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA2LTIzVDAwOjAwOjAwLjAwMFoiLCJlbmREYXRlIjoiMjAyNi0wNi0yMlQwMDowMDowMC4wMDBaIn0sIl9pZCI6IjY4NTkxNTk2YWIxYjVjYjZkNzIwYjMzZSIsIm5hbWUiOiJEZW1vR2FyZG5pbmciLCJzdWJkb21haW4iOiJkZW1vZ2FyZG5pbmciLCJvd25lciI6IjY4NTkxNTk3YWIxYjVjYjZkNzIwYjM0MSIsImNyZWF0ZWRBdCI6IjIwMjUtMDYtMjNUMDg6NTE6MzUuMDAwWiIsIl9fdiI6MH0sImlhdCI6MTc1MTUyNDI5NCwiZXhwIjoxNzU0MTE2Mjk0fQ.R5-QZiHCqHhD_1n1_uViV498P_Mm1CIfEPuKO3qi1hc
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjNkZmI0YTZiMmExNmRhYTI2YjIzMCIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIiwidGhlbWVDb2xvciI6IiMxMEI5ODEifSwic3Vic2NyaXB0aW9uIjp7InBsYW4iOiJhbm51YWwiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA2LTIzVDAwOjAwOjAwLjAwMFoiLCJlbmREYXRlIjoiMjAyNi0wNi0yMlQwMDowMDowMC4wMDBaIn0sIl9pZCI6IjY4NTkxNTk2YWIxYjVjYjZkNzIwYjMzZSIsIm5hbWUiOiJEZW1vR2FyZG5pbmciLCJzdWJkb21haW4iOiJkZW1vZ2FyZG5pbmciLCJvd25lciI6IjY4NTkxNTk3YWIxYjVjYjZkNzIwYjM0MSIsImNyZWF0ZWRBdCI6IjIwMjUtMDYtMjNUMDg6NTE6MzUuMDAwWiIsIl9fdiI6MH0sImlhdCI6MTc1MTUyNDI5NCwiZXhwIjoxNzU0MTE2Mjk0fQ.R5-QZiHCqHhD_1n1_uViV498P_Mm1CIfEPuKO3qi1hc
+User role: superAdmin
+Token role: superAdmin
+Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
+Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1NzUyLCJleHAiOjE3NTQxMTc3NTJ9.i0nyUnnieH3IEf4bbReQo4Vprr84VDIMPOMna-OmDwE
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1NzUyLCJleHAiOjE3NTQxMTc3NTJ9.i0nyUnnieH3IEf4bbReQo4Vprr84VDIMPOMna-OmDwE
 Verifying token with secret: Secret exists
 Decoded token: {
-  id: '6863dfb4a6b2a16daa26b230',
-  role: 'customer',
-  tenantId: {
-    settings: { timezone: 'UTC', themeColor: '#10B981' },
-    subscription: {
-      plan: 'annual',
-      status: 'active',
-      startDate: '2025-06-23T00:00:00.000Z',
-      endDate: '2026-06-22T00:00:00.000Z'
-    },
-    _id: '68591596ab1b5cb6d720b33e',
-    name: 'DemoGardning',
-    subdomain: 'demogardning',
-    owner: '68591597ab1b5cb6d720b341',
-    createdAt: '2025-06-23T08:51:35.000Z',
-    __v: 0
-  },
-  iat: 1751524294,
-  exp: 1754116294
+  id: '6852953fd31bed6c99159cf0',
+  role: 'superAdmin',
+  iat: 1751525752,
+  exp: 1754117752
 }
 Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `node server.js`[39m
-(node:7800) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
-(Use `node --trace-warnings ...` to show where the warning was created)
-(node:7800) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
-Server running in production mode on port 5000
-MongoDB Connected: ac-q0etrwr-shard-00-02.sfnbxic.mongodb.net
+User role: superAdmin
+Token role: superAdmin
+Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
+Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
+Tenant Resolver: Tenant found: DemoGardning new ObjectId('68591596ab1b5cb6d720b33e')
+--- GLOBAL ERROR HANDLER ---
+ErrorResponse: Invalid credentials
+    at D:\01-07-2025\backend-rochin-landscaping\src\controllers\auth.controller.js:143:17 {
+  statusCode: 401
+}
+--- END GLOBAL ERROR HANDLER ---
+Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
+Tenant Resolver: Tenant found: DemoGardning new ObjectId('68591596ab1b5cb6d720b33e')
+Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
+Tenant Resolver: Tenant found: DemoGardning new ObjectId('68591596ab1b5cb6d720b33e')
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1Nzk0LCJleHAiOjE3NTQxMTc3OTR9.OdkgEXzeG8vfoYLjRr8j3y_IBaCASxpB0R0BWIEL2mw
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1Nzk0LCJleHAiOjE3NTQxMTc3OTR9.OdkgEXzeG8vfoYLjRr8j3y_IBaCASxpB0R0BWIEL2mw
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '6852953fd31bed6c99159cf0',
+  role: 'superAdmin',
+  iat: 1751525794,
+  exp: 1754117794
+}
+Found user: Yes
+User role: superAdmin
+Token role: superAdmin
+Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1Nzk0LCJleHAiOjE3NTQxMTc3OTR9.OdkgEXzeG8vfoYLjRr8j3y_IBaCASxpB0R0BWIEL2mw
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1Nzk0LCJleHAiOjE3NTQxMTc3OTR9.OdkgEXzeG8vfoYLjRr8j3y_IBaCASxpB0R0BWIEL2mw
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '6852953fd31bed6c99159cf0',
+  role: 'superAdmin',
+  iat: 1751525794,
+  exp: 1754117794
+}
+Found user: Yes
+User role: superAdmin
+Token role: superAdmin
+Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
+Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1Nzk0LCJleHAiOjE3NTQxMTc3OTR9.OdkgEXzeG8vfoYLjRr8j3y_IBaCASxpB0R0BWIEL2mw
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1Nzk0LCJleHAiOjE3NTQxMTc3OTR9.OdkgEXzeG8vfoYLjRr8j3y_IBaCASxpB0R0BWIEL2mw
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '6852953fd31bed6c99159cf0',
+  role: 'superAdmin',
+  iat: 1751525794,
+  exp: 1754117794
+}
+Found user: Yes
+User role: superAdmin
+Token role: superAdmin
+Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
+Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
+Tenant Resolver: Tenant found: DemoGardning new ObjectId('68591596ab1b5cb6d720b33e')
+--- GLOBAL ERROR HANDLER ---
+ErrorResponse: Invalid credentials
+    at D:\01-07-2025\backend-rochin-landscaping\src\controllers\auth.controller.js:143:17 {
+  statusCode: 401
+}
+--- END GLOBAL ERROR HANDLER ---
+Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
+Tenant Resolver: Tenant found: DemoGardning new ObjectId('68591596ab1b5cb6d720b33e')
+--- GLOBAL ERROR HANDLER ---
+ErrorResponse: Invalid credentials
+    at D:\01-07-2025\backend-rochin-landscaping\src\controllers\auth.controller.js:143:17 {
+  statusCode: 401
+}
+--- END GLOBAL ERROR HANDLER ---
+Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
+Tenant Resolver: Tenant found: DemoGardning new ObjectId('68591596ab1b5cb6d720b33e')
+Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
+Tenant Resolver: Tenant found: DemoGardning new ObjectId('68591596ab1b5cb6d720b33e')
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1ODMzLCJleHAiOjE3NTQxMTc4MzN9.TEMjOJkJoNBI-P4mhnn9f-XDmEux0xfbaimmEalXetA
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1ODMzLCJleHAiOjE3NTQxMTc4MzN9.TEMjOJkJoNBI-P4mhnn9f-XDmEux0xfbaimmEalXetA
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '6852953fd31bed6c99159cf0',
+  role: 'superAdmin',
+  iat: 1751525833,
+  exp: 1754117833
+}
+Found user: Yes
+User role: superAdmin
+Token role: superAdmin
+Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1ODMzLCJleHAiOjE3NTQxMTc4MzN9.TEMjOJkJoNBI-P4mhnn9f-XDmEux0xfbaimmEalXetA
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1ODMzLCJleHAiOjE3NTQxMTc4MzN9.TEMjOJkJoNBI-P4mhnn9f-XDmEux0xfbaimmEalXetA
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '6852953fd31bed6c99159cf0',
+  role: 'superAdmin',
+  iat: 1751525833,
+  exp: 1754117833
+}
+Found user: Yes
+User role: superAdmin
+Token role: superAdmin
+Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
+Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1ODMzLCJleHAiOjE3NTQxMTc4MzN9.TEMjOJkJoNBI-P4mhnn9f-XDmEux0xfbaimmEalXetA
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTI1ODMzLCJleHAiOjE3NTQxMTc4MzN9.TEMjOJkJoNBI-P4mhnn9f-XDmEux0xfbaimmEalXetA
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '6852953fd31bed6c99159cf0',
+  role: 'superAdmin',
+  iat: 1751525833,
+  exp: 1754117833
+}
+Found user: Yes
+User role: superAdmin
+Token role: superAdmin
+Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
