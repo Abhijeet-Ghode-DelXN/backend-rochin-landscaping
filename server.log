@@ -147,3 +147,10 @@ Found user: Yes
 User role: customer
 Token role: customer
 Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+(node:7800) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7800) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+Server running in production mode on port 5000
+MongoDB Connected: ac-q0etrwr-shard-00-02.sfnbxic.mongodb.net
