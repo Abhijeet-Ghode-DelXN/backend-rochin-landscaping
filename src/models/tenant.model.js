@@ -6,6 +6,12 @@ const tenantSchema = new mongoose.Schema({
     required: [true, 'Tenant name is required.'],
     trim: true,
   },
+  email: {
+    type: String,
+    required: [true, 'Tenant email is required.'],
+    unique: true,
+    trim: true,
+  },
   subdomain: {
     type: String,
     required: [true, 'Subdomain is required.'],

@@ -3,308 +3,108 @@
 [33m[nodemon] watching path(s): *.*[39m
 [33m[nodemon] watching extensions: js,mjs,cjs,json[39m
 [32m[nodemon] starting `node server.js`[39m
-(node:16468) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:17316) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
 (Use `node --trace-warnings ...` to show where the warning was created)
-(node:16468) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:17316) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
 Server running in production mode on port 5000
-MongoDB Connected: ac-q0etrwr-shard-00-01.sfnbxic.mongodb.net
+MongoDB Connected: ac-q0etrwr-shard-00-00.sfnbxic.mongodb.net
 Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTQ4NDIzLCJleHAiOjE3NTQxNDA0MjN9.BqqlIOH4OI1GDImWJ4vyc4RkDrgLpi4GjkntzhQjaXM
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTQ4NDIzLCJleHAiOjE3NTQxNDA0MjN9.BqqlIOH4OI1GDImWJ4vyc4RkDrgLpi4GjkntzhQjaXM
 Verifying token with secret: Secret exists
 Decoded token: {
   id: '6852953fd31bed6c99159cf0',
   role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
+  iat: 1751548423,
+  exp: 1754140423
 }
 Found user: Yes
 User role: superAdmin
 Token role: superAdmin
 Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTQ4NDIzLCJleHAiOjE3NTQxNDA0MjN9.BqqlIOH4OI1GDImWJ4vyc4RkDrgLpi4GjkntzhQjaXM
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTQ4NDIzLCJleHAiOjE3NTQxNDA0MjN9.BqqlIOH4OI1GDImWJ4vyc4RkDrgLpi4GjkntzhQjaXM
 Verifying token with secret: Secret exists
 Decoded token: {
   id: '6852953fd31bed6c99159cf0',
   role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
-}
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
+  iat: 1751548423,
+  exp: 1754140423
 }
 Found user: Yes
 User role: superAdmin
 Token role: superAdmin
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
 Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTQ4NDIzLCJleHAiOjE3NTQxNDA0MjN9.BqqlIOH4OI1GDImWJ4vyc4RkDrgLpi4GjkntzhQjaXM
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTQ4NDIzLCJleHAiOjE3NTQxNDA0MjN9.BqqlIOH4OI1GDImWJ4vyc4RkDrgLpi4GjkntzhQjaXM
 Verifying token with secret: Secret exists
 Decoded token: {
   id: '6852953fd31bed6c99159cf0',
   role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
+  iat: 1751548423,
+  exp: 1754140423
 }
 Found user: Yes
 User role: superAdmin
 Token role: superAdmin
 Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
+req.body: {
+  name: 'Gildardo Rochinjskkjdsjks',
+  email: 'ghodeabhijeejk1jkjkt18@gmail.com',
+  subdomain: 'gildardo-rochinjskkjdsjks',
+  adminPassword: 'pass@123456',
+  plan: 'monthly'
 }
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
+req.files: [Object: null prototype] {
+  logo: {
+    name: 'woman.png',
+    data: <Buffer >,
+    size: 28346,
+    encoding: '7bit',
+    tempFilePath: '\\tmp\\tmp-1-1751552112948',
+    truncated: false,
+    mimetype: 'image/png',
+    md5: '39d9b136d9fc90ca5d786ebe1c5c220f',
+    mv: [Function: mv]
+  }
 }
+Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
 Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
-}
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
 Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
+Tenant Resolver: No tenant found for subdomain: demogardning
+--- GLOBAL ERROR HANDLER ---
+ErrorResponse: Tenant not found for subdomain: demogardning
+    at D:\01-07-2025\backend-rochin-landscaping\src\middlewares\tenantResolver.js:63:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  statusCode: 404
 }
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
+--- END GLOBAL ERROR HANDLER ---
+Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
+Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
 Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
-}
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
 Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
+Tenant Resolver: No tenant found for subdomain: demogardning
+--- GLOBAL ERROR HANDLER ---
+ErrorResponse: Tenant not found for subdomain: demogardning
+    at D:\01-07-2025\backend-rochin-landscaping\src\middlewares\tenantResolver.js:63:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  statusCode: 404
 }
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
+--- END GLOBAL ERROR HANDLER ---
+Tenant Resolver: No tenant found for subdomain: demogardning
+--- GLOBAL ERROR HANDLER ---
+ErrorResponse: Tenant not found for subdomain: demogardning
+    at D:\01-07-2025\backend-rochin-landscaping\src\middlewares\tenantResolver.js:63:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  statusCode: 404
 }
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
+--- END GLOBAL ERROR HANDLER ---
+Tenant Resolver: headerSubdomain: demogardning extracted subdomain: demogardning
+Tenant Resolver: No tenant found for subdomain: demogardning
+--- GLOBAL ERROR HANDLER ---
+ErrorResponse: Tenant not found for subdomain: demogardning
+    at D:\01-07-2025\backend-rochin-landscaping\src\middlewares\tenantResolver.js:63:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  statusCode: 404
 }
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
-}
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
-}
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
-}
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
-}
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
-}
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
-}
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
-}
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
-}
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
-}
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTI5NTNmZDMxYmVkNmM5OTE1OWNmMCIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNzUxNTM4MzMxLCJleHAiOjE3NTQxMzAzMzF9.84hmhwMXLTh8aQdeHfXMtQ-1uaRliZhq_LffH7WVOp0
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6852953fd31bed6c99159cf0',
-  role: 'superAdmin',
-  iat: 1751538331,
-  exp: 1754130331
-}
-Found user: Yes
-User role: superAdmin
-Token role: superAdmin
-Checking role authorization: { userRole: 'superAdmin', allowedRoles: [ 'superAdmin' ] }
+--- END GLOBAL ERROR HANDLER ---
