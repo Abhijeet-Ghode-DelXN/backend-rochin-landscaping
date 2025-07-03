@@ -15,7 +15,7 @@ const { protect, authorize } = require('../middlewares/auth');
 const advancedResults = require('../middlewares/advancedResults');
 
 router.use(protect);
-router.use(authorize('admin'));
+router.use(authorize('superAdmin'));
 
 router.route('/')
   .get(advancedResults(User), getUsers)
