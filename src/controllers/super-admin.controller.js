@@ -163,6 +163,8 @@ exports.createTenant = asyncHandler(async (req, res, next) => {
   const tenant = await Tenant.create({
     name,
     subdomain,
+    email,
+  
     owner: req.user.id, // Temporary owner
     settings: {
       themeColor: '#10B981', // Default green theme
@@ -179,6 +181,7 @@ exports.createTenant = asyncHandler(async (req, res, next) => {
   const adminUser = await User.create({
     name: `${name} Admin`,
     email,
+   
     password: adminPassword,
     role: 'tenantAdmin',
     tenantId: tenant._id,
