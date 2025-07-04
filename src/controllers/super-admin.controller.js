@@ -5,6 +5,7 @@ const User = require('../models/user.model');
 const Appointment = require('../models/appointment.model');
 const Service = require('../models/service.model');
 const Customer = require('../models/customer.model');
+const cloudinary = require('../utils/cloudinary');
 
 // @desc    Get dashboard statistics
 // @route   GET /api/v1/super-admin/dashboard-stats
@@ -141,8 +142,15 @@ exports.getTenant = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/super-admin/tenants
 // @access  Super Admin
 exports.createTenant = asyncHandler(async (req, res, next) => {
+  console.log('req.body:', req.body);
+  console.log('req.files:', req.files);
   const { name, email, subdomain, plan, adminPassword } = req.body;
 
+  // Validate presence of required fields
+  if (!email || typeof email !== 'string' || !email.trim()) {
+    return next(new ErrorResponse('Tenant email is required', 400));
+  }
+  
   // Validate presence of admin password
   if (!adminPassword) {
     return next(new ErrorResponse('Admin password is required', 400));
@@ -159,13 +167,24 @@ exports.createTenant = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('A user with this email already exists', 400));
   }
   
+  let logoUrl = null;
+  if (req.files && req.files.logo) {
+    // Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(req.files.logo.tempFilePath, {
+      folder: 'tenant-logos'
+    });
+    logoUrl = result.secure_url;
+  }
+
   // 1. Create tenant with super admin as temporary owner
   const tenant = await Tenant.create({
     name,
+    email,
     subdomain,
     email,
   
     owner: req.user.id, // Temporary owner
+    logo: logoUrl,
     settings: {
       themeColor: '#10B981', // Default green theme
       timezone: 'UTC'
@@ -244,7 +263,7 @@ exports.deleteTenant = asyncHandler(async (req, res, next) => {
   await Customer.deleteMany({ tenantId: tenant._id });
 
   // Delete tenant
-  await tenant.remove();
+  await tenant.deleteOne();
 
   res.status(200).json({
     success: true,
@@ -258,7 +277,7 @@ exports.deleteTenant = asyncHandler(async (req, res, next) => {
 exports.suspendTenant = asyncHandler(async (req, res, next) => {
   const tenant = await Tenant.findByIdAndUpdate(
     req.params.id,
-    { status: 'suspended' },
+    { 'subscription.status': 'suspended' },
     { new: true }
   );
 
@@ -278,7 +297,7 @@ exports.suspendTenant = asyncHandler(async (req, res, next) => {
 exports.activateTenant = asyncHandler(async (req, res, next) => {
   const tenant = await Tenant.findByIdAndUpdate(
     req.params.id,
-    { status: 'active' },
+    { 'subscription.status': 'active' },
     { new: true }
   );
 

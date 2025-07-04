@@ -134,8 +134,14 @@ exports.login = asyncHandler(async (req, res, next) => {
   } else {
     // No tenant context (main domain) – allow only superAdmin to login
     if (user.role !== 'superAdmin') {
-      return next(new ErrorResponse('Invalid credentials', 401));
+      return next(new ErrorResponse('Only super admins can log in from the main domain.', 403));
     }
+  }
+
+  // Password check
+  // 
+  if (!(await user.matchPassword(password))) {
+    return next(new ErrorResponse('Invalid credentials', 401));
   }
 
   const userData = {

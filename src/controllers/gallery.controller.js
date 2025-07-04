@@ -80,16 +80,16 @@ exports.createGallery = asyncHandler(async (req, res, next) => {
 // @route   GET /api/v1/gallery
 // @access  Private/TenantAdmin
 exports.getGalleries = asyncHandler(async (req, res, next) => {
-  const tenantId = req.tenant?._id;
-  if (!tenantId) {
-    return next(new ErrorResponse('Tenant information missing', 400));
-  }
-
-  let filter = { tenant: tenantId };
-
-  // If authenticated, filter by createdBy as well
-  if (req.user && req.user.id) {
-    filter.createdBy = req.user.id;
+  let filter = {};
+  if (req.tenant && req.tenant._id) {
+    filter.tenant = req.tenant._id;
+    // If authenticated, filter by createdBy as well
+    if (req.user && req.user.id) {
+      filter.createdBy = req.user.id;
+    }
+  } else {
+    // No tenant context (main domain): return all galleries
+    // Optionally, you could add public-only filtering here if needed
   }
 
   const galleries = await Gallery.find(filter).sort('-createdAt');

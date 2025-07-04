@@ -77,7 +77,8 @@ exports.getServices = asyncHandler(async (req, res, next) => {
   const store = tenantContext.getStore();
   let tenantId = store?.tenantId || req.user?.tenantId || req.tenant?._id || req.query.tenantId;
   if (!tenantId) {
-    return next(new ErrorResponse('Tenant context is required', 400));
+    // Main domain: return empty array instead of error
+    return res.status(200).json({ success: true, count: 0, data: [] });
   }
 
   // Build base query - ALWAYS filter by tenantId
