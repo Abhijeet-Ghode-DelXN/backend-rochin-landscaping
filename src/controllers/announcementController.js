@@ -37,8 +37,19 @@ exports.getAnnouncements = asyncHandler(async (req, res, next) => {
 exports.getActiveAnnouncement = asyncHandler(async (req, res, next) => {
   let query = { status: 'active' };
   
-  // For non-superAdmin users, filter by tenant
-  if (req.user?.role !== 'superAdmin') {
+  // Get tenant from request headers or tenant context
+  const tenantSubdomain = req.headers['x-tenant-subdomain'];
+  
+  if (tenantSubdomain) {
+    // Find tenant by subdomain
+    const Tenant = require('../models/tenant.model');
+    const tenant = await Tenant.findOne({ subdomain: tenantSubdomain });
+    
+    if (tenant) {
+      query.tenant = tenant._id;
+    }
+  } else {
+    // Fallback to tenant context if available
     const store = tenantContext.getStore();
     if (store?.tenantId) {
       query.tenant = store.tenantId;
