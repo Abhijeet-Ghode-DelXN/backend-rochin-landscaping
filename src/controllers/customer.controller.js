@@ -525,11 +525,11 @@ exports.updateCustomer = asyncHandler(async (req, res, next) => {
     req.params.id,
     {
       address: {
-        street: address.street,
-        city: address.city,
-        state: address.state,
-        zipCode: address.zipCode,
-        country: address.country
+        street: address?.street,
+        city: address?.city,
+        state: address?.state,
+        zipCode: address?.zipCode,
+        country: address?.country
       }
     },
     { new: true, runValidators: true }

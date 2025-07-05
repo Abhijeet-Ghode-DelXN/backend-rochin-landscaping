@@ -496,7 +496,7 @@ exports.generateCustomerReport = asyncHandler(async (req, res, next) => {
           name: data.customer.user ? data.customer.user.name : 'N/A',
           email: data.customer.user ? data.customer.user.email : 'N/A',
           phone: data.customer.user ? data.customer.user.phone : 'N/A',
-          address: data.customer.address ? `${data.customer.address.street}, ${data.customer.address.city}, ${data.customer.address.state} ${data.customer.address.zipCode}` : 'N/A',
+          address: data.customer.address ? `${data.customer.address?.street}, ${data.customer.address?.city}, ${data.customer.address?.state} ${data.customer.address?.zipCode}` : 'N/A',
           customerSince: data.customerSince ? formatDate(data.customerSince) : 'N/A',
           totalAppointments: data.totalAppointments,
           completedAppointments: data.completedAppointments,

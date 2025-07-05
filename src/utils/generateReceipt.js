@@ -50,9 +50,9 @@ const generatePDF = async (payment) => {
       // Add billing address if available
       if (payment.billingAddress) {
         doc.text('Billing Address:')
-          .text(`${payment.billingAddress.street || ''}`)
-          .text(`${payment.billingAddress.city || ''}, ${payment.billingAddress.state || ''} ${payment.billingAddress.zipCode || ''}`)
-          .text(`${payment.billingAddress.country || 'USA'}`);
+          .text(`${payment.billingAddress?.street || ''}`)
+          .text(`${payment.billingAddress?.city || ''}, ${payment.billingAddress?.state || ''} ${payment.billingAddress?.zipCode || ''}`)
+          .text(`${payment.billingAddress?.country || 'USA'}`);
       }
       
       doc.moveDown();
