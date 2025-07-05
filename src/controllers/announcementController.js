@@ -1,6 +1,7 @@
 const Announcement = require('../models/announcement');
 const asyncHandler = require('../middlewares/async');
 const ErrorResponse = require('../utils/errorResponse');
+const tenantContext = require('../utils/tenantContext');
 
 // Create a new announcement
 exports.createAnnouncement = asyncHandler(async (req, res, next) => {
@@ -34,8 +35,29 @@ exports.getAnnouncements = asyncHandler(async (req, res, next) => {
 
 // Get active announcement
 exports.getActiveAnnouncement = asyncHandler(async (req, res, next) => {
-  const announcement = await Announcement.findOne({ status: 'active' }).sort({ createdAt: -1 });
-  res.json(announcement);
+  let query = { status: 'active' };
+  
+  // For non-superAdmin users, filter by tenant
+  if (req.user?.role !== 'superAdmin') {
+    const store = tenantContext.getStore();
+    if (store?.tenantId) {
+      query.tenant = store.tenantId;
+    }
+  }
+
+  const announcement = await Announcement.findOne(query).sort({ createdAt: -1 });
+  
+  if (!announcement) {
+    return res.status(200).json({
+      success: true,
+      data: null
+    });
+  }
+  
+  res.status(200).json({
+    success: true,
+    data: announcement
+  });
 });
 
 // Update an announcement

@@ -126,6 +126,9 @@ const announcementsRoutes = require('./src/routes/announcements');
 // Import the message routes
 const messageRoutes = require('./src/routes/message.routes');
 
+// Import logo routes
+const logoRoutes = require('./src/routes/logo');
+
 // Import tenant routes
 const tenantRoutes = require('./src/routes/tenant.routes');
 
@@ -163,6 +166,9 @@ app.use(`${API_PREFIX}/announcements`, announcementsRoutes);
 
 // Mount the message routes
 app.use(`${API_PREFIX}/messages`, messageRoutes);
+
+// Mount the logo routes
+app.use(`${API_PREFIX}/logo`, logoRoutes);
 
 // Welcome route
 app.get('/', (req, res) => {
