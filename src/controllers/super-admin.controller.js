@@ -181,6 +181,8 @@ exports.createTenant = asyncHandler(async (req, res, next) => {
     name,
     email,
     subdomain,
+    email,
+  
     owner: req.user.id, // Temporary owner
     logo: logoUrl,
     settings: {
@@ -198,6 +200,7 @@ exports.createTenant = asyncHandler(async (req, res, next) => {
   const adminUser = await User.create({
     name: `${name} Admin`,
     email,
+   
     password: adminPassword,
     role: 'tenantAdmin',
     tenantId: tenant._id,

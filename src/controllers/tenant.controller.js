@@ -70,26 +70,61 @@ exports.createTenant = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc    Update tenant
-// @route   PUT /api/v1/admin/tenants/:id
-// @access  Private/Superadmin
-exports.updateTenant = asyncHandler(async (req, res, next) => {
-  let tenant = await Tenant.findById(req.params.id);
+// // @desc    Update tenant
+// // @route   PUT /api/v1/admin/tenants/:id
+// // @access  Private/Superadmin
+// exports.updateTenant = asyncHandler(async (req, res, next) => {
+//   let tenant = await Tenant.findById(req.params.id);
 
-  if (!tenant) {
-    return next(new ErrorResponse(`Tenant not found with id of ${req.params.id}`, 404));
+//   if (!tenant) {
+//     return next(new ErrorResponse(`Tenant not found with id of ${req.params.id}`, 404));
+//   }
+
+//   // Only allow updating specific fields
+//   const { name, email, address, isActive, subscription } = req.body;
+//   const fieldsToUpdate = { name, email, address, isActive, subscription };
+
+//   tenant = await Tenant.findByIdAndUpdate(req.params.id, fieldsToUpdate, {
+//     new: true,
+//     runValidators: true,
+//   });
+
+//   res.status(200).json({ success: true, data: tenant });
+// });
+
+
+
+// @desc    Update tenant info (for tenant admins)
+// @route   PUT /api/v1/tenant/info
+// @access  Private/TenantAdmin
+exports.updateTenant = asyncHandler(async (req, res, next) => {
+  const store = tenantContext.getStore();
+  
+  if (!store?.tenantId) {
+    return next(new ErrorResponse('Tenant context not found', 404));
   }
 
-  // Only allow updating specific fields
-  const { name, email, isActive, subscription } = req.body;
-  const fieldsToUpdate = { name, email, isActive, subscription };
+  const { name, email, address, phone, website, businessHours } = req.body;
+  
+  const tenant = await Tenant.findByIdAndUpdate(
+    store.tenantId,
+    { 
+      name,
+      email,
+      address,
+      phone,
+      website,
+      settings: {
+        businessHours
+      }
+    },
+    { new: true, runValidators: true }
+  );
 
-  tenant = await Tenant.findByIdAndUpdate(req.params.id, fieldsToUpdate, {
-    new: true,
-    runValidators: true,
+  res.status(200).json({ 
+    success: true, 
+    data: tenant 
   });
-
-  res.status(200).json({ success: true, data: tenant });
 });
 
 // @desc    Delete tenant

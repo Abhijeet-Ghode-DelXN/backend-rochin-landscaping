@@ -18,6 +18,28 @@ const tenantSchema = new mongoose.Schema({
     trim: true,
     unique: true,
   },
+   email: {
+    type: String,
+    required: [true, 'Email is required.'],
+    trim: true,
+    lowercase: true,
+    unique: true,
+    match: [/\S+@\S+\.\S+/, 'Please enter a valid email'],
+  },
+
+  address: {
+  type: String,
+  // required: [true, 'Address is required'],
+  trim: true,
+ 
+},
+phone: {
+  type: String,
+  // required: [true, 'Phone number is required'],
+  trim: true,
+  // match: [/^\d{10}$/, 'Please enter a valid 10-digit phone number']
+},
+
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
