@@ -5,115 +5,264 @@ const Payment = require('../models/payment.model');
 const Customer = require('../models/customer.model');
 const Service = require('../models/service.model');
 const User = require('../models/user.model');
+const mongoose = require('mongoose');
+
+// // @desc    Get dashboard stats
+// // @route   GET /api/v1/dashboard
+// // @access  Private/Admin
+// exports.getDashboardStats = asyncHandler(async (req, res, next) => {
+//   // Get counts
+//   const appointmentCount = await Appointment.countDocuments();
+//   const estimateCount = await Estimate.countDocuments();
+//   const customerCount = await Customer.countDocuments();
+//   const serviceCount = await Service.countDocuments();
+//   const paymentCount = await Payment.countDocuments();
+//   const userCount = await User.countDocuments();
+//   const professionalCount = await User.countDocuments({ role: 'professional' });
+
+//   // Get upcoming appointments (next 7 days)
+//   const today = new Date();
+//   const nextWeek = new Date();
+//   nextWeek.setDate(today.getDate() + 7);
+
+//   const upcomingAppointments = await Appointment.find({
+//     scheduledDate: { $gte: today, $lte: nextWeek }
+//   })
+//     .sort({ scheduledDate: 1 })
+//     .populate('customer', 'name')
+//     .populate('service', 'name')
+//     .limit(5);
+
+//   // Get pending estimates
+//   const pendingEstimates = await Estimate.find({ status: 'pending' })
+//     .sort({ createdAt: -1 })
+//     .populate('customer', 'name')
+//     .limit(5);
+
+//   // Get recent payments
+//   const recentPayments = await Payment.find()
+//     .sort({ createdAt: -1 })
+//     .populate('customer', 'name')
+//     .limit(5);
+
+//   // Get monthly revenue - last 6 months
+//   const sixMonthsAgo = new Date();
+//   sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+//   sixMonthsAgo.setDate(1); // Start of month
+  
+//   const monthlyRevenue = await Payment.aggregate([
+//     {
+//       $match: {
+//         createdAt: { $gte: sixMonthsAgo },
+//         status: 'completed'
+//       }
+//     },
+//     {
+//       $group: {
+//         _id: { 
+//           year: { $year: "$createdAt" }, 
+//           month: { $month: "$createdAt" } 
+//         },
+//         total: { $sum: "$amount" }
+//       }
+//     },
+//     {
+//       $sort: { "_id.year": 1, "_id.month": 1 }
+//     }
+//   ]);
+
+//   // Get service distribution
+//   const serviceDistribution = await Appointment.aggregate([
+//     {
+//       $lookup: {
+//         from: 'services',
+//         localField: 'service',
+//         foreignField: '_id',
+//         as: 'serviceInfo'
+//       }
+//     },
+//     {
+//       $unwind: '$serviceInfo'
+//     },
+//     {
+//       $group: {
+//         _id: '$serviceInfo.category',
+//         count: { $sum: 1 }
+//       }
+//     },
+//     {
+//       $sort: { count: -1 }
+//     }
+//   ]);
+
+//   res.status(200).json({
+//     success: true,
+//     data: {
+//       counts: {
+//         appointments: appointmentCount,
+//         estimates: estimateCount,
+//         customers: customerCount,
+//         services: serviceCount,
+//         payments: paymentCount,
+//         users: userCount,
+//         professionals: professionalCount
+//       },
+//       upcomingAppointments,
+//       pendingEstimates,
+//       recentPayments,
+//       monthlyRevenue,
+//       serviceDistribution
+//     }
+//   });
+// });
+
+
 
 // @desc    Get dashboard stats
 // @route   GET /api/v1/dashboard
 // @access  Private/Admin
 exports.getDashboardStats = asyncHandler(async (req, res, next) => {
-  // Get counts
-  const appointmentCount = await Appointment.countDocuments();
-  const estimateCount = await Estimate.countDocuments();
-  const customerCount = await Customer.countDocuments();
-  const serviceCount = await Service.countDocuments();
-  const paymentCount = await Payment.countDocuments();
-  const userCount = await User.countDocuments();
-  const professionalCount = await User.countDocuments({ role: 'professional' });
+  const tenantId = req.headers['x-tenant-id'];
 
-  // Get upcoming appointments (next 7 days)
-  const today = new Date();
-  const nextWeek = new Date();
-  nextWeek.setDate(today.getDate() + 7);
+  if (!tenantId) {
+    return res.status(400).json({
+      success: false,
+      message: 'Tenant ID is required'
+    });
+  }
 
-  const upcomingAppointments = await Appointment.find({
-    scheduledDate: { $gte: today, $lte: nextWeek }
-  })
-    .sort({ scheduledDate: 1 })
-    .populate('customer', 'name')
-    .populate('service', 'name')
-    .limit(5);
+  // Validate tenantId format
+  if (!mongoose.Types.ObjectId.isValid(tenantId)) {
+    return res.status(400).json({
+      success: false,
+      message: 'Invalid Tenant ID format'
+    });
+  }
 
-  // Get pending estimates
-  const pendingEstimates = await Estimate.find({ status: 'pending' })
-    .sort({ createdAt: -1 })
-    .populate('customer', 'name')
-    .limit(5);
+  try {
+    // Convert to ObjectId once
+    const tenantObjectId = new mongoose.Types.ObjectId(tenantId);
 
-  // Get recent payments
-  const recentPayments = await Payment.find()
-    .sort({ createdAt: -1 })
-    .populate('customer', 'name')
-    .limit(5);
+    // Get counts with tenant filter
+    const counts = await Promise.all([
+      Appointment.countDocuments({ tenant: tenantObjectId }),
+      Estimate.countDocuments({ tenant: tenantObjectId }),
+      Customer.countDocuments({ tenant: tenantObjectId }),
+      Service.countDocuments({ tenant: tenantObjectId }),
+      Payment.countDocuments({ tenant: tenantObjectId }),
+      User.countDocuments({ tenant: tenantObjectId }),
+      User.countDocuments({ tenant: tenantObjectId, role: 'professional' })
+    ]);
 
-  // Get monthly revenue - last 6 months
-  const sixMonthsAgo = new Date();
-  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
-  sixMonthsAgo.setDate(1); // Start of month
-  
-  const monthlyRevenue = await Payment.aggregate([
-    {
-      $match: {
-        createdAt: { $gte: sixMonthsAgo },
-        status: 'completed'
-      }
-    },
-    {
-      $group: {
-        _id: { 
-          year: { $year: "$createdAt" }, 
-          month: { $month: "$createdAt" } 
-        },
-        total: { $sum: "$amount" }
-      }
-    },
-    {
-      $sort: { "_id.year": 1, "_id.month": 1 }
-    }
-  ]);
+    // Date calculations
+    const today = new Date();
+    const nextWeek = new Date();
+    nextWeek.setDate(today.getDate() + 7);
 
-  // Get service distribution
-  const serviceDistribution = await Appointment.aggregate([
-    {
-      $lookup: {
-        from: 'services',
-        localField: 'service',
-        foreignField: '_id',
-        as: 'serviceInfo'
-      }
-    },
-    {
-      $unwind: '$serviceInfo'
-    },
-    {
-      $group: {
-        _id: '$serviceInfo.category',
-        count: { $sum: 1 }
-      }
-    },
-    {
-      $sort: { count: -1 }
-    }
-  ]);
+    // Get data with tenant filter
+    const [upcomingAppointments, pendingEstimates, recentPayments] = await Promise.all([
+      
+      Appointment.find({
+        tenant: tenantObjectId,
+        scheduledDate: { $gte: today }
+      })
+        .sort({ scheduledDate: 1 })
+        .populate('customer', 'name')
+        .populate('service', 'name')
+        .limit(5),
+        
+      Estimate.find({ 
+        tenant: tenantObjectId,
+        status: 'pending' 
+      })
+        .sort({ createdAt: -1 })
+        .populate('customer', 'name')
+        .limit(5),
+        
+      Payment.find({ tenant: tenantObjectId })
+        .sort({ createdAt: -1 })
+        .populate('customer', 'name')
+        .limit(5)
+    ]);
 
-  res.status(200).json({
-    success: true,
-    data: {
-      counts: {
-        appointments: appointmentCount,
-        estimates: estimateCount,
-        customers: customerCount,
-        services: serviceCount,
-        payments: paymentCount,
-        users: userCount,
-        professionals: professionalCount
+    // Monthly revenue aggregation
+    const sixMonthsAgo = new Date();
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+    sixMonthsAgo.setDate(1);
+
+    const monthlyRevenue = await Payment.aggregate([
+      {
+        $match: {
+          tenant: tenantObjectId,
+          createdAt: { $gte: sixMonthsAgo },
+          status: 'completed'
+        }
       },
-      upcomingAppointments,
-      pendingEstimates,
-      recentPayments,
-      monthlyRevenue,
-      serviceDistribution
-    }
-  });
+      {
+        $group: {
+          _id: { 
+            year: { $year: "$createdAt" }, 
+            month: { $month: "$createdAt" } 
+          },
+          total: { $sum: "$amount" }
+        }
+      },
+      { $sort: { "_id.year": 1, "_id.month": 1 } }
+    ]);
+
+    // Service distribution aggregation
+    const serviceDistribution = await Appointment.aggregate([
+      { $match: { tenant: tenantObjectId } },
+      {
+        $lookup: {
+          from: 'services',
+          localField: 'service',
+          foreignField: '_id',
+          as: 'serviceInfo'
+        }
+      },
+      { $unwind: '$serviceInfo' },
+      {
+        $group: {
+          _id: '$serviceInfo.category',
+          count: { $sum: 1 }
+        }
+      },
+      { $sort: { count: -1 } }
+    ]);
+
+    res.status(200).json({
+      success: true,
+      data: {
+        counts: {
+          appointments: counts[0],
+          estimates: counts[1],
+          customers: counts[2],
+          services: counts[3],
+          payments: counts[4],
+          users: counts[5],
+          professionals: counts[6]
+        },
+        upcomingAppointments,
+        pendingEstimates,
+        recentPayments,
+        monthlyRevenue,
+        serviceDistribution
+      }
+    });
+
+  } catch (error) {
+    console.error('Dashboard error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error while fetching dashboard data'
+    });
+  }
 });
+
+
+
+
 
 // // @desc    Get appointment analytics
 // // @route   GET /api/v1/dashboard/appointments

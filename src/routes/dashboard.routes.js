@@ -13,7 +13,7 @@ const { protect, authorize } = require('../middlewares/auth');
 
 // Apply protection and authorization to all routes
 router.use(protect);
-router.use(authorize('admin'));
+router.use(authorize('tenantAdmin'));
 
 router.get('/', getDashboardStats);
 router.get('/appointments', getAppointmentAnalytics);
