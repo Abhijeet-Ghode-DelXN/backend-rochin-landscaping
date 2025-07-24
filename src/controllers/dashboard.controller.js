@@ -310,12 +310,22 @@ exports.getDashboardStats = asyncHandler(async (req, res, next) => {
 
 
 
+
 // @desc    Get appointment analytics
 // @route   GET /api/v1/dashboard/appointments
 // @access  Private/Admin
 exports.getAppointmentAnalytics = asyncHandler(async (req, res, next) => {
+  // Get tenantId from request (assuming it's available in req.user or similar)
+  const tenantId = req.user.tenantId; // Adjust this based on how you store tenant info
+
+  // Create a base match filter for the tenant
+  const tenantMatch = { tenant: tenantId };
+
   // Get appointments by status
   const appointmentsByStatus = await Appointment.aggregate([
+    {
+      $match: tenantMatch
+    },
     {
       $group: {
         _id: '$status',
@@ -326,6 +336,9 @@ exports.getAppointmentAnalytics = asyncHandler(async (req, res, next) => {
 
   // Get appointments by day of week
   const appointmentsByDayOfWeek = await Appointment.aggregate([
+    {
+      $match: tenantMatch
+    },
     {
       $group: {
         _id: { $dayOfWeek: '$date' },
@@ -339,6 +352,9 @@ exports.getAppointmentAnalytics = asyncHandler(async (req, res, next) => {
 
   // Get appointments by month
   const appointmentsByMonth = await Appointment.aggregate([
+    {
+      $match: tenantMatch
+    },
     {
       $group: {
         _id: { 
@@ -354,8 +370,11 @@ exports.getAppointmentAnalytics = asyncHandler(async (req, res, next) => {
   ]);
 
   // Get appointment completion rate
-  const totalAppointments = await Appointment.countDocuments();
-  const completedAppointments = await Appointment.countDocuments({ status: 'Completed' });
+  const totalAppointments = await Appointment.countDocuments(tenantMatch);
+  const completedAppointments = await Appointment.countDocuments({ 
+    ...tenantMatch,
+    status: 'Completed' 
+  });
   const completionRate = totalAppointments > 0 ? (completedAppointments / totalAppointments) * 100 : 0;
 
   res.status(200).json({
