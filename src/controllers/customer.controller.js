@@ -468,6 +468,7 @@ exports.uploadPropertyImages = asyncHandler(async (req, res, next) => {
     }));
 
     property.images.push(...newImages);
+    customer.markModified('propertyDetails');
     await customer.save();
 
     res.status(200).json({
