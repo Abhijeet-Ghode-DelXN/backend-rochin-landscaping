@@ -456,8 +456,9 @@ exports.uploadPropertyImages = asyncHandler(async (req, res, next) => {
         throw new Error(`File ${file.name} is not an image`);
       }
       return cloudinary.uploader.upload(file.tempFilePath, {
-        folder: 'property_images',
-      });
+  folder: 'property_images',
+  public_id: `${Date.now()}_${Math.random().toString(36).substr(2, 9)}` // Force unique public_id
+});
     }));
 
     // Add new images to property
