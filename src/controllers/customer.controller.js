@@ -323,93 +323,166 @@ exports.createCustomerByAdmin = asyncHandler(async (req, res, next) => {
 
 const cloudinary = require('cloudinary').v2;
 
+// exports.uploadPropertyImages = asyncHandler(async (req, res, next) => {
+//   try {
+//     // 1. Find the customer and validate property index
+//     const customer = await Customer.findById(req.params.id);
+//     if (!customer) {
+//       return next(new ErrorResponse('Customer not found', 404));
+//     }
+
+//     const propertyIndex = parseInt(req.params.propertyIndex);
+//     if (isNaN(propertyIndex) || propertyIndex < 0 || propertyIndex >= customer.propertyDetails.length) {
+//       return next(new ErrorResponse('Invalid property index', 400));
+//     }
+
+//     // 2. Extract files - use 'images' as the field name
+//     let files = [];
+//     if (req.files) {
+//       if (req.files.images) {
+//         files = Array.isArray(req.files.images) ? req.files.images : [req.files.images];
+//       } else {
+//         return next(new ErrorResponse('Please upload files using the "images" field name', 400));
+//       }
+//     }
+
+//     if (files.length === 0) {
+//       return next(new ErrorResponse('Please upload at least one image file', 400));
+//     }
+
+//     // 3. Process uploads (same as before)
+//     const uploadPromises = files.map(file => {
+//       if (!file.mimetype.startsWith('image')) {
+//         throw new Error(`File ${file.name} is not an image`);
+//       }
+//       if (file.size > 5 * 1024 * 1024) {
+//         throw new Error(`File ${file.name} exceeds size limit of 5MB`);
+//       }
+//       return cloudinary.uploader.upload(file.tempFilePath, {
+//         folder: 'property_images',
+//       });
+//     });
+
+//     const uploadResults = await Promise.all(uploadPromises);
+
+//     // 4. Prepare images data
+//     const imagesToAdd = uploadResults.map(result => ({
+//       url: result.secure_url,
+//       publicId: result.public_id,
+//       createdAt: new Date()
+//     }));
+
+//     // 5. Update the specific property's images array
+//     const propertyPath = `propertyDetails.${propertyIndex}.images`;
+//     const updatedCustomer = await Customer.findByIdAndUpdate(
+//       req.params.id,
+//       { 
+//         $push: { 
+//           [propertyPath]: {
+//             $each: imagesToAdd,
+//             $position: 0
+//           } 
+//         } 
+//       },
+//       { 
+//         new: true,
+//         runValidators: true
+//       }
+//     );
+
+//     if (!updatedCustomer) {
+//       throw new Error('Failed to update customer with new images');
+//     }
+
+//     // 6. Return the updated property details
+//     res.status(200).json({
+//       success: true,
+//       data: updatedCustomer.propertyDetails[propertyIndex].images
+//     });
+
+//   } catch (err) {
+//     console.error('Upload error:', err);
+//     if (uploadResults) {
+//       await Promise.all(
+//         uploadResults.map(result => 
+//           cloudinary.uploader.destroy(result.public_id).catch(e => console.error(e))
+//       )
+//     );
+//     }
+//     return next(new ErrorResponse(err.message || 'Image upload failed', err.statusCode || 500));
+//   }
+// });
+
 exports.uploadPropertyImages = asyncHandler(async (req, res, next) => {
+  let uploadResults = [];
+  
   try {
-    // 1. Find the customer and validate property index
     const customer = await Customer.findById(req.params.id);
     if (!customer) {
       return next(new ErrorResponse('Customer not found', 404));
     }
 
-    const propertyIndex = parseInt(req.params.propertyIndex);
-    if (isNaN(propertyIndex) || propertyIndex < 0 || propertyIndex >= customer.propertyDetails.length) {
-      return next(new ErrorResponse('Invalid property index', 400));
+    // Get property name from URL
+    const propertyName = decodeURIComponent(req.params.propertyName);
+    
+    // Find property by name (case insensitive)
+    let property = customer.propertyDetails.find(
+      p => p.name.toLowerCase() === propertyName.toLowerCase()
+    );
+
+    // If property doesn't exist, create it
+    if (!property) {
+      property = {
+        name: propertyName,
+        images: []
+      };
+      customer.propertyDetails.push(property);
+      await customer.save();
     }
 
-    // 2. Extract files - use 'images' as the field name
+    // Handle file uploads
     let files = [];
-    if (req.files) {
-      if (req.files.images) {
-        files = Array.isArray(req.files.images) ? req.files.images : [req.files.images];
-      } else {
-        return next(new ErrorResponse('Please upload files using the "images" field name', 400));
-      }
+    if (req.files?.images) {
+      files = Array.isArray(req.files.images) ? req.files.images : [req.files.images];
     }
 
     if (files.length === 0) {
       return next(new ErrorResponse('Please upload at least one image file', 400));
     }
 
-    // 3. Process uploads (same as before)
-    const uploadPromises = files.map(file => {
+    // Upload to Cloudinary
+    uploadResults = await Promise.all(files.map(file => {
       if (!file.mimetype.startsWith('image')) {
         throw new Error(`File ${file.name} is not an image`);
-      }
-      if (file.size > 5 * 1024 * 1024) {
-        throw new Error(`File ${file.name} exceeds size limit of 5MB`);
       }
       return cloudinary.uploader.upload(file.tempFilePath, {
         folder: 'property_images',
       });
-    });
+    }));
 
-    const uploadResults = await Promise.all(uploadPromises);
-
-    // 4. Prepare images data
-    const imagesToAdd = uploadResults.map(result => ({
+    // Add new images to property
+    const newImages = uploadResults.map(result => ({
       url: result.secure_url,
       publicId: result.public_id,
       createdAt: new Date()
     }));
 
-    // 5. Update the specific property's images array
-    const propertyPath = `propertyDetails.${propertyIndex}.images`;
-    const updatedCustomer = await Customer.findByIdAndUpdate(
-      req.params.id,
-      { 
-        $push: { 
-          [propertyPath]: {
-            $each: imagesToAdd,
-            $position: 0
-          } 
-        } 
-      },
-      { 
-        new: true,
-        runValidators: true
-      }
-    );
+    property.images.push(...newImages);
+    await customer.save();
 
-    if (!updatedCustomer) {
-      throw new Error('Failed to update customer with new images');
-    }
-
-    // 6. Return the updated property details
     res.status(200).json({
       success: true,
-      data: updatedCustomer.propertyDetails[propertyIndex].images
+      data: property.images
     });
 
   } catch (err) {
     console.error('Upload error:', err);
-    if (uploadResults) {
-      await Promise.all(
-        uploadResults.map(result => 
-          cloudinary.uploader.destroy(result.public_id).catch(e => console.error(e))
-      )
-    );
-    }
-    return next(new ErrorResponse(err.message || 'Image upload failed', err.statusCode || 500));
+    // Clean up any uploaded files on error
+    await Promise.all(
+      uploadResults.map(result => 
+        cloudinary.uploader.destroy(result.public_id).catch(console.error)
+    ));
+    next(new ErrorResponse(err.message || 'Image upload failed', 500));
   }
 });
 
