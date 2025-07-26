@@ -6,6 +6,7 @@ const { Readable } = require('stream');
 const crypto = require('crypto');
 const { getTenantFrontendUrl } = require('../utils/tenantUrl');
 const tenantContext = require('../utils/tenantContext');
+const mongoose = require('mongoose');
 
 
 
