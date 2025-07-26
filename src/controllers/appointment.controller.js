@@ -759,156 +759,147 @@ exports.getAvailability = async (req, res) => {
 
 
 
-// @desc    Create new appointment with email confirmation
+// @desc    Create new appointment
 // @route   POST /api/v1/appointments
 // @access  Private
 exports.createAppointment = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
 
-  // 1. Validate input
-  if (!req.body.service || !req.body.date || !req.body.timeSlot?.startTime || !req.body.timeSlot?.endTime) {
-    return next(new ErrorResponse('Missing required fields: service, date, timeSlot.startTime, timeSlot.endTime', 400));
+  // 1. Find the Customer using the user ID
+  const customer = await Customer.findOne({ user: userId });
+  if (!customer) {
+    return next(
+      new ErrorResponse(`Customer not found with user id of ${userId}`, 404)
+    );
   }
 
-  // 2. Find customer and service
-  const [customer, service] = await Promise.all([
-    Customer.findOne({ user: userId }),
-    Service.findById(req.body.service)
-  ]);
-
-  if (!customer) return next(new ErrorResponse('Customer not found', 404));
-  if (!service) return next(new ErrorResponse('Service not found', 404));
-
-  // 3. Parse and validate times
-  let startTime, endTime;
-  try {
-    const dateParts = req.body.date.split('-');
-    const startParts = req.body.timeSlot.startTime.split(':');
-    const endParts = req.body.timeSlot.endTime.split(':');
-    
-    startTime = new Date(
-      parseInt(dateParts[0]), // year
-      parseInt(dateParts[1]) - 1, // month (0-indexed)
-      parseInt(dateParts[2]), // day
-      parseInt(startParts[0]), // hours
-      parseInt(startParts[1]) // minutes
+  // 2. Check service exists and get tenantId from it
+  const service = await Service.findById(req.body.service);
+  if (!service) {
+    return next(
+      new ErrorResponse(`Service not found with id of ${req.body.service}`, 404)
     );
-
-    endTime = new Date(
-      parseInt(dateParts[0]),
-      parseInt(dateParts[1]) - 1,
-      parseInt(dateParts[2]),
-      parseInt(endParts[0]),
-      parseInt(endParts[1])
-    );
-
-    if (isNaN(startTime) || isNaN(endTime)) {
-      throw new Error('Invalid date/time format');
-    }
-    if (startTime >= endTime) throw new Error('End time must be after start time');
-    if (startTime < new Date()) throw new Error('Cannot book appointments in the past');
-  } catch (err) {
-    return next(new ErrorResponse(`Invalid time data: ${err.message}`, 400));
   }
 
-  // 4. Create appointment
-  const appointment = await Appointment.create({
+  // 3. Validate time slot data
+  if (!req.body.timeSlot || !req.body.timeSlot.startTime || !req.body.timeSlot.endTime) {
+    return next(
+      new ErrorResponse('Start time and end time are required', 400)
+    );
+  }
+
+  // 4. Prepare appointment data
+  const appointmentData = {
     ...req.body,
-    date: startTime,
-    timeSlot: { startTime, endTime },
-    tenant: service.tenantId,
-    customer: customer._id,
-    createdBy: userId
-  });
+    tenant: service.tenantId,   // Set tenant from service
+    customer: customer._id,     // Set customer from logged in user
+    createdBy: userId           // Set creator
+  };
 
-  // 5. Update customer's tenants list
+  // 5. Create appointment
+  const appointment = await Appointment.create(appointmentData);
+
+  // 6. Add customer to tenant's customers list if not already there
   await Customer.findByIdAndUpdate(
     customer._id,
-    { $addToSet: { tenants: service.tenantId } },
+    { $addToSet: { tenants: service.tenantId } }, // $addToSet prevents duplicates
     { new: true }
   );
 
-  // 6. Send email confirmation (async - don't await)
-  sendConfirmationEmail(appointment, service).catch(err => {
-    console.error('Email sending failed (non-blocking):', err);
-  });
+  // 7. Get customer's user info for notification
+  const customerUser = await User.findById(customer.user).select('email name');
 
+  // 8. Send confirmation email to customer
+  if (customerUser?.email) {
+    try {
+      // Convert times to Date objects if they're strings
+      const startTime = new Date(appointment.timeSlot.startTime);
+      const endTime = new Date(appointment.timeSlot.endTime);
+
+      // Validate dates
+      if (isNaN(startTime.getTime())) throw new Error('Invalid start time');
+      if (isNaN(endTime.getTime())) throw new Error('Invalid end time');
+
+      // Format date and time
+      const formattedDate = startTime.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      const formatTime = (date) => date.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'America/New_York' // Set to your preferred timezone
+      });
+
+      const timeSlotDisplay = `${formatTime(startTime)} - ${formatTime(endTime)}`;
+      const durationMinutes = Math.round((endTime - startTime) / (1000 * 60));
+
+      // Get tenant info
+      const tenant = await Tenant.findById(service.tenantId).select('name phone');
+
+      // Prepare email content
+      const emailContent = {
+        email: customerUser.email,
+        subject: `Appointment Confirmation - ${tenant?.name || 'Our Service'}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #2d3748;">Your Appointment is Confirmed</h2>
+            <p>Hello ${customerUser.name},</p>
+            
+            <div style="background: #f7fafc; padding: 16px; border-radius: 8px; margin: 16px 0;">
+              <h3 style="margin-top: 0; color: #4a5568;">Appointment Details</h3>
+              <p><strong>Service:</strong> ${service.name}</p>
+              <p><strong>Date:</strong> ${formattedDate}</p>
+              <p><strong>Time:</strong> ${timeSlotDisplay}</p>
+              <p><strong>Duration:</strong> ${durationMinutes} minutes</p>
+              ${tenant?.phone ? `<p><strong>Contact:</strong> ${tenant.phone}</p>` : ''}
+            </div>
+
+            <p>If you need to reschedule or have any questions, please contact us.</p>
+            
+            <p style="margin-top: 24px;">Best regards,<br>
+            ${tenant?.name || 'The Service Team'}</p>
+          </div>
+        `
+      };
+
+      // Send email
+      await sendEmail(emailContent);
+
+      // Update notification status
+      appointment.notificationsStatus = {
+        confirmationSent: true,
+        sentAt: new Date()
+      };
+      await appointment.save();
+
+    } catch (err) {
+      console.error('Email notification failed:', {
+        error: err.message,
+        stack: err.stack,
+        userEmail: customerUser.email,
+        appointmentId: appointment._id
+      });
+      
+      // Record the failure without blocking the response
+      appointment.notificationsStatus = {
+        confirmationSent: false,
+        error: err.message,
+        lastAttempt: new Date()
+      };
+      await appointment.save();
+    }
+  }
+
+  // 9. Return success response
   res.status(201).json({
     success: true,
     data: appointment
   });
 });
-
-// Email sending function with proper error handling
-async function sendConfirmationEmail(appointment, service) {
-  const [customerUser, tenant] = await Promise.all([
-    User.findById(appointment.customer.user),
-    Tenant.findById(service.tenantId).select('name phone email')
-  ]);
-
-  if (!customerUser?.email) {
-    console.log('No email address for user, skipping email');
-    return;
-  }
-
-  // Format date/time for display
-  const options = {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    timeZone: 'America/New_York'
-  };
-
-  const formattedDate = appointment.date.toLocaleString('en-US', options);
-  const duration = Math.round((appointment.timeSlot.endTime - appointment.timeSlot.startTime) / (1000 * 60));
-
-  try {
-    await sendEmail({
-      to: customerUser.email,
-      subject: `Appointment Confirmation - ${tenant?.name || service.name}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #2d3748;">Your Appointment is Confirmed</h2>
-          <p>Hello ${customerUser.name},</p>
-          
-          <div style="background: #f7fafc; padding: 16px; border-radius: 8px; margin: 16px 0;">
-            <h3 style="margin-top: 0; color: #4a5568;">Appointment Details</h3>
-            <p><strong>Service:</strong> ${service.name}</p>
-            <p><strong>Date & Time:</strong> ${formattedDate}</p>
-            <p><strong>Duration:</strong> ${duration} minutes</p>
-            ${tenant?.phone ? `<p><strong>Contact:</strong> ${tenant.phone}</p>` : ''}
-          </div>
-
-          <p>If you need to reschedule or have any questions, please reply to this email.</p>
-          
-          <p style="margin-top: 24px;">Best regards,<br>
-          ${tenant?.name || 'The Service Team'}</p>
-        </div>
-      `,
-      from: tenant?.email || 'noreply@service.com' // Set your default from email
-    });
-
-    // Update appointment with email status
-    await Appointment.findByIdAndUpdate(appointment._id, {
-      $set: {
-        'notificationsStatus.confirmationSent': true,
-        'notificationsStatus.sentAt': new Date()
-      }
-    });
-  } catch (err) {
-    console.error('Failed to send confirmation email:', err);
-    await Appointment.findByIdAndUpdate(appointment._id, {
-      $set: {
-        'notificationsStatus.confirmationSent': false,
-        'notificationsStatus.error': err.message,
-        'notificationsStatus.lastAttempt': new Date()
-      }
-    });
-  }
-}
 
 // @desc    Update appointment
 // @route   PUT /api/v1/appointments/:id
