@@ -625,28 +625,28 @@ exports.uploadPropertyImages = asyncHandler(async (req, res, next) => {
   );
 
   if (!property) {
-    property = {
-      name: propertyName,
-      propertyAddress: {
-        street: '',
-        city: '',
-        state: '',
-        zipCode: '',
-        country: 'USA'
-      },
-      size: 0,
-      features: {
-        hasFrontYard: false,
-        hasBackYard: false,
-        hasTrees: false,
-        hasGarden: false,
-        hasSprinklerSystem: false
-      },
-      accessInstructions: '',
-      images: []
-    };
-    customer.propertyDetails.push(property);
-  }
+  property = {
+    name: propertyName,
+    propertyAddress: {
+      street: req.body.street || '',
+      city: req.body.city || '',
+      state: req.body.state || '',
+      zipCode: req.body.zipCode || '',
+      country: req.body.country || 'USA'
+    },
+    size: req.body.size || 0,
+    features: {
+      hasFrontYard: req.body.hasFrontYard || false,
+      hasBackYard: req.body.hasBackYard || false,
+      hasTrees: req.body.hasTrees || false,
+      hasGarden: req.body.hasGarden || false,
+      hasSprinklerSystem: req.body.hasSprinklerSystem || false
+    },
+    accessInstructions: req.body.accessInstructions || '',
+    images: []
+  };
+  customer.propertyDetails.push(property);
+}
 
   // 4. Validate files
   if (!req.files || (!req.files.images && !req.files.image)) {
