@@ -662,7 +662,7 @@ exports.createAppointment = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
 
   // Find the Customer using the user ID
-  const customer = await Customer.findOne({ user: userId });
+  const customer = await Customer.findOne({ user: userId }).populate('user');
   if (!customer) {
     return next(
       new ErrorResponse(`Customer not found with user id of ${userId}`, 404)
@@ -677,12 +677,58 @@ exports.createAppointment = asyncHandler(async (req, res, next) => {
     );
   }
 
+  // Validate time slot format
+  if (!req.body.timeSlot || !req.body.timeSlot.startTime || !req.body.timeSlot.endTime) {
+    return next(
+      new ErrorResponse('Please provide both startTime and endTime in the timeSlot object', 400)
+    );
+  }
+
+  // Calculate duration in minutes
+  const calculateDuration = (start, end) => {
+    const [startHours, startMinutes] = start.split(':').map(Number);
+    const [endHours, endMinutes] = end.split(':').map(Number);
+    
+    const startTotal = startHours * 60 + startMinutes;
+    const endTotal = endHours * 60 + endMinutes;
+    
+    return endTotal - startTotal;
+  };
+
+  const durationMinutes = calculateDuration(
+    req.body.timeSlot.startTime,
+    req.body.timeSlot.endTime
+  );
+
+  // Format time for display
+  const formatTimeForDisplay = (timeStr) => {
+    const [hours, minutes] = timeStr.split(':');
+    const hour = parseInt(hours, 10);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const hour12 = hour % 12 || 12;
+    return `${hour12}:${minutes.padStart(2, '0')} ${ampm}`;
+  };
+
+  // Format date for display
+  const formattedDate = new Date(req.body.date).toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
+  // Format time slot for display
+  const formattedTimeSlot = `${formatTimeForDisplay(req.body.timeSlot.startTime)} - ${formatTimeForDisplay(req.body.timeSlot.endTime)}`;
+
   // Prepare appointment data
   const appointmentData = {
     ...req.body,
-   tenant: service.tenantId,   // Set tenant from service
-    customer: customer._id,     // Set customer from logged in user
-    createdBy: userId           // Set creator
+    tenant: service.tenantId,
+    customer: customer._id,
+    createdBy: userId,
+    duration: durationMinutes,
+    formattedDate,
+    formattedTimeSlot
   };
 
   // Create appointment
@@ -691,41 +737,30 @@ exports.createAppointment = asyncHandler(async (req, res, next) => {
   // Add customer to tenant's customers list if not already there
   await Customer.findByIdAndUpdate(
     customer._id,
-    { $addToSet: { tenants: service.tenantId } }, // $addToSet prevents duplicates
+    { $addToSet: { tenants: service.tenantId } },
     { new: true }
   );
 
-  // Get customer's user info for notification
-  const customerUser = await User.findById(customer.user);
+  // Get tenant info for email personalization
+  const tenant = await Tenant.findById(service.tenantId);
 
-  // Send confirmation email to customer
-  if (customerUser?.email) {
+  // Send confirmation email
+  if (customer.user?.email) {
     try {
-      const formattedDate = new Date(appointment.date).toLocaleString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-
-      // Get tenant info for email personalization
-      const tenant = await Tenant.findById(service.tenantId);
-      
       await sendEmail({
-        email: customerUser.email,
+        email: customer.user.email,
         subject: `Appointment Confirmation - ${tenant?.name || 'Our Service'}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #2d3748;">Your Appointment is Confirmed</h2>
-            <p>Hello ${customerUser.name},</p>
+            <p>Hello ${customer.user.name},</p>
             
             <div style="background: #f7fafc; padding: 16px; border-radius: 8px; margin: 16px 0;">
               <h3 style="margin-top: 0; color: #4a5568;">Appointment Details</h3>
               <p><strong>Service:</strong> ${service.name}</p>
-              <p><strong>Date & Time:</strong> ${formattedDate}</p>
-              <p><strong>Duration:</strong> ${appointment.timeSlot.endTime - appointment.timeSlot.startTime} minutes</p>
+              <p><strong>Date:</strong> ${formattedDate}</p>
+              <p><strong>Time:</strong> ${formattedTimeSlot}</p>
+              <p><strong>Duration:</strong> ${durationMinutes} minutes</p>
               ${tenant?.phone ? `<p><strong>Contact:</strong> ${tenant.phone}</p>` : ''}
             </div>
 
