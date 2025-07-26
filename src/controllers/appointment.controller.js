@@ -750,6 +750,9 @@ const formattedDate = new Date(appointment.date).toLocaleString('en-US', {
   minute: '2-digit'
 });
 
+ // // Get tenant info for email personalization
+    const tenant = await Tenant.findById(service.tenantId);
+
 // Properly calculate duration in minutes
 const durationMinutes = (appointment.timeSlot.endTime - appointment.timeSlot.startTime) / (1000 * 60);
 
