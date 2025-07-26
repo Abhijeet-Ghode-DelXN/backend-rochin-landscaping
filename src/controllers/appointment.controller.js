@@ -765,96 +765,121 @@ exports.getAvailability = async (req, res) => {
 exports.createAppointment = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
 
-  // 1. Find the Customer using the user ID
+  // 1. Validate request body
+  if (!req.body.service || !req.body.date || !req.body.timeSlot) {
+    return next(new ErrorResponse('Missing required fields', 400));
+  }
+
+  // 2. Find the Customer
   const customer = await Customer.findOne({ user: userId });
   if (!customer) {
-    return next(
-      new ErrorResponse(`Customer not found with user id of ${userId}`, 404)
-    );
+    return next(new ErrorResponse(`Customer not found with user id ${userId}`, 404));
   }
 
-  // 2. Check service exists and get tenantId from it
+  // 3. Check service exists
   const service = await Service.findById(req.body.service);
   if (!service) {
-    return next(
-      new ErrorResponse(`Service not found with id of ${req.body.service}`, 404)
-    );
+    return next(new ErrorResponse(`Service not found with id ${req.body.service}`, 404));
   }
 
-  // 3. Validate time slot data
-  if (!req.body.timeSlot || !req.body.timeSlot.startTime || !req.body.timeSlot.endTime) {
-    return next(
-      new ErrorResponse('Start time and end time are required', 400)
+  // 4. Parse and validate date/time
+  const parseTime = (dateStr, timeStr) => {
+    const [year, month, day] = dateStr.split('-');
+    const [hours, minutes] = timeStr.split(':');
+    
+    // Create date in local timezone (adjust as needed)
+    return new Date(
+      parseInt(year),
+      parseInt(month) - 1,
+      parseInt(day),
+      parseInt(hours),
+      parseInt(minutes)
     );
-  }
-
-  // 4. Prepare appointment data
-  const appointmentData = {
-    ...req.body,
-    tenant: service.tenantId,   // Set tenant from service
-    customer: customer._id,     // Set customer from logged in user
-    createdBy: userId           // Set creator
   };
 
-  // 5. Create appointment
-  const appointment = await Appointment.create(appointmentData);
-
-  // 6. Add customer to tenant's customers list if not already there
-  await Customer.findByIdAndUpdate(
-    customer._id,
-    { $addToSet: { tenants: service.tenantId } }, // $addToSet prevents duplicates
-    { new: true }
-  );
-
-  // 7. Get customer's user info for notification
-  const customerUser = await User.findById(customer.user).select('email name');
-
-  // 8. Send confirmation email to customer
- if (customerUser?.email) {
   try {
-    // Parse the date and times
-    const appointmentDate = new Date(appointment.date);
-    const startTime = new Date(appointment.timeSlot.startTime);
-    const endTime = new Date(appointment.timeSlot.endTime);
+    const startTime = parseTime(req.body.date, req.body.timeSlot.startTime);
+    const endTime = parseTime(req.body.date, req.body.timeSlot.endTime);
 
-    // Validate dates
-    if (isNaN(startTime.getTime()) || isNaN(endTime.getTime())) {
-      throw new Error('Invalid time values in appointment');
+    if (isNaN(startTime.getTime())) throw new Error('Invalid start time');
+    if (isNaN(endTime.getTime())) throw new Error('Invalid end time');
+    if (startTime >= endTime) throw new Error('End time must be after start time');
+    if (startTime < new Date()) throw new Error('Appointment cannot be in the past');
+
+    // 5. Prepare appointment data
+    const appointmentData = {
+      service: req.body.service,
+      date: startTime,  // Using the parsed Date object
+      timeSlot: {
+        startTime,
+        endTime
+      },
+      tenant: service.tenantId,
+      customer: customer._id,
+      createdBy: userId,
+      customerNotes: req.body.customerNotes || '',
+      propertyDetails: req.body.propertyDetails || []
+    };
+
+    // 6. Create appointment
+    const appointment = await Appointment.create(appointmentData);
+
+    // 7. Add customer to tenant's customers list
+    await Customer.findByIdAndUpdate(
+      customer._id,
+      { $addToSet: { tenants: service.tenantId } },
+      { new: true }
+    );
+
+    // 8. Send confirmation email
+    if (customer.user?.email) {
+      await sendAppointmentConfirmation(appointment, customer.user, service);
     }
 
+    res.status(201).json({
+      success: true,
+      data: appointment
+    });
+
+  } catch (err) {
+    console.error('Appointment creation error:', err);
+    return next(new ErrorResponse(err.message, 400));
+  }
+});
+
+// Helper function to send confirmation email
+const sendAppointmentConfirmation = async (appointment, user, service) => {
+  try {
+    const tenant = await Tenant.findById(service.tenantId).select('name phone');
+    
     // Format date and time
-    const formattedDate = appointmentDate.toLocaleDateString('en-US', {
+    const options = {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
-    });
-
-    const formatTime = (date) => date.toLocaleTimeString('en-US', {
+      day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
       timeZone: 'America/New_York'
-    });
+    };
 
-    const timeSlotDisplay = `${formatTime(startTime)} - ${formatTime(endTime)}`;
-    const durationMinutes = Math.round((endTime - startTime) / (1000 * 60));
-
-    // Get tenant info
-    const tenant = await Tenant.findById(service.tenantId).select('name phone');
+    const formattedDate = appointment.date.toLocaleDateString('en-US', options);
+    const durationMinutes = Math.round(
+      (appointment.timeSlot.endTime - appointment.timeSlot.startTime) / (1000 * 60)
+    );
 
     await sendEmail({
-      email: customerUser.email,
+      email: user.email,
       subject: `Appointment Confirmation - ${tenant?.name || 'Our Service'}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #2d3748;">Your Appointment is Confirmed</h2>
-          <p>Hello ${customerUser.name},</p>
+          <p>Hello ${user.name},</p>
           
           <div style="background: #f7fafc; padding: 16px; border-radius: 8px; margin: 16px 0;">
             <h3 style="margin-top: 0; color: #4a5568;">Appointment Details</h3>
             <p><strong>Service:</strong> ${service.name}</p>
-            <p><strong>Date:</strong> ${formattedDate}</p>
-            <p><strong>Time:</strong> ${timeSlotDisplay}</p>
+            <p><strong>Date & Time:</strong> ${formattedDate}</p>
             <p><strong>Duration:</strong> ${durationMinutes} minutes</p>
             ${tenant?.phone ? `<p><strong>Contact:</strong> ${tenant.phone}</p>` : ''}
           </div>
@@ -873,30 +898,18 @@ exports.createAppointment = asyncHandler(async (req, res, next) => {
       sentAt: new Date()
     };
     await appointment.save();
+
   } catch (err) {
-    console.error('Email notification failed:', {
-      error: err.message,
-      stack: err.stack,
-      userEmail: customerUser.email,
-      appointmentId: appointment._id
-    });
-    
-    // Record the failure without blocking the response
+    console.error('Email notification failed:', err);
+    // Don't fail the request if email fails
     appointment.notificationsStatus = {
       confirmationSent: false,
       error: err.message,
       lastAttempt: new Date()
     };
     await appointment.save();
-    }
   }
-
-  // 9. Return success response
-  res.status(201).json({
-    success: true,
-    data: appointment
-  });
-});
+};
 
 // @desc    Update appointment
 // @route   PUT /api/v1/appointments/:id
