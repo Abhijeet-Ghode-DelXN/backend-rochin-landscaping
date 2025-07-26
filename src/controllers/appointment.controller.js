@@ -701,41 +701,93 @@ exports.createAppointment = asyncHandler(async (req, res, next) => {
   // Send confirmation email to customer
   if (customerUser?.email) {
     try {
-      const formattedDate = new Date(appointment.date).toLocaleString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
+      // const formattedDate = new Date(appointment.date).toLocaleString('en-US', {
+      //   weekday: 'long',
+      //   year: 'numeric',
+      //   month: 'long',
+      //   day: 'numeric',
+      //   hour: '2-digit',
+      //   minute: '2-digit'
+      // });
 
-      // Get tenant info for email personalization
-      const tenant = await Tenant.findById(service.tenantId);
+      // // Get tenant info for email personalization
+      // const tenant = await Tenant.findById(service.tenantId);
       
-      await sendEmail({
-        email: customerUser.email,
-        subject: `Appointment Confirmation - ${tenant?.name || 'Our Service'}`,
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #2d3748;">Your Appointment is Confirmed</h2>
-            <p>Hello ${customerUser.name},</p>
+      // await sendEmail({
+      //   email: customerUser.email,
+      //   subject: `Appointment Confirmation - ${tenant?.name || 'Our Service'}`,
+      //   html: `
+      //     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      //       <h2 style="color: #2d3748;">Your Appointment is Confirmed</h2>
+      //       <p>Hello ${customerUser.name},</p>
             
-            <div style="background: #f7fafc; padding: 16px; border-radius: 8px; margin: 16px 0;">
-              <h3 style="margin-top: 0; color: #4a5568;">Appointment Details</h3>
-              <p><strong>Service:</strong> ${service.name}</p>
-              <p><strong>Date & Time:</strong> ${formattedDate}</p>
-              <p><strong>Duration:</strong> ${appointment.timeSlot.endTime - appointment.timeSlot.startTime} minutes</p>
-              ${tenant?.phone ? `<p><strong>Contact:</strong> ${tenant.phone}</p>` : ''}
-            </div>
+      //       <div style="background: #f7fafc; padding: 16px; border-radius: 8px; margin: 16px 0;">
+      //         <h3 style="margin-top: 0; color: #4a5568;">Appointment Details</h3>
+      //         <p><strong>Service:</strong> ${service.name}</p>
+      //         <p><strong>Date & Time:</strong> ${formattedDate}</p>
+      //         <p><strong>Duration:</strong> ${appointment.timeSlot.endTime - appointment.timeSlot.startTime} minutes</p>
+      //         ${tenant?.phone ? `<p><strong>Contact:</strong> ${tenant.phone}</p>` : ''}
+      //       </div>
 
-            <p>If you need to reschedule or have any questions, please contact us.</p>
+      //       <p>If you need to reschedule or have any questions, please contact us.</p>
             
-            <p style="margin-top: 24px;">Best regards,<br>
-            ${tenant?.name || 'The Service Team'}</p>
-          </div>
-        `
-      });
+      //       <p style="margin-top: 24px;">Best regards,<br>
+      //       ${tenant?.name || 'The Service Team'}</p>
+      //     </div>
+      //   `
+      // });
+
+
+
+
+      // In your createAppointment controller
+const formattedDate = new Date(appointment.date).toLocaleString('en-US', {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit'
+});
+
+// Properly calculate duration in minutes
+const durationMinutes = (appointment.timeSlot.endTime - appointment.timeSlot.startTime) / (1000 * 60);
+
+// Format time slot for display
+const formatTimeForEmail = (time) => {
+  const date = new Date(time);
+  return date.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+};
+
+const timeSlotDisplay = `${formatTimeForEmail(appointment.timeSlot.startTime)} - ${formatTimeForEmail(appointment.timeSlot.endTime)}`;
+
+await sendEmail({
+  email: customerUser.email,
+  subject: `Appointment Confirmation - ${tenant?.name || 'Our Service'}`,
+  html: `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <h2 style="color: #2d3748;">Your Appointment is Confirmed</h2>
+      <p>Hello ${customerUser.name},</p>
+      
+      <div style="background: #f7fafc; padding: 16px; border-radius: 8px; margin: 16px 0;">
+        <h3 style="margin-top: 0; color: #4a5568;">Appointment Details</h3>
+        <p><strong>Service:</strong> ${service.name}</p>
+        <p><strong>Date:</strong> ${formattedDate.split(' at ')[0]}</p>
+        <p><strong>Time:</strong> ${timeSlotDisplay}</p>
+        <p><strong>Duration:</strong> ${durationMinutes} minutes</p>
+        ${tenant?.phone ? `<p><strong>Contact:</strong> ${tenant.phone}</p>` : ''}
+      </div>
+
+      <p>If you need to reschedule or have any questions, please contact us.</p>
+      
+      <p style="margin-top: 24px;">Best regards,<br>
+      ${tenant?.name || 'The Service Team'}</p>
+    </div>
+  `
+});
 
       // Update notification status
       appointment.notificationsStatus = {
