@@ -39,8 +39,14 @@ router.route('/')
   .post(protect, authorize('tenantAdmin'), createCustomerByAdmin);
 
 
-  router.post(
-  '/:id/propertyDetails/:propertyIndex/images',
+//   router.post(
+//   '/:id/propertyDetails/:propertyIndex/images',
+//    // Make sure you have proper multer middleware
+//   uploadPropertyImages
+// );
+
+router.post(
+  '/:id/properties/:propertyName/images',
    // Make sure you have proper multer middleware
   uploadPropertyImages
 );
