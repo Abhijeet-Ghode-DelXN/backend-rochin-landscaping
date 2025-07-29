@@ -54,12 +54,20 @@ router.post(
 // router.route('/:id/properties/:propertyName/images')
 //   .post(uploadPropertyImages);
 
-router.delete(
-  '/:id/propertyDetails/:propertyIndex/images/:imageId',
-  deletePropertyImage
-);
+// router.delete(
+//   '/:id/propertyDetails/:propertyIndex/images/:imageId',
+//   deletePropertyImage
+// );
 
 
+// routes/customerRoutes.js
+// router.delete(
+//   '/:id/properties/:propertyName/images/:publicId',
+//   // protect,
+//   // asyncHandler(customerController.deletePropertyImage)
+// );
+
+router.delete('/:customerId/properties/:propertyName/images/:publicId(*)',deletePropertyImage);
   
 
 router.route('/:id')
