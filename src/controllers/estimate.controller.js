@@ -34,6 +34,7 @@ exports.getEstimates = asyncHandler(async (req, res, next) => {
 
   // Populate customer and service details
   query = query
+  .select('+budget')
     .populate({
       path: 'customer',
       select: 'user propertyDetails',
@@ -410,6 +411,7 @@ exports.requestEstimate = asyncHandler(async (req, res, next) => {
       size: req.body.property?.size || customer.propertyDetails?.size,
       details: req.body.property?.details
     },
+    budget: req.body.budget,
     status: 'Requested',
     createdBy: req.user.id
   };
@@ -459,6 +461,7 @@ exports.getMyEstimates = asyncHandler(async (req, res, next) => {
       path: 'services.service',
       select: 'name description'
     })
+    .select('+budget')
     .sort('-createdAt');
 
   res.status(200).json({

@@ -52,10 +52,25 @@ const EstimateSchema = new mongoose.Schema({
   customerNotes: {
     type: String
   },
+  // budget: {
+  //   min: Number,
+  //   max: Number
+  // },
   budget: {
-    min: Number,
-    max: Number
+  min: {
+    type: Number,
+    min: 0
   },
+  max: {
+    type: Number,
+    validate: {
+      validator: function(v) {
+        return v >= this.budget.min;
+      },
+      message: 'Max budget must be greater than min budget'
+    }
+  }
+},
   accessInfo: {
     type: String
   },
