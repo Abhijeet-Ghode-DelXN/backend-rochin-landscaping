@@ -10,6 +10,7 @@ const {
   updateMyProfile,
   getMyServiceHistory,
    uploadPropertyImages,
+    uploadPropertyPhotos,
    deletePropertyImage
 } = require('../controllers/customer.controller');
 
@@ -21,7 +22,9 @@ const { protect, authorize } = require('../middlewares/auth');
 const advancedResults = require('../middlewares/advancedResults');
 
 // Routes for current customer (customer role)
-router.get('/me', protect, authorize('customer'), getMyProfile);
+router.get('/me', protect, 
+  // authorize('customer'), 
+  getMyProfile);
 router.put('/me', protect, authorize('customer'), updateMyProfile);
 router.get('/me/history', protect, authorize('customer'), getMyServiceHistory);
 
@@ -45,10 +48,16 @@ router.route('/')
 //   uploadPropertyImages
 // );
 
+// router.post(
+//   '/:id/properties/:propertyName/images',
+//    // Make sure you have proper multer middleware
+//   uploadPropertyImages
+// );
 router.post(
-  '/:id/properties/:propertyName/images',
-   // Make sure you have proper multer middleware
-  uploadPropertyImages
+  '/:propertyId/photos',
+  // protect,
+  // upload.array('photos', 10), // 'photos' field name, max 10 files
+  uploadPropertyPhotos
 );
 
 // router.route('/:id/properties/:propertyName/images')

@@ -78,10 +78,24 @@ module.exports = function tenantScopePlugin(schema) {
     return this.tenant && this.tenant.toString() === tenantId.toString();
   };
 
+  // Pre-validate hook to ensure tenant is set before validation
+  schema.pre('validate', function(next) {
+    if (!this.tenant) {
+      const store = tenantContext.getStore();
+      if (store && store.tenantId) {
+        this.tenant = store.tenantId;
+      }
+    }
+    next();
+  });
+
   // Pre-save hook to ensure tenant is set
   schema.pre('save', function(next) {
-    if (!this.tenant && this._context && this._context.tenant) {
-      this.tenant = this._context.tenant;
+    if (!this.tenant) {
+      const store = tenantContext.getStore();
+      if (store && store.tenantId) {
+        this.tenant = store.tenantId;
+      }
     }
     next();
   });

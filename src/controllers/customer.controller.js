@@ -535,111 +535,172 @@ exports.createCustomerByAdmin = asyncHandler(async (req, res, next) => {
 
 const cloudinary = require('cloudinary').v2;
 
-exports.uploadPropertyImages = asyncHandler(async (req, res, next) => {
-  let uploadResults = [];
+// exports.uploadPropertyImages = asyncHandler(async (req, res, next) => {
+//   let uploadResults = [];
   
-  try {
-    // 1. Find customer
-    const customer = await Customer.findById(req.params.id);
-    if (!customer) {
-      return next(new ErrorResponse('Customer not found', 404));
-    }
+//   try {
+//     // 1. Find customer
+//     const customer = await Customer.findById(req.params.id);
+//     if (!customer) {
+//       return next(new ErrorResponse('Customer not found', 404));
+//     }
 
-    // 2. Get and validate property
-    const propertyName = decodeURIComponent(req.params.propertyName);
-    let property = customer.propertyDetails.find(
-      p => p.name.toLowerCase() === propertyName.toLowerCase()
+//     // 2. Get and validate property
+//     const propertyName = decodeURIComponent(req.params.propertyName);
+//     let property = customer.propertyDetails.find(
+//       p => p.name.toLowerCase() === propertyName.toLowerCase()
+//     );
+
+//     if (!property) {
+//       property = {
+//         name: propertyName,
+//         images: []
+//       };
+//       customer.propertyDetails.push(property);
+//       // Save the new property structure first
+//       await customer.save();
+//     }
+
+//     // 3. Validate files
+//     let files = [];
+//     if (req.files?.images) {
+//       files = Array.isArray(req.files.images) ? req.files.images : [req.files.images];
+//     }
+
+//     if (files.length === 0) {
+//       return next(new ErrorResponse('Please upload at least one image file', 400));
+//     }
+
+//     // 4. Upload to Cloudinary with better error handling
+//     uploadResults = await Promise.all(files.map(file => {
+//       if (!file.mimetype.startsWith('image')) {
+//         throw new Error(`File ${file.name} is not an image`);
+//       }
+      
+//       // Generate more unique public_id
+//       const uniqueSuffix = `${Date.now()}_${Math.floor(Math.random() * 10000)}`;
+//       const originalName = file.name.replace(/\.[^/.]+$/, ""); // Remove extension
+//       // AFTER (correct - no double prefix):
+// const publicId = `${originalName}_${uniqueSuffix}`.replace(/\s+/g, '_');
+
+// return cloudinary.uploader.upload(file.tempFilePath, {
+//   folder: 'property_images',  // This will add the prefix automatically
+//   public_id: publicId,        // No prefix here - Cloudinary will add it
+//   unique_filename: true,
+//   overwrite: false
+// });
+//     }));
+
+//     // 5. Create new image objects with validation
+//     const newImages = uploadResults.map(result => {
+//       if (!result.secure_url) {
+//         throw new Error('Cloudinary did not return a URL');
+//       }
+      
+//       return {
+//         url: result.secure_url, // Ensure URL is included
+//         publicId: result.public_id,
+//         createdAt: new Date()
+//       };
+//     });
+
+//     // 6. Add to property and save
+//     property.images.push(...newImages);
+//     customer.markModified('propertyDetails');
+    
+//     // Save with error handling
+//     try {
+//       await customer.save();
+//     } catch (saveErr) {
+//       console.error('Database save error:', saveErr);
+//       // Clean up Cloudinary uploads if save fails
+//       await Promise.all(
+//         uploadResults.map(result => 
+//           cloudinary.uploader.destroy(result.public_id).catch(console.error)
+//       ));
+//       throw new Error('Failed to save image data to database');
+//     }
+
+//     // 7. Return success response with only the new images
+//     res.status(200).json({
+//       success: true,
+//       data: newImages // Return just the newly uploaded images with their URLs
+//     });
+
+//   } catch (err) {
+//     console.error('Upload error:', err);
+//     // Clean up any uploaded files on error
+//     await Promise.all(
+//       uploadResults.map(result => 
+//         cloudinary.uploader.destroy(result.public_id).catch(console.error)
+//       )
+//     );
+//     next(new ErrorResponse(err.message || 'Image upload failed', 500));
+//   }
+// });
+
+exports.uploadPropertyPhotos = asyncHandler(async (req, res, next) => {
+  // Find the property by ID
+  const property = await Property.findById(req.params.propertyId);
+
+  if (!property) {
+    return next(
+      new ErrorResponse(`Property not found with id of ${req.params.propertyId}`, 404)
     );
+  }
 
-    if (!property) {
-      property = {
-        name: propertyName,
-        images: []
-      };
-      customer.propertyDetails.push(property);
-      // Save the new property structure first
-      await customer.save();
+  // Check if files were uploaded
+  if (!req.files || !req.files.photos) {
+    return next(new ErrorResponse(`Please upload at least one photo`, 400));
+  }
+
+  const photos = Array.isArray(req.files.photos) 
+    ? req.files.photos 
+    : [req.files.photos];
+
+  const uploadPromises = photos.map(async photo => {
+    // Validate file type
+    if (!photo.mimetype.startsWith('image')) {
+      throw new ErrorResponse(`Please upload only image files`, 400);
     }
 
-    // 3. Validate files
-    let files = [];
-    if (req.files?.images) {
-      files = Array.isArray(req.files.images) ? req.files.images : [req.files.images];
-    }
+    // Create unique filename
+    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+    const originalName = photo.name.replace(/\.[^/.]+$/, ""); // Remove extension
+    const publicId = `${originalName}-${uniqueSuffix}`.replace(/\s+/g, '_');
 
-    if (files.length === 0) {
-      return next(new ErrorResponse('Please upload at least one image file', 400));
-    }
-
-    // 4. Upload to Cloudinary with better error handling
-    uploadResults = await Promise.all(files.map(file => {
-      if (!file.mimetype.startsWith('image')) {
-        throw new Error(`File ${file.name} is not an image`);
-      }
-      
-      // Generate more unique public_id
-      const uniqueSuffix = `${Date.now()}_${Math.floor(Math.random() * 10000)}`;
-      const originalName = file.name.replace(/\.[^/.]+$/, ""); // Remove extension
-      // AFTER (correct - no double prefix):
-const publicId = `${originalName}_${uniqueSuffix}`.replace(/\s+/g, '_');
-
-return cloudinary.uploader.upload(file.tempFilePath, {
-  folder: 'property_images',  // This will add the prefix automatically
-  public_id: publicId,        // No prefix here - Cloudinary will add it
-  unique_filename: true,
-  overwrite: false
-});
-    }));
-
-    // 5. Create new image objects with validation
-    const newImages = uploadResults.map(result => {
-      if (!result.secure_url) {
-        throw new Error('Cloudinary did not return a URL');
-      }
-      
-      return {
-        url: result.secure_url, // Ensure URL is included
-        publicId: result.public_id,
-        createdAt: new Date()
-      };
+    // Upload to cloudinary
+    const result = await cloudinary.uploader.upload(photo.tempFilePath, {
+      folder: `properties/${property._id}`,
+      public_id: publicId,
+      overwrite: false,
+      resource_type: 'image'
     });
 
-    // 6. Add to property and save
-    property.images.push(...newImages);
-    customer.markModified('propertyDetails');
-    
-    // Save with error handling
-    try {
-      await customer.save();
-    } catch (saveErr) {
-      console.error('Database save error:', saveErr);
-      // Clean up Cloudinary uploads if save fails
-      await Promise.all(
-        uploadResults.map(result => 
-          cloudinary.uploader.destroy(result.public_id).catch(console.error)
-      ));
-      throw new Error('Failed to save image data to database');
-    }
+    return {
+      url: result.secure_url,
+      publicId: result.public_id,
+      createdAt: new Date()
+    };
+  });
 
-    // 7. Return success response with only the new images
+  try {
+    const uploadedPhotos = await Promise.all(uploadPromises);
+
+    // Add photos to property
+    property.images.push(...uploadedPhotos);
+    await property.save();
+
     res.status(200).json({
       success: true,
-      data: newImages // Return just the newly uploaded images with their URLs
+      count: uploadedPhotos.length,
+      data: uploadedPhotos
     });
-
   } catch (err) {
-    console.error('Upload error:', err);
-    // Clean up any uploaded files on error
-    await Promise.all(
-      uploadResults.map(result => 
-        cloudinary.uploader.destroy(result.public_id).catch(console.error)
-      )
-    );
-    next(new ErrorResponse(err.message || 'Image upload failed', 500));
+    console.error('Error uploading property photos:', err);
+    return next(new ErrorResponse(`Problem with photo upload: ${err.message}`, 500));
   }
 });
-
-
 
 // // @desc    Upload images for a property
 // // @route   POST /api/v1/customers/:id/properties/:propertyName/images
