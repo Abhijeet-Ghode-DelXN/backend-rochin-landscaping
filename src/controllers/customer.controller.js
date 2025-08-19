@@ -136,9 +136,15 @@ exports.getMyProfile = asyncHandler(async (req, res, next) => {
     }));
   });
 
+  // Ensure address is available where frontend expects it (under user)
+  const result = customer.toObject();
+  if (result.user) {
+    result.user = { ...result.user, address: result.address };
+  }
+
   res.status(200).json({
     success: true,
-    data: customer
+    data: result
   });
 });
 
@@ -1217,10 +1223,13 @@ exports.updateMyProfile = asyncHandler(async (req, res, next) => {
     customer.user = user;
   }
 
+  // Normalize address: allow either req.body.address or req.body.user.address
+  const normalizedAddress = req.body.address || req.body.user?.address;
+
   // Update customer data
   const fieldsToUpdate = {
     phone: req.body.phone,
-    address: req.body.address,
+    address: normalizedAddress,
     propertyDetails: req.body.propertyDetails
   };
 
