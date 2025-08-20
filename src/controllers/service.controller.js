@@ -67,7 +67,53 @@ exports.getPublicServices = asyncHandler(async (req, res, next) => {
 
 
 
-// @desc    Get all services for tenant admin
+// // @desc    Get all services for tenant admin
+// // @route   GET /api/v1/services
+// // @access  Private
+// exports.getServices = asyncHandler(async (req, res, next) => {
+//   const { category, search, sort } = req.query;
+  
+//   // Get tenantId from async context, then req.user, then req.tenant, then query param
+//   const store = tenantContext.getStore();
+//   let tenantId = store?.tenantId || req.user?.tenantId || req.tenant?._id || req.query.tenantId;
+//   if (!tenantId) {
+//     // Main domain: return empty array instead of error
+//     return res.status(200).json({ success: true, count: 0, data: [] });
+//   }
+
+//   // Build base query - ALWAYS filter by tenantId
+//   let query = { tenantId };
+
+//   // Apply additional filters
+//   if (category && category !== 'all') {
+//     query.category = category;
+//   }
+  
+//   if (search) {
+//     query.$or = [
+//       { name: { $regex: search, $options: 'i' } },
+//       { description: { $regex: search, $options: 'i' } }
+//     ];
+//   }
+  
+//   // Sorting
+//   let sortBy = '-createdAt';
+//   if (sort) {
+//     sortBy = sort.split(',').join(' ');
+//   }
+  
+//   // Execute query
+//   const services = await Service.find(query).sort(sortBy);
+  
+//   res.status(200).json({
+//     success: true,
+//     count: services.length,
+//     data: services
+//   });
+// });
+
+
+// @desc    Get services - returns tenant-specific or all services based on context
 // @route   GET /api/v1/services
 // @access  Private
 exports.getServices = asyncHandler(async (req, res, next) => {
@@ -76,17 +122,31 @@ exports.getServices = asyncHandler(async (req, res, next) => {
   // Get tenantId from async context, then req.user, then req.tenant, then query param
   const store = tenantContext.getStore();
   let tenantId = store?.tenantId || req.user?.tenantId || req.tenant?._id || req.query.tenantId;
-  if (!tenantId) {
-    // Main domain: return empty array instead of error
+  
+  // Build query - different behavior for main domain vs subdomain
+  let query = {};
+  
+  // If we have a specific tenant ID, filter by that tenant
+  if (tenantId) {
+    query.tenantId = tenantId;
+    console.log(`🔍 Filtering services for tenant: ${tenantId}`);
+  }
+  // If no tenantId but we're on main domain (indicated by x-all-tenants header), return ALL services
+  else if (req.headers['x-all-tenants'] === 'true') {
+    console.log('🌐 Returning ALL services from ALL tenants (main domain request)');
+    // No tenant filter - will return all services
+    query = {};
+  }
+  // Otherwise (no tenant context and not main domain), return empty
+  else {
+    console.log('⚠️ No tenant context found, returning empty services array');
     return res.status(200).json({ success: true, count: 0, data: [] });
   }
-
-  // Build base query - ALWAYS filter by tenantId
-  let query = { tenantId };
 
   // Apply additional filters
   if (category && category !== 'all') {
     query.category = category;
+    console.log(`📂 Filtering by category: ${category}`);
   }
   
   if (search) {
@@ -94,6 +154,7 @@ exports.getServices = asyncHandler(async (req, res, next) => {
       { name: { $regex: search, $options: 'i' } },
       { description: { $regex: search, $options: 'i' } }
     ];
+    console.log(`🔎 Searching for: ${search}`);
   }
   
   // Sorting
@@ -101,9 +162,14 @@ exports.getServices = asyncHandler(async (req, res, next) => {
   if (sort) {
     sortBy = sort.split(',').join(' ');
   }
+  console.log(`📊 Sorting by: ${sortBy}`);
   
-  // Execute query
-  const services = await Service.find(query).sort(sortBy);
+  // Execute query with population of tenant info
+  const services = await Service.find(query)
+    .sort(sortBy)
+    .populate('tenantId', 'name subdomain');
+  
+  console.log(`✅ Found ${services.length} services`);
   
   res.status(200).json({
     success: true,
@@ -111,9 +177,6 @@ exports.getServices = asyncHandler(async (req, res, next) => {
     data: services
   });
 });
-
-
-
 
 
 

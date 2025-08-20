@@ -73,7 +73,8 @@ app.use(cors({
     'X-Requested-With',
     'X-Tenant-Subdomain',
     'x-tenant-id',
-    'x-tenant-subdomain'
+    'x-tenant-subdomain',
+     'x-all-tenants'
   ]
 }));
 
