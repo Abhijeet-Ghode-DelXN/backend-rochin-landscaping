@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {
   createPortfolio,
+   getAllPortfolios,
   getPortfolios,
   getPortfolio,
   updatePortfolio,
@@ -15,6 +16,8 @@ const tenantResolver = require('../middlewares/tenantResolver');
 
 // Public routes
 router.get('/', tenantResolver.resolveTenant, getPortfolios);
+router.route('/all')
+  .get(getAllPortfolios);
 router.get('/:id', tenantResolver.resolveTenant, getPortfolio);
 
 // Protected routes (Admin only)
@@ -23,6 +26,9 @@ router.post(
   [protect, authorize('tenantAdmin'), createPortfolioValidation, validate],
   createPortfolio
 );
+
+
+
 
 router.put(
   '/:id',
@@ -41,5 +47,7 @@ router.delete(
   [protect, authorize('admin', 'tenantAdmin')],
   deleteImage
 );
+
+// router.get('/all', getAllPortfolios);
 
 module.exports = router; 

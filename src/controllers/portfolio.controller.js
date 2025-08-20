@@ -261,3 +261,32 @@ exports.deleteImage = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('Error deleting image', 500));
   }
 });
+
+
+// @desc    Get all portfolio entries from all tenants (for main domain)
+// @route   GET /api/v1/portfolio/all
+// @access  Public
+exports.getAllPortfolios = asyncHandler(async (req, res, next) => {
+  const { serviceType, status, search } = req.query;
+
+  const filter = { status: 'published' }; // Only show published portfolios
+
+  if (serviceType) {
+    filter.serviceType = serviceType;
+  }
+
+  if (search) {
+    filter.$text = { $search: search };
+  }
+
+  const portfolios = await Portfolio.find(filter)
+    .populate('tenant', 'name subdomain') // Populate tenant info
+    .sort({ createdAt: -1 })
+    .lean();
+
+  res.status(200).json({
+    success: true,
+    count: portfolios.length,
+    data: portfolios
+  });
+});
