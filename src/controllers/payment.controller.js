@@ -118,11 +118,16 @@ exports.processPayment = asyncHandler(async (req, res, next) => {
   try {
     const customerUser = await User.findById(customer.user);
     
-    // Process payment with Stripe
-    const charge = await stripe.charges.create({
+    // Process payment with Stripe Payment Intents
+    const paymentIntent = await stripe.paymentIntents.create({
       amount: amount * 100, // Stripe requires cents
       currency: 'usd',
-      source: cardToken,
+      payment_method: cardToken,
+      confirm: true,
+      automatic_payment_methods: {
+        enabled: true,
+        allow_redirects: 'never'
+      },
       description: `Payment for ${paymentType} - Customer: ${customerUser.name}`,
       receipt_email: customerUser.email,
       metadata: {
@@ -134,8 +139,16 @@ exports.processPayment = asyncHandler(async (req, res, next) => {
       }
     });
 
+    // Get payment method details
+    let paymentMethodDetails = null;
+    if (paymentIntent.payment_method) {
+      const paymentMethod = await stripe.paymentMethods.retrieve(paymentIntent.payment_method);
+      paymentMethodDetails = paymentMethod.card;
+    }
+
     // Create payment record
     const payment = await Payment.create({
+      tenant: req.user.tenantId._id,
       customer: customer._id,
       appointment: appointmentId || null,
       estimate: estimateId || null,
@@ -145,14 +158,14 @@ exports.processPayment = asyncHandler(async (req, res, next) => {
       method: 'Credit Card',
       currency: 'USD',
       gateway: 'Stripe',
-      gatewayTransactionId: charge.id,
-      receiptUrl: charge.receipt_url,
+      gatewayTransactionId: paymentIntent.id,
+      receiptUrl: null,
       billingAddress,
       cardDetails: {
-        lastFour: charge.payment_method_details.card.last4,
-        brand: charge.payment_method_details.card.brand,
-        expiryMonth: charge.payment_method_details.card.exp_month,
-        expiryYear: charge.payment_method_details.card.exp_year
+        lastFour: paymentMethodDetails?.last4,
+        brand: paymentMethodDetails?.brand,
+        expiryMonth: paymentMethodDetails?.exp_month,
+        expiryYear: paymentMethodDetails?.exp_year
       },
       processedBy: req.user.id
     });
@@ -162,7 +175,7 @@ exports.processPayment = asyncHandler(async (req, res, next) => {
       await Appointment.findByIdAndUpdate(appointmentId, {
         'payment.status': 'Paid',
         'payment.amount': amount,
-        'payment.transactionId': charge.id,
+        'payment.transactionId': paymentIntent.id,
         'payment.paymentDate': Date.now()
       });
     } else if (estimateId && paymentType === 'Deposit') {
@@ -178,7 +191,7 @@ exports.processPayment = asyncHandler(async (req, res, next) => {
       await sendEmail({
         email: customerUser.email,
         subject: 'Payment Confirmation',
-        message: `Thank you for your payment of $${amount} for ${paymentType}. Your transaction ID is ${charge.id}. A receipt has been sent to your email.`
+        message: `Thank you for your payment of $${amount} for ${paymentType}. Your transaction ID is ${paymentIntent.id}. A receipt has been sent to your email.`
       });
     } catch (err) {
       console.log('Email notification failed:', err);
@@ -225,6 +238,7 @@ exports.createManualPayment = asyncHandler(async (req, res, next) => {
 
   // Create payment record
   const payment = await Payment.create({
+    tenant: req.user.tenantId._id,
     customer: customerId,
     appointment: appointmentId || null,
     estimate: estimateId || null,

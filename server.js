@@ -139,6 +139,9 @@ const tenantRoutes = require('./src/routes/tenant.routes');
 // Import super admin routes
 const superAdminRoutes = require('./src/routes/super-admin.routes');
 
+// Import webhook routes
+const webhookRoutes = require('./src/routes/webhook.routes');
+
 // Mount routers
 app.use(`${API_PREFIX}/auth`, authRoutes);
 app.use(`${API_PREFIX}/users`, userRoutes);
@@ -176,6 +179,9 @@ app.use(`${API_PREFIX}/logo`, logoRoutes);
 
 // Mount the property routes
 app.use(`${API_PREFIX}/properties`, propertyRoutes);
+
+// Mount webhook routes
+app.use('/webhook', webhookRoutes);
 
 // Welcome route
 app.get('/', (req, res) => {

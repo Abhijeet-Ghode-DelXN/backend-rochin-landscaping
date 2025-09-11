@@ -3,1739 +3,796 @@
 [33m[nodemon] watching path(s): *.*[39m
 [33m[nodemon] watching extensions: js,mjs,cjs,json[39m
 [32m[nodemon] starting `node server.js`[39m
-(node:9752) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:2416) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
 (Use `node --trace-warnings ...` to show where the warning was created)
-(node:9752) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:2416) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:2416) [MONGOOSE] Warning: Duplicate schema index on {"customer":1} found. This is often due to declaring an index using both "index: true" and "schema.index()". Please remove the duplicate index definition.
+(node:2416) [MONGOOSE] Warning: Duplicate schema index on {"tenants":1} found. This is often due to declaring an index using both "index: true" and "schema.index()". Please remove the duplicate index definition.
 Server running in production mode on port 5000
 MongoDB Connected: ac-q0etrwr-shard-00-00.sfnbxic.mongodb.net
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
+Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODMyNjBlNzBkMzA1ZTIwN2U5MDM4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODYyODUsImV4cCI6MTc2MDE3ODI4NX0.J_xQ2cl0T3axZyoifLUCAAjy1vH4m2ulTmXoOkb_eKY
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODMyNjBlNzBkMzA1ZTIwN2U5MDM4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODYyODUsImV4cCI6MTc2MDE3ODI4NX0.J_xQ2cl0T3axZyoifLUCAAjy1vH4m2ulTmXoOkb_eKY
 Verifying token with secret: Secret exists
 Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
+  id: '6883260e70d305e207e90389',
   role: 'customer',
   tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
+    settings: { timezone: 'UTC' },
     subscription: {
       plan: 'monthly',
       status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
+      startDate: '2025-07-01T05:27:56.957Z'
     },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
+    _id: '686371dc6afb07584c866517',
+    name: 'Isaac Gomes Ernandes',
+    subdomain: 'isaac-gomes-ernandes',
+    owner: '686371dd6afb07584c866519',
+    createdAt: '2025-07-01T05:27:56.961Z',
     __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
+    email: 'isaac-gomes-ernandes@gmail.com',
+    address: '8893 east 8th st , phoenix Arizona',
+    phone: '+1 (602) 421-4596'
   },
-  iat: 1751690470,
-  exp: 1754282470
+  iat: 1757586285,
+  exp: 1760178285
 }
 Found user: Yes
 User role: customer
 Token role: customer
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Appointments Route - Headers: {
-  host: 'localhost:5000',
-  connection: 'keep-alive',
-  'sec-ch-ua-platform': '"Windows"',
-  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA',
-  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
-  accept: 'application/json, text/plain, */*',
-  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
-  'sec-ch-ua-mobile': '?0',
-  origin: 'http://gildardo-rochin.localhost:3000',
-  'sec-fetch-site': 'cross-site',
-  'sec-fetch-mode': 'cors',
-  'sec-fetch-dest': 'empty',
-  referer: 'http://gildardo-rochin.localhost:3000/',
-  'accept-encoding': 'gzip, deflate, br, zstd',
-  'accept-language': 'en-US,en;q=0.9'
+--- GLOBAL ERROR HANDLER ---
+ErrorResponse: Payment processing failed: Cannot read properties of undefined (reading 'data')
+    at C:\Users\USER1\projects\Multi-tenant (Gardening)\Website\New folder\src\controllers\payment.controller.js:199:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  statusCode: 500
 }
-Appointments Route - Method: GET
-Appointments Route - Path: /my-appointments
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Appointments Route - Headers: {
-  host: 'localhost:5000',
-  connection: 'keep-alive',
-  'sec-ch-ua-platform': '"Windows"',
-  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA',
-  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
-  accept: 'application/json, text/plain, */*',
-  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
-  'sec-ch-ua-mobile': '?0',
-  origin: 'http://gildardo-rochin.localhost:3000',
-  'sec-fetch-site': 'cross-site',
-  'sec-fetch-mode': 'cors',
-  'sec-fetch-dest': 'empty',
-  referer: 'http://gildardo-rochin.localhost:3000/',
-  'accept-encoding': 'gzip, deflate, br, zstd',
-  'accept-language': 'en-US,en;q=0.9',
-  'if-none-match': 'W/"90a-NskBtZNXmt02vxG5pdwMc9Ho8AA"'
-}
-Appointments Route - Method: GET
-Appointments Route - Path: /my-appointments
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Appointments Route - Headers: {
-  host: 'localhost:5000',
-  connection: 'keep-alive',
-  'sec-ch-ua-platform': '"Windows"',
-  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
-  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
-  'sec-ch-ua-mobile': '?0',
-  accept: '*/*',
-  origin: 'http://gildardo-rochin.localhost:3000',
-  'sec-fetch-site': 'cross-site',
-  'sec-fetch-mode': 'cors',
-  'sec-fetch-dest': 'empty',
-  referer: 'http://gildardo-rochin.localhost:3000/',
-  'accept-encoding': 'gzip, deflate, br, zstd',
-  'accept-language': 'en-US,en;q=0.9'
-}
-Appointments Route - Method: GET
-Appointments Route - Path: /availability
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Appointments Route - Headers: {
-  host: 'localhost:5000',
-  connection: 'keep-alive',
-  'content-length': '143',
-  'sec-ch-ua-platform': '"Windows"',
-  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA',
-  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
-  'sec-ch-ua-mobile': '?0',
-  'x-tenant-subdomain': 'gildardo-rochin',
-  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
-  accept: 'application/json, text/plain, */*',
-  'content-type': 'application/json',
-  origin: 'http://gildardo-rochin.localhost:3000',
-  'sec-fetch-site': 'cross-site',
-  'sec-fetch-mode': 'cors',
-  'sec-fetch-dest': 'empty',
-  referer: 'http://gildardo-rochin.localhost:3000/',
-  'accept-encoding': 'gzip, deflate, br, zstd',
-  'accept-language': 'en-US,en;q=0.9'
-}
-Appointments Route - Method: POST
-Appointments Route - Path: /
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-✅ Using real Gmail email configuration
-📧 Message sent: <3ccec42a-7dcb-2373-582e-e70c18b8dfce@gmail.com>
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Appointments Route - Headers: {
-  host: 'localhost:5000',
-  connection: 'keep-alive',
-  'sec-ch-ua-platform': '"Windows"',
-  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
-  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
-  'sec-ch-ua-mobile': '?0',
-  accept: '*/*',
-  origin: 'http://gildardo-rochin.localhost:3000',
-  'sec-fetch-site': 'cross-site',
-  'sec-fetch-mode': 'cors',
-  'sec-fetch-dest': 'empty',
-  referer: 'http://gildardo-rochin.localhost:3000/',
-  'accept-encoding': 'gzip, deflate, br, zstd',
-  'accept-language': 'en-US,en;q=0.9'
-}
-Appointments Route - Method: GET
-Appointments Route - Path: /availability
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Appointments Route - Headers: {
-  host: 'localhost:5000',
-  connection: 'keep-alive',
-  'content-length': '143',
-  'sec-ch-ua-platform': '"Windows"',
-  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA',
-  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
-  'sec-ch-ua-mobile': '?0',
-  'x-tenant-subdomain': 'gildardo-rochin',
-  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
-  accept: 'application/json, text/plain, */*',
-  'content-type': 'application/json',
-  origin: 'http://gildardo-rochin.localhost:3000',
-  'sec-fetch-site': 'cross-site',
-  'sec-fetch-mode': 'cors',
-  'sec-fetch-dest': 'empty',
-  referer: 'http://gildardo-rochin.localhost:3000/',
-  'accept-encoding': 'gzip, deflate, br, zstd',
-  'accept-language': 'en-US,en;q=0.9'
-}
-Appointments Route - Method: POST
-Appointments Route - Path: /
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-✅ Using real Gmail email configuration
-📧 Message sent: <41a63bbe-4a44-fe88-4f33-14f1abc53f23@gmail.com>
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Found user: Yes
-User role: customer
-Token role: customer
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-No token found, continuing as unauthenticated
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-No token found, continuing as unauthenticated
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Found user: Yes
-User role: customer
-Token role: customer
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-No token found, continuing as unauthenticated
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-No token found, continuing as unauthenticated
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Found user: Yes
-User role: customer
-Token role: customer
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Found user: Yes
-User role: customer
-Token role: customer
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-No token found, continuing as unauthenticated
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-No token found, continuing as unauthenticated
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Appointments Route - Headers: {
-  host: 'localhost:5000',
-  connection: 'keep-alive',
-  'sec-ch-ua-platform': '"Windows"',
-  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
-  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
-  'sec-ch-ua-mobile': '?0',
-  accept: '*/*',
-  origin: 'http://gildardo-rochin.localhost:3000',
-  'sec-fetch-site': 'cross-site',
-  'sec-fetch-mode': 'cors',
-  'sec-fetch-dest': 'empty',
-  referer: 'http://gildardo-rochin.localhost:3000/',
-  'accept-encoding': 'gzip, deflate, br, zstd',
-  'accept-language': 'en-US,en;q=0.9'
-}
-Appointments Route - Method: GET
-Appointments Route - Path: /availability
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Appointments Route - Headers: {
-  host: 'localhost:5000',
-  connection: 'keep-alive',
-  'content-length': '143',
-  'sec-ch-ua-platform': '"Windows"',
-  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA',
-  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
-  'sec-ch-ua-mobile': '?0',
-  'x-tenant-subdomain': 'gildardo-rochin',
-  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
-  accept: 'application/json, text/plain, */*',
-  'content-type': 'application/json',
-  origin: 'http://gildardo-rochin.localhost:3000',
-  'sec-fetch-site': 'cross-site',
-  'sec-fetch-mode': 'cors',
-  'sec-fetch-dest': 'empty',
-  referer: 'http://gildardo-rochin.localhost:3000/',
-  'accept-encoding': 'gzip, deflate, br, zstd',
-  'accept-language': 'en-US,en;q=0.9'
-}
-Appointments Route - Method: POST
-Appointments Route - Path: /
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-✅ Using real Gmail email configuration
-📧 Message sent: <60954e82-7ea7-85a8-7f4c-984d4fab7abc@gmail.com>
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Found user: Yes
-User role: customer
-Token role: customer
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Found user: Yes
-User role: customer
-Token role: customer
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-No token found, continuing as unauthenticated
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Tenant Resolver: headerSubdomain: gildardo-rochin extracted subdomain: gildardo-rochin
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: Tenant found: Gildardo Rochin new ObjectId('6864959dcac90302e939a413')
-No token found, continuing as unauthenticated
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Appointments Route - Headers: {
-  host: 'localhost:5000',
-  connection: 'keep-alive',
-  'sec-ch-ua-platform': '"Windows"',
-  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA',
-  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
-  accept: 'application/json, text/plain, */*',
-  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
-  'sec-ch-ua-mobile': '?0',
-  origin: 'http://gildardo-rochin.localhost:3000',
-  'sec-fetch-site': 'cross-site',
-  'sec-fetch-mode': 'cors',
-  'sec-fetch-dest': 'empty',
-  referer: 'http://gildardo-rochin.localhost:3000/',
-  'accept-encoding': 'gzip, deflate, br, zstd',
-  'accept-language': 'en-US,en;q=0.9',
-  'if-none-match': 'W/"90a-NskBtZNXmt02vxG5pdwMc9Ho8AA"'
-}
-Appointments Route - Method: GET
-Appointments Route - Path: /my-appointments
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
-Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
-Appointments Route - Headers: {
-  host: 'localhost:5000',
-  connection: 'keep-alive',
-  'sec-ch-ua-platform': '"Windows"',
-  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA',
-  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
-  accept: 'application/json, text/plain, */*',
-  'sec-ch-ua': '"Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"',
-  'sec-ch-ua-mobile': '?0',
-  origin: 'http://gildardo-rochin.localhost:3000',
-  'sec-fetch-site': 'cross-site',
-  'sec-fetch-mode': 'cors',
-  'sec-fetch-dest': 'empty',
-  referer: 'http://gildardo-rochin.localhost:3000/',
-  'accept-encoding': 'gzip, deflate, br, zstd',
-  'accept-language': 'en-US,en;q=0.9',
-  'if-none-match': 'W/"1177-pRRShWZTvdhLNPfsSiNX3VGeO/E"'
-}
-Appointments Route - Method: GET
-Appointments Route - Path: /my-appointments
-Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjdiNmZmYTU0YmMxMmE0ODE2YTE4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7ImxvZ28iOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kaDFzZ3NhZjUvaW1hZ2UvdXBsb2FkL3YxNzUxNjg2OTUzL3RlbmFudC1sb2dvcy9lbHIweDd3empud3VjNGQ0am43dy5wbmciLCJ0aW1lem9uZSI6IlVUQyJ9LCJzdWJzY3JpcHRpb24iOnsicGxhbiI6Im1vbnRobHkiLCJzdGF0dXMiOiJhY3RpdmUiLCJzdGFydERhdGUiOiIyMDI1LTA3LTAyVDAyOjEyOjQ1LjM2OFoifSwiX2lkIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDEzIiwibmFtZSI6IkdpbGRhcmRvIFJvY2hpbiIsInN1YmRvbWFpbiI6ImdpbGRhcmRvLXJvY2hpbiIsIm93bmVyIjoiNjg2NDk1OWRjYWM5MDMwMmU5MzlhNDE1IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMlQwMjoxMjo0NS4zNzFaIiwiX192IjowLCJlbWFpbCI6Imdyb2NoaW4yQGdtYWlsLmNvbSIsImFkZHJlc3MiOiIiLCJwaG9uZSI6IiJ9LCJpYXQiOjE3NTE2OTA0NzAsImV4cCI6MTc1NDI4MjQ3MH0.L-s9lsd3JtTbhRcsbObB3UeCV_W1DRtsinwlDptn8DA
-Verifying token with secret: Secret exists
-Decoded token: {
-  id: '6867b6ffa54bc12a4816a189',
-  role: 'customer',
-  tenantId: {
-    settings: {
-      logo: 'https://res.cloudinary.com/dh1sgsaf5/image/upload/v1751686953/tenant-logos/elr0x7wzjnwuc4d4jn7w.png',
-      timezone: 'UTC'
-    },
-    subscription: {
-      plan: 'monthly',
-      status: 'active',
-      startDate: '2025-07-02T02:12:45.368Z'
-    },
-    _id: '6864959dcac90302e939a413',
-    name: 'Gildardo Rochin',
-    subdomain: 'gildardo-rochin',
-    owner: '6864959dcac90302e939a415',
-    createdAt: '2025-07-02T02:12:45.371Z',
-    __v: 0,
-    email: 'grochin2@gmail.com',
-    address: '',
-    phone: ''
-  },
-  iat: 1751690470,
-  exp: 1754282470
-}
-Found user: Yes
-User role: customer
-Token role: customer
-Checking role authorization: { userRole: 'customer', allowedRoles: [ 'customer' ] }
+--- END GLOBAL ERROR HANDLER ---
 [32m[nodemon] restarting due to changes...[39m
 [32m[nodemon] starting `node server.js`[39m
-(node:7876) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:4404) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
 (Use `node --trace-warnings ...` to show where the warning was created)
-(node:7876) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:4404) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:4404) [MONGOOSE] Warning: Duplicate schema index on {"customer":1} found. This is often due to declaring an index using both "index: true" and "schema.index()". Please remove the duplicate index definition.
+(node:4404) [MONGOOSE] Warning: Duplicate schema index on {"tenants":1} found. This is often due to declaring an index using both "index: true" and "schema.index()". Please remove the duplicate index definition.
 Server running in production mode on port 5000
 MongoDB Connected: ac-q0etrwr-shard-00-00.sfnbxic.mongodb.net
 [32m[nodemon] restarting due to changes...[39m
 [32m[nodemon] starting `node server.js`[39m
-(node:11376) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:2584) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
 (Use `node --trace-warnings ...` to show where the warning was created)
-(node:11376) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
-Server running in production mode on port 5000
-MongoDB Connected: ac-q0etrwr-shard-00-02.sfnbxic.mongodb.net
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `node server.js`[39m
-(node:7204) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
-(Use `node --trace-warnings ...` to show where the warning was created)
-(node:7204) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
-Server running in production mode on port 5000
-MongoDB Connected: ac-q0etrwr-shard-00-00.sfnbxic.mongodb.net
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `node server.js`[39m
-(node:7084) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
-(Use `node --trace-warnings ...` to show where the warning was created)
-(node:7084) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:2584) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:2584) [MONGOOSE] Warning: Duplicate schema index on {"customer":1} found. This is often due to declaring an index using both "index: true" and "schema.index()". Please remove the duplicate index definition.
+(node:2584) [MONGOOSE] Warning: Duplicate schema index on {"tenants":1} found. This is often due to declaring an index using both "index: true" and "schema.index()". Please remove the duplicate index definition.
 Server running in production mode on port 5000
 MongoDB Connected: ac-q0etrwr-shard-00-01.sfnbxic.mongodb.net
+Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODMyNjBlNzBkMzA1ZTIwN2U5MDM4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODYyODUsImV4cCI6MTc2MDE3ODI4NX0.J_xQ2cl0T3axZyoifLUCAAjy1vH4m2ulTmXoOkb_eKY
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODMyNjBlNzBkMzA1ZTIwN2U5MDM4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODYyODUsImV4cCI6MTc2MDE3ODI4NX0.J_xQ2cl0T3axZyoifLUCAAjy1vH4m2ulTmXoOkb_eKY
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '6883260e70d305e207e90389',
+  role: 'customer',
+  tenantId: {
+    settings: { timezone: 'UTC' },
+    subscription: {
+      plan: 'monthly',
+      status: 'active',
+      startDate: '2025-07-01T05:27:56.957Z'
+    },
+    _id: '686371dc6afb07584c866517',
+    name: 'Isaac Gomes Ernandes',
+    subdomain: 'isaac-gomes-ernandes',
+    owner: '686371dd6afb07584c866519',
+    createdAt: '2025-07-01T05:27:56.961Z',
+    __v: 0,
+    email: 'isaac-gomes-ernandes@gmail.com',
+    address: '8893 east 8th st , phoenix Arizona',
+    phone: '+1 (602) 421-4596'
+  },
+  iat: 1757586285,
+  exp: 1760178285
+}
+Found user: Yes
+User role: customer
+Token role: customer
+--- GLOBAL ERROR HANDLER ---
+ErrorResponse: Payment processing failed: This PaymentIntent is configured to accept payment methods enabled in your Dashboard. Because some of these payment methods might redirect your customer off of your page, you must provide a `return_url`. If you don't want to accept redirect-based payment methods, set `automatic_payment_methods[enabled]` to `true` and `automatic_payment_methods[allow_redirects]` to `never` when creating Setup Intents and Payment Intents.
+    at C:\Users\USER1\projects\Multi-tenant (Gardening)\Website\New folder\src\controllers\payment.controller.js:202:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  statusCode: 500
+}
+--- END GLOBAL ERROR HANDLER ---
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+(node:12712) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:12712) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:12712) [MONGOOSE] Warning: Duplicate schema index on {"customer":1} found. This is often due to declaring an index using both "index: true" and "schema.index()". Please remove the duplicate index definition.
+(node:12712) [MONGOOSE] Warning: Duplicate schema index on {"tenants":1} found. This is often due to declaring an index using both "index: true" and "schema.index()". Please remove the duplicate index definition.
+Server running in production mode on port 5000
+MongoDB Connected: ac-q0etrwr-shard-00-01.sfnbxic.mongodb.net
+Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODMyNjBlNzBkMzA1ZTIwN2U5MDM4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODYyODUsImV4cCI6MTc2MDE3ODI4NX0.J_xQ2cl0T3axZyoifLUCAAjy1vH4m2ulTmXoOkb_eKY
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODMyNjBlNzBkMzA1ZTIwN2U5MDM4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODYyODUsImV4cCI6MTc2MDE3ODI4NX0.J_xQ2cl0T3axZyoifLUCAAjy1vH4m2ulTmXoOkb_eKY
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '6883260e70d305e207e90389',
+  role: 'customer',
+  tenantId: {
+    settings: { timezone: 'UTC' },
+    subscription: {
+      plan: 'monthly',
+      status: 'active',
+      startDate: '2025-07-01T05:27:56.957Z'
+    },
+    _id: '686371dc6afb07584c866517',
+    name: 'Isaac Gomes Ernandes',
+    subdomain: 'isaac-gomes-ernandes',
+    owner: '686371dd6afb07584c866519',
+    createdAt: '2025-07-01T05:27:56.961Z',
+    __v: 0,
+    email: 'isaac-gomes-ernandes@gmail.com',
+    address: '8893 east 8th st , phoenix Arizona',
+    phone: '+1 (602) 421-4596'
+  },
+  iat: 1757586285,
+  exp: 1760178285
+}
+Found user: Yes
+User role: customer
+Token role: customer
+--- GLOBAL ERROR HANDLER ---
+ErrorResponse: Payment processing failed: You may only specify one of these parameters: automatic_payment_methods, confirmation_method.
+    at C:\Users\USER1\projects\Multi-tenant (Gardening)\Website\New folder\src\controllers\payment.controller.js:206:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  statusCode: 500
+}
+--- END GLOBAL ERROR HANDLER ---
+Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODMyNjBlNzBkMzA1ZTIwN2U5MDM4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODYyODUsImV4cCI6MTc2MDE3ODI4NX0.J_xQ2cl0T3axZyoifLUCAAjy1vH4m2ulTmXoOkb_eKY
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODMyNjBlNzBkMzA1ZTIwN2U5MDM4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODYyODUsImV4cCI6MTc2MDE3ODI4NX0.J_xQ2cl0T3axZyoifLUCAAjy1vH4m2ulTmXoOkb_eKY
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '6883260e70d305e207e90389',
+  role: 'customer',
+  tenantId: {
+    settings: { timezone: 'UTC' },
+    subscription: {
+      plan: 'monthly',
+      status: 'active',
+      startDate: '2025-07-01T05:27:56.957Z'
+    },
+    _id: '686371dc6afb07584c866517',
+    name: 'Isaac Gomes Ernandes',
+    subdomain: 'isaac-gomes-ernandes',
+    owner: '686371dd6afb07584c866519',
+    createdAt: '2025-07-01T05:27:56.961Z',
+    __v: 0,
+    email: 'isaac-gomes-ernandes@gmail.com',
+    address: '8893 east 8th st , phoenix Arizona',
+    phone: '+1 (602) 421-4596'
+  },
+  iat: 1757586285,
+  exp: 1760178285
+}
+Found user: Yes
+User role: customer
+Token role: customer
+--- GLOBAL ERROR HANDLER ---
+ErrorResponse: Payment processing failed: You may only specify one of these parameters: automatic_payment_methods, confirmation_method.
+    at C:\Users\USER1\projects\Multi-tenant (Gardening)\Website\New folder\src\controllers\payment.controller.js:206:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  statusCode: 500
+}
+--- END GLOBAL ERROR HANDLER ---
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+(node:2624) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:2624) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:2624) [MONGOOSE] Warning: Duplicate schema index on {"customer":1} found. This is often due to declaring an index using both "index: true" and "schema.index()". Please remove the duplicate index definition.
+(node:2624) [MONGOOSE] Warning: Duplicate schema index on {"tenants":1} found. This is often due to declaring an index using both "index: true" and "schema.index()". Please remove the duplicate index definition.
+Server running in production mode on port 5000
+MongoDB Connected: ac-q0etrwr-shard-00-02.sfnbxic.mongodb.net
+Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODMyNjBlNzBkMzA1ZTIwN2U5MDM4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODYyODUsImV4cCI6MTc2MDE3ODI4NX0.J_xQ2cl0T3axZyoifLUCAAjy1vH4m2ulTmXoOkb_eKY
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODMyNjBlNzBkMzA1ZTIwN2U5MDM4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODYyODUsImV4cCI6MTc2MDE3ODI4NX0.J_xQ2cl0T3axZyoifLUCAAjy1vH4m2ulTmXoOkb_eKY
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '6883260e70d305e207e90389',
+  role: 'customer',
+  tenantId: {
+    settings: { timezone: 'UTC' },
+    subscription: {
+      plan: 'monthly',
+      status: 'active',
+      startDate: '2025-07-01T05:27:56.957Z'
+    },
+    _id: '686371dc6afb07584c866517',
+    name: 'Isaac Gomes Ernandes',
+    subdomain: 'isaac-gomes-ernandes',
+    owner: '686371dd6afb07584c866519',
+    createdAt: '2025-07-01T05:27:56.961Z',
+    __v: 0,
+    email: 'isaac-gomes-ernandes@gmail.com',
+    address: '8893 east 8th st , phoenix Arizona',
+    phone: '+1 (602) 421-4596'
+  },
+  iat: 1757586285,
+  exp: 1760178285
+}
+Found user: Yes
+User role: customer
+Token role: customer
+--- GLOBAL ERROR HANDLER ---
+ErrorResponse: Payment processing failed: Payment validation failed: tenant: Path `tenant` is required.
+    at C:\Users\USER1\projects\Multi-tenant (Gardening)\Website\New folder\src\controllers\payment.controller.js:205:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  statusCode: 500
+}
+--- END GLOBAL ERROR HANDLER ---
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+(node:9748) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9748) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:9748) [MONGOOSE] Warning: Duplicate schema index on {"customer":1} found. This is often due to declaring an index using both "index: true" and "schema.index()". Please remove the duplicate index definition.
+(node:9748) [MONGOOSE] Warning: Duplicate schema index on {"tenants":1} found. This is often due to declaring an index using both "index: true" and "schema.index()". Please remove the duplicate index definition.
+Server running in production mode on port 5000
+MongoDB Connected: ac-q0etrwr-shard-00-00.sfnbxic.mongodb.net
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node server.js`[39m
+(node:20144) [MONGODB DRIVER] Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:20144) [MONGODB DRIVER] Warning: useUnifiedTopology is a deprecated option: useUnifiedTopology has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
+(node:20144) [MONGOOSE] Warning: Duplicate schema index on {"customer":1} found. This is often due to declaring an index using both "index: true" and "schema.index()". Please remove the duplicate index definition.
+(node:20144) [MONGOOSE] Warning: Duplicate schema index on {"tenants":1} found. This is often due to declaring an index using both "index: true" and "schema.index()". Please remove the duplicate index definition.
+Server running in production mode on port 5000
+MongoDB Connected: ac-q0etrwr-shard-00-01.sfnbxic.mongodb.net
+Tenant Resolver: headerSubdomain: undefined extracted subdomain: null
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODMyNjBlNzBkMzA1ZTIwN2U5MDM4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODYyODUsImV4cCI6MTc2MDE3ODI4NX0.J_xQ2cl0T3axZyoifLUCAAjy1vH4m2ulTmXoOkb_eKY
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODMyNjBlNzBkMzA1ZTIwN2U5MDM4OSIsInJvbGUiOiJjdXN0b21lciIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODYyODUsImV4cCI6MTc2MDE3ODI4NX0.J_xQ2cl0T3axZyoifLUCAAjy1vH4m2ulTmXoOkb_eKY
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '6883260e70d305e207e90389',
+  role: 'customer',
+  tenantId: {
+    settings: { timezone: 'UTC' },
+    subscription: {
+      plan: 'monthly',
+      status: 'active',
+      startDate: '2025-07-01T05:27:56.957Z'
+    },
+    _id: '686371dc6afb07584c866517',
+    name: 'Isaac Gomes Ernandes',
+    subdomain: 'isaac-gomes-ernandes',
+    owner: '686371dd6afb07584c866519',
+    createdAt: '2025-07-01T05:27:56.961Z',
+    __v: 0,
+    email: 'isaac-gomes-ernandes@gmail.com',
+    address: '8893 east 8th st , phoenix Arizona',
+    phone: '+1 (602) 421-4596'
+  },
+  iat: 1757586285,
+  exp: 1760178285
+}
+Found user: Yes
+User role: customer
+Token role: customer
+✅ Using real Gmail email configuration
+📧 Message sent: <1df32d04-60d0-3feb-4dbf-8aa7883b21c4@gmail.com>
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+No token found, continuing as unauthenticated
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+No token found, continuing as unauthenticated
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+No token found, continuing as unauthenticated
+🔍 Filtering services for tenant: 686371dc6afb07584c866517
+📊 Sorting by: -createdAt
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+✅ Found 2 services
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+No token found, continuing as unauthenticated
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+No token found, continuing as unauthenticated
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+No token found, continuing as unauthenticated
+🔍 Filtering services for tenant: 686371dc6afb07584c866517
+📊 Sorting by: -createdAt
+✅ Found 2 services
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '686371dd6afb07584c866519',
+  role: 'tenantAdmin',
+  tenantId: {
+    settings: { timezone: 'UTC' },
+    subscription: {
+      plan: 'monthly',
+      status: 'active',
+      startDate: '2025-07-01T05:27:56.957Z'
+    },
+    _id: '686371dc6afb07584c866517',
+    name: 'Isaac Gomes Ernandes',
+    subdomain: 'isaac-gomes-ernandes',
+    owner: '686371dd6afb07584c866519',
+    createdAt: '2025-07-01T05:27:56.961Z',
+    __v: 0,
+    email: 'isaac-gomes-ernandes@gmail.com',
+    address: '8893 east 8th st , phoenix Arizona',
+    phone: '+1 (602) 421-4596'
+  },
+  iat: 1757587727,
+  exp: 1760179727
+}
+Found user: Yes
+User role: tenantAdmin
+Token role: tenantAdmin
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '686371dd6afb07584c866519',
+  role: 'tenantAdmin',
+  tenantId: {
+    settings: { timezone: 'UTC' },
+    subscription: {
+      plan: 'monthly',
+      status: 'active',
+      startDate: '2025-07-01T05:27:56.957Z'
+    },
+    _id: '686371dc6afb07584c866517',
+    name: 'Isaac Gomes Ernandes',
+    subdomain: 'isaac-gomes-ernandes',
+    owner: '686371dd6afb07584c866519',
+    createdAt: '2025-07-01T05:27:56.961Z',
+    __v: 0,
+    email: 'isaac-gomes-ernandes@gmail.com',
+    address: '8893 east 8th st , phoenix Arizona',
+    phone: '+1 (602) 421-4596'
+  },
+  iat: 1757587727,
+  exp: 1760179727
+}
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Appointments Route - Headers: {
+  host: 'localhost:5000',
+  connection: 'keep-alive',
+  'x-tenant-subdomain': 'isaac-gomes-ernandes',
+  'sec-ch-ua-platform': '"Windows"',
+  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s',
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  accept: 'application/json, text/plain, */*',
+  'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Google Chrome";v="140"',
+  'sec-ch-ua-mobile': '?0',
+  origin: 'http://isaac-gomes-ernandes.localhost:3000',
+  'sec-fetch-site': 'cross-site',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://isaac-gomes-ernandes.localhost:3000/',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9'
+}
+Appointments Route - Method: GET
+Appointments Route - Path: /
+Found user: Yes
+User role: tenantAdmin
+Token role: tenantAdmin
+Checking role authorization: { userRole: 'tenantAdmin', allowedRoles: [ 'tenantAdmin' ] }
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '686371dd6afb07584c866519',
+  role: 'tenantAdmin',
+  tenantId: {
+    settings: { timezone: 'UTC' },
+    subscription: {
+      plan: 'monthly',
+      status: 'active',
+      startDate: '2025-07-01T05:27:56.957Z'
+    },
+    _id: '686371dc6afb07584c866517',
+    name: 'Isaac Gomes Ernandes',
+    subdomain: 'isaac-gomes-ernandes',
+    owner: '686371dd6afb07584c866519',
+    createdAt: '2025-07-01T05:27:56.961Z',
+    __v: 0,
+    email: 'isaac-gomes-ernandes@gmail.com',
+    address: '8893 east 8th st , phoenix Arizona',
+    phone: '+1 (602) 421-4596'
+  },
+  iat: 1757587727,
+  exp: 1760179727
+}
+Found user: Yes
+User role: tenantAdmin
+Token role: tenantAdmin
+Checking role authorization: { userRole: 'tenantAdmin', allowedRoles: [ 'tenantAdmin' ] }
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Appointments Route - Headers: {
+  host: 'localhost:5000',
+  connection: 'keep-alive',
+  'x-tenant-subdomain': 'isaac-gomes-ernandes',
+  'sec-ch-ua-platform': '"Windows"',
+  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s',
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  accept: 'application/json, text/plain, */*',
+  'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Google Chrome";v="140"',
+  'sec-ch-ua-mobile': '?0',
+  origin: 'http://isaac-gomes-ernandes.localhost:3000',
+  'sec-fetch-site': 'cross-site',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://isaac-gomes-ernandes.localhost:3000/',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9',
+  'if-none-match': 'W/"9c87c-DbIvAfHnNipk2T+hCJYlWVD9QlQ"'
+}
+Appointments Route - Method: GET
+Appointments Route - Path: /
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '686371dd6afb07584c866519',
+  role: 'tenantAdmin',
+  tenantId: {
+    settings: { timezone: 'UTC' },
+    subscription: {
+      plan: 'monthly',
+      status: 'active',
+      startDate: '2025-07-01T05:27:56.957Z'
+    },
+    _id: '686371dc6afb07584c866517',
+    name: 'Isaac Gomes Ernandes',
+    subdomain: 'isaac-gomes-ernandes',
+    owner: '686371dd6afb07584c866519',
+    createdAt: '2025-07-01T05:27:56.961Z',
+    __v: 0,
+    email: 'isaac-gomes-ernandes@gmail.com',
+    address: '8893 east 8th st , phoenix Arizona',
+    phone: '+1 (602) 421-4596'
+  },
+  iat: 1757587727,
+  exp: 1760179727
+}
+Found user: Yes
+User role: tenantAdmin
+Token role: tenantAdmin
+Checking role authorization: {
+  userRole: 'tenantAdmin',
+  allowedRoles: [ 'tenantAdmin', 'professional' ]
+}
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '686371dd6afb07584c866519',
+  role: 'tenantAdmin',
+  tenantId: {
+    settings: { timezone: 'UTC' },
+    subscription: {
+      plan: 'monthly',
+      status: 'active',
+      startDate: '2025-07-01T05:27:56.957Z'
+    },
+    _id: '686371dc6afb07584c866517',
+    name: 'Isaac Gomes Ernandes',
+    subdomain: 'isaac-gomes-ernandes',
+    owner: '686371dd6afb07584c866519',
+    createdAt: '2025-07-01T05:27:56.961Z',
+    __v: 0,
+    email: 'isaac-gomes-ernandes@gmail.com',
+    address: '8893 east 8th st , phoenix Arizona',
+    phone: '+1 (602) 421-4596'
+  },
+  iat: 1757587727,
+  exp: 1760179727
+}
+Found user: Yes
+User role: tenantAdmin
+Token role: tenantAdmin
+Checking role authorization: {
+  userRole: 'tenantAdmin',
+  allowedRoles: [ 'tenantAdmin', 'professional' ]
+}
+🔍 Filtering services for tenant: 686371dc6afb07584c866517
+📊 Sorting by: -createdAt
+✅ Found 2 services
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+🔍 Filtering services for tenant: 686371dc6afb07584c866517
+📊 Sorting by: -createdAt
+✅ Found 2 services
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+🔍 Filtering services for tenant: 686371dc6afb07584c866517
+📊 Sorting by: -createdAt
+✅ Found 2 services
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+🔍 Filtering services for tenant: 686371dc6afb07584c866517
+📊 Sorting by: -createdAt
+✅ Found 2 services
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Appointments Route - Headers: {
+  host: 'localhost:5000',
+  connection: 'keep-alive',
+  'x-tenant-subdomain': 'isaac-gomes-ernandes',
+  'sec-ch-ua-platform': '"Windows"',
+  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s',
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  accept: 'application/json, text/plain, */*',
+  'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Google Chrome";v="140"',
+  'sec-ch-ua-mobile': '?0',
+  origin: 'http://isaac-gomes-ernandes.localhost:3000',
+  'sec-fetch-site': 'cross-site',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://isaac-gomes-ernandes.localhost:3000/',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9',
+  'if-none-match': 'W/"9c87c-DbIvAfHnNipk2T+hCJYlWVD9QlQ"'
+}
+Appointments Route - Method: GET
+Appointments Route - Path: /
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Appointments Route - Headers: {
+  host: 'localhost:5000',
+  connection: 'keep-alive',
+  'x-tenant-subdomain': 'isaac-gomes-ernandes',
+  'sec-ch-ua-platform': '"Windows"',
+  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s',
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  accept: 'application/json, text/plain, */*',
+  'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Google Chrome";v="140"',
+  'sec-ch-ua-mobile': '?0',
+  origin: 'http://isaac-gomes-ernandes.localhost:3000',
+  'sec-fetch-site': 'cross-site',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://isaac-gomes-ernandes.localhost:3000/',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9'
+}
+Appointments Route - Method: GET
+Appointments Route - Path: /calendar
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '686371dd6afb07584c866519',
+  role: 'tenantAdmin',
+  tenantId: {
+    settings: { timezone: 'UTC' },
+    subscription: {
+      plan: 'monthly',
+      status: 'active',
+      startDate: '2025-07-01T05:27:56.957Z'
+    },
+    _id: '686371dc6afb07584c866517',
+    name: 'Isaac Gomes Ernandes',
+    subdomain: 'isaac-gomes-ernandes',
+    owner: '686371dd6afb07584c866519',
+    createdAt: '2025-07-01T05:27:56.961Z',
+    __v: 0,
+    email: 'isaac-gomes-ernandes@gmail.com',
+    address: '8893 east 8th st , phoenix Arizona',
+    phone: '+1 (602) 421-4596'
+  },
+  iat: 1757587727,
+  exp: 1760179727
+}
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Found user: Yes
+User role: tenantAdmin
+Token role: tenantAdmin
+Checking role authorization: {
+  userRole: 'tenantAdmin',
+  allowedRoles: [ 'tenantAdmin', 'professional' ]
+}
+🔍 Filtering services for tenant: 686371dc6afb07584c866517
+📊 Sorting by: -createdAt
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+✅ Found 2 services
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Appointments Route - Headers: {
+  host: 'localhost:5000',
+  connection: 'keep-alive',
+  'x-tenant-subdomain': 'isaac-gomes-ernandes',
+  'sec-ch-ua-platform': '"Windows"',
+  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s',
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  accept: 'application/json, text/plain, */*',
+  'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Google Chrome";v="140"',
+  'sec-ch-ua-mobile': '?0',
+  origin: 'http://isaac-gomes-ernandes.localhost:3000',
+  'sec-fetch-site': 'cross-site',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://isaac-gomes-ernandes.localhost:3000/',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9',
+  'if-none-match': 'W/"3036-a05CcxzwDdul63c8qJIj0iyagyc"'
+}
+Appointments Route - Method: GET
+Appointments Route - Path: /calendar
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '686371dd6afb07584c866519',
+  role: 'tenantAdmin',
+  tenantId: {
+    settings: { timezone: 'UTC' },
+    subscription: {
+      plan: 'monthly',
+      status: 'active',
+      startDate: '2025-07-01T05:27:56.957Z'
+    },
+    _id: '686371dc6afb07584c866517',
+    name: 'Isaac Gomes Ernandes',
+    subdomain: 'isaac-gomes-ernandes',
+    owner: '686371dd6afb07584c866519',
+    createdAt: '2025-07-01T05:27:56.961Z',
+    __v: 0,
+    email: 'isaac-gomes-ernandes@gmail.com',
+    address: '8893 east 8th st , phoenix Arizona',
+    phone: '+1 (602) 421-4596'
+  },
+  iat: 1757587727,
+  exp: 1760179727
+}
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Found user: Yes
+User role: tenantAdmin
+Token role: tenantAdmin
+Checking role authorization: {
+  userRole: 'tenantAdmin',
+  allowedRoles: [ 'tenantAdmin', 'professional' ]
+}
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+🔍 Filtering services for tenant: 686371dc6afb07584c866517
+📊 Sorting by: -createdAt
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Appointments Route - Headers: {
+  host: 'localhost:5000',
+  connection: 'keep-alive',
+  'x-tenant-subdomain': 'isaac-gomes-ernandes',
+  'sec-ch-ua-platform': '"Windows"',
+  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s',
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  accept: 'application/json, text/plain, */*',
+  'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Google Chrome";v="140"',
+  'sec-ch-ua-mobile': '?0',
+  origin: 'http://isaac-gomes-ernandes.localhost:3000',
+  'sec-fetch-site': 'cross-site',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://isaac-gomes-ernandes.localhost:3000/',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9',
+  'if-none-match': 'W/"9c87c-DbIvAfHnNipk2T+hCJYlWVD9QlQ"'
+}
+Appointments Route - Method: GET
+Appointments Route - Path: /
+✅ Found 2 services
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: headerSubdomain: isaac-gomes-ernandes extracted subdomain: isaac-gomes-ernandes
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Appointments Route - Headers: {
+  host: 'localhost:5000',
+  connection: 'keep-alive',
+  'x-tenant-subdomain': 'isaac-gomes-ernandes',
+  'sec-ch-ua-platform': '"Windows"',
+  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s',
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  accept: 'application/json, text/plain, */*',
+  'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Google Chrome";v="140"',
+  'sec-ch-ua-mobile': '?0',
+  origin: 'http://isaac-gomes-ernandes.localhost:3000',
+  'sec-fetch-site': 'cross-site',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://isaac-gomes-ernandes.localhost:3000/',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9',
+  'if-none-match': 'W/"3036-a05CcxzwDdul63c8qJIj0iyagyc"'
+}
+Appointments Route - Method: GET
+Appointments Route - Path: /calendar
+Auth Headers: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s
+Token from Authorization header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s
+Verifying token with secret: Secret exists
+Decoded token: {
+  id: '686371dd6afb07584c866519',
+  role: 'tenantAdmin',
+  tenantId: {
+    settings: { timezone: 'UTC' },
+    subscription: {
+      plan: 'monthly',
+      status: 'active',
+      startDate: '2025-07-01T05:27:56.957Z'
+    },
+    _id: '686371dc6afb07584c866517',
+    name: 'Isaac Gomes Ernandes',
+    subdomain: 'isaac-gomes-ernandes',
+    owner: '686371dd6afb07584c866519',
+    createdAt: '2025-07-01T05:27:56.961Z',
+    __v: 0,
+    email: 'isaac-gomes-ernandes@gmail.com',
+    address: '8893 east 8th st , phoenix Arizona',
+    phone: '+1 (602) 421-4596'
+  },
+  iat: 1757587727,
+  exp: 1760179727
+}
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Tenant Resolver: Tenant found: Isaac Gomes Ernandes new ObjectId('686371dc6afb07584c866517')
+Appointments Route - Headers: {
+  host: 'localhost:5000',
+  connection: 'keep-alive',
+  'x-tenant-subdomain': 'isaac-gomes-ernandes',
+  'sec-ch-ua-platform': '"Windows"',
+  authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjM3MWRkNmFmYjA3NTg0Yzg2NjUxOSIsInJvbGUiOiJ0ZW5hbnRBZG1pbiIsInRlbmFudElkIjp7InNldHRpbmdzIjp7InRpbWV6b25lIjoiVVRDIn0sInN1YnNjcmlwdGlvbiI6eyJwbGFuIjoibW9udGhseSIsInN0YXR1cyI6ImFjdGl2ZSIsInN0YXJ0RGF0ZSI6IjIwMjUtMDctMDFUMDU6Mjc6NTYuOTU3WiJ9LCJfaWQiOiI2ODYzNzFkYzZhZmIwNzU4NGM4NjY1MTciLCJuYW1lIjoiSXNhYWMgR29tZXMgRXJuYW5kZXMiLCJzdWJkb21haW4iOiJpc2FhYy1nb21lcy1lcm5hbmRlcyIsIm93bmVyIjoiNjg2MzcxZGQ2YWZiMDc1ODRjODY2NTE5IiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wMVQwNToyNzo1Ni45NjFaIiwiX192IjowLCJlbWFpbCI6ImlzYWFjLWdvbWVzLWVybmFuZGVzQGdtYWlsLmNvbSIsImFkZHJlc3MiOiI4ODkzIGVhc3QgOHRoIHN0ICwgcGhvZW5peCBBcml6b25hIiwicGhvbmUiOiIrMSAoNjAyKSA0MjEtNDU5NiJ9LCJpYXQiOjE3NTc1ODc3MjcsImV4cCI6MTc2MDE3OTcyN30.-HScZOYhc3uqL791XxyTGf7H6ciZTOOLDWYLVzM4e-s',
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  accept: 'application/json, text/plain, */*',
+  'sec-ch-ua': '"Chromium";v="140", "Not=A?Brand";v="24", "Google Chrome";v="140"',
+  'sec-ch-ua-mobile': '?0',
+  origin: 'http://isaac-gomes-ernandes.localhost:3000',
+  'sec-fetch-site': 'cross-site',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  referer: 'http://isaac-gomes-ernandes.localhost:3000/',
+  'accept-encoding': 'gzip, deflate, br, zstd',
+  'accept-language': 'en-US,en;q=0.9',
+  'if-none-match': 'W/"9c87c-DbIvAfHnNipk2T+hCJYlWVD9QlQ"'
+}
+Appointments Route - Method: GET
+Appointments Route - Path: /
+Found user: Yes
+User role: tenantAdmin
+Token role: tenantAdmin
+Checking role authorization: {
+  userRole: 'tenantAdmin',
+  allowedRoles: [ 'tenantAdmin', 'professional' ]
+}
+🔍 Filtering services for tenant: 686371dc6afb07584c866517
+📊 Sorting by: -createdAt
+✅ Found 2 services
