@@ -142,6 +142,9 @@ const superAdminRoutes = require('./src/routes/super-admin.routes');
 // Import webhook routes
 const webhookRoutes = require('./src/routes/webhook.routes');
 
+// Import equipment routes
+const equipmentRoutes = require('./src/routes/equipment.routes');
+
 // Mount routers
 app.use(`${API_PREFIX}/auth`, authRoutes);
 app.use(`${API_PREFIX}/users`, userRoutes);
@@ -182,6 +185,9 @@ app.use(`${API_PREFIX}/properties`, propertyRoutes);
 
 // Mount webhook routes
 app.use('/webhook', webhookRoutes);
+
+// Mount equipment routes
+app.use(`${API_PREFIX}/equipment`, equipmentRoutes);
 
 // Welcome route
 app.get('/', (req, res) => {

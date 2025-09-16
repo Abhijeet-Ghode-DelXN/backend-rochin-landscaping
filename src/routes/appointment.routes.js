@@ -9,9 +9,10 @@ const {
   getMyAppointments,
   requestReschedule,
   getCalendarAppointments,
-  // getAvailableTimeSlots
-  // getTimeSlotsWithAvailability
-  getAvailability
+  updateCrewAssignment,
+  getAvailability,
+  approveAppointment,
+  completeAppointment
 } = require('../controllers/appointment.controller');
 
 const Appointment = require('../models/appointment.model');
@@ -103,13 +104,16 @@ router.get('/calendar',
 
 // Parameterized routes
 // router.get('/:id',getAppointment);
-router.get('/:id', protect, authorize('tenantAdmin'),getAppointment);
+router.get('/:id', protect, authorize('tenantAdmin', 'customer'),getAppointment);
 router.put('/:id/reschedule-request', protect, authorize('customer'), requestReschedule);
 router.post('/:id/photos', protect, authorize('tenantAdmin', 'professional'), uploadServicePhotos);
 
 // Admin and Professional routes
 router.post('/', protect, authorize('customer'), createAppointment);
 router.put('/:id', protect, authorize('tenantAdmin', 'professional'), updateAppointment);
+router.put('/:id/crew', protect, authorize('tenantAdmin'), updateCrewAssignment);
+router.put('/:id/approve', protect, authorize('tenantAdmin'), approveAppointment);
+router.put('/:id/complete', protect, authorize('tenantAdmin'), completeAppointment);
 router.delete('/:id', protect, deleteAppointment);
 
 

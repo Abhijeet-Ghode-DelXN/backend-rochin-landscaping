@@ -175,7 +175,7 @@ exports.getAppointments = asyncHandler(async (req, res, next) => {
 
 // @desc    Get single appointment
 // @route   GET /api/v1/appointments/:id
-// @access  Public/Private
+// @access  Private
 exports.getAppointment = asyncHandler(async (req, res, next) => {
   const appointment = await Appointment.findById(req.params.id)
     .populate({
@@ -206,21 +206,6 @@ exports.getAppointment = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // Allow public access for completed appointments
-  if (appointment.status === 'Completed') {
-    return res.status(200).json({
-      success: true,
-      data: appointment
-    });
-  }
-
-  // For non-completed appointments, check authorization
-  if (!req.user) {
-    return next(
-      new ErrorResponse(`Not authorized to access this appointment`, 403)
-    );
-  }
-
   // Check if user is authorized to view
   if (req.user.role === 'customer') {
     const customer = await Customer.findOne({ user: req.user.id });
@@ -229,6 +214,15 @@ exports.getAppointment = asyncHandler(async (req, res, next) => {
         new ErrorResponse(`Not authorized to access this appointment`, 403)
       );
     }
+  }
+  // tenantAdmin can view all appointments in their tenant
+  else if (req.user.role === 'tenantAdmin') {
+    // Additional tenant validation can be added here if needed
+  }
+  else {
+    return next(
+      new ErrorResponse(`Not authorized to access this appointment`, 403)
+    );
   }
 
   res.status(200).json({
@@ -1405,9 +1399,159 @@ exports.getCalendarAppointments = asyncHandler(async (req, res, next) => {
   });
 }); 
 
+// @desc    Update crew assignment for appointment
+// @route   PUT /api/v1/appointments/:id/crew
+// @access  Private/TenantAdmin
+exports.updateCrewAssignment = asyncHandler(async (req, res, next) => {
+  const { leadProfessional, assignedTo } = req.body;
+
+  const appointment = await Appointment.findById(req.params.id);
+
+  if (!appointment) {
+    return next(
+      new ErrorResponse(`Appointment not found with id of ${req.params.id}`, 404)
+    );
+  }
+
+  // Check authorization
+  if (req.user.role !== 'tenantAdmin') {
+    return next(
+      new ErrorResponse('Not authorized to assign crew', 403)
+    );
+  }
+
+  // Validate staff members exist
+  if (leadProfessional) {
+    const leadUser = await User.findById(leadProfessional);
+    if (!leadUser || !['staff', 'tenantAdmin'].includes(leadUser.role)) {
+      return next(
+        new ErrorResponse('Invalid lead professional', 400)
+      );
+    }
+  }
+
+  if (assignedTo && assignedTo.length > 0) {
+    const staffMembers = await User.find({
+      _id: { $in: assignedTo },
+      role: { $in: ['staff', 'tenantAdmin'] }
+    });
+    
+    if (staffMembers.length !== assignedTo.length) {
+      return next(
+        new ErrorResponse('One or more assigned staff members are invalid', 400)
+      );
+    }
+  }
+
+  // Update crew assignment
+  appointment.crew = {
+    leadProfessional: leadProfessional || null,
+    assignedTo: assignedTo || []
+  };
+
+  await appointment.save();
+
+  // Populate the crew data for response
+  await appointment.populate([
+    { path: 'crew.leadProfessional', select: 'name email role' },
+    { path: 'crew.assignedTo', select: 'name email role' }
+  ]);
+
+  res.status(200).json({
+    success: true,
+    data: appointment
+  });
+});
 
 
 
 
 
 
+
+
+// @desc    Approve appointment
+// @route   PUT /api/v1/appointments/:id/approve
+// @access  Private/Admin
+exports.approveAppointment = asyncHandler(async (req, res, next) => {
+  const appointment = await Appointment.findById(req.params.id)
+    .populate('customer')
+    .populate('service');
+
+  if (!appointment) {
+    return next(
+      new ErrorResponse(`Appointment not found with id of ${req.params.id}`, 404)
+    );
+  }
+
+  if (appointment.status !== 'Pending') {
+    return next(
+      new ErrorResponse('Only pending appointments can be approved', 400)
+    );
+  }
+
+  // Update status to confirmed
+  appointment.status = 'Confirmed';
+  await appointment.save();
+
+  // Send confirmation email
+  try {
+    const customer = await Customer.findById(appointment.customer._id).populate('user');
+    if (customer && customer.user.email) {
+      await sendEmail({
+        email: customer.user.email,
+        subject: 'Appointment Confirmed',
+        message: `Your appointment for ${appointment.service.name} on ${new Date(appointment.date).toLocaleDateString()} has been confirmed. We'll see you at ${appointment.timeSlot.startTime}.`
+      });
+    }
+  } catch (err) {
+    console.log('Email notification failed:', err);
+  }
+
+  res.status(200).json({
+    success: true,
+    data: appointment
+  });
+});
+
+// @desc    Complete appointment and collect payment
+// @route   PUT /api/v1/appointments/:id/complete
+// @access  Private/Admin
+exports.completeAppointment = asyncHandler(async (req, res, next) => {
+  const appointment = await Appointment.findById(req.params.id)
+    .populate('service');
+
+  if (!appointment) {
+    return next(
+      new ErrorResponse(`Appointment not found with id of ${req.params.id}`, 404)
+    );
+  }
+
+  if (appointment.status !== 'In Progress') {
+    return next(
+      new ErrorResponse('Only in-progress appointments can be completed', 400)
+    );
+  }
+
+  // Update status and payment requirement
+  appointment.status = 'Completed';
+  appointment.payment.status = 'pending';
+  // Calculate payment amount from service pricing
+  let paymentAmount = 50; // Default fallback amount
+  if (appointment.service?.basePrice) {
+    paymentAmount = appointment.service.basePrice;
+  }
+  appointment.payment = {
+    ...appointment.payment,
+    status: 'Pending',
+    amount: paymentAmount
+  };
+  appointment.completionDetails.completedAt = Date.now();
+
+  await appointment.save();
+
+  res.status(200).json({
+    success: true,
+    data: appointment
+  });
+});

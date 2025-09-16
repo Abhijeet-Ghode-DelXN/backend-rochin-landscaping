@@ -81,4 +81,27 @@ exports.deleteUser = asyncHandler(async (req, res, next) => {
     success: true,
     data: {}
   });
+});
+
+// @desc    Get staff members for tenant
+// @route   GET /api/v1/users/staff
+// @access  Private/TenantAdmin
+exports.getStaff = asyncHandler(async (req, res, next) => {
+  const tenantContext = require('../utils/tenantContext');
+  const store = tenantContext.getStore();
+  
+  if (!store?.tenantId) {
+    return next(new ErrorResponse('Tenant context required', 400));
+  }
+
+  const staff = await User.find({
+    tenantId: store.tenantId,
+    role: { $in: ['staff', 'tenantAdmin'] }
+  }).select('-password');
+
+  res.status(200).json({
+    success: true,
+    count: staff.length,
+    data: staff
+  });
 }); 

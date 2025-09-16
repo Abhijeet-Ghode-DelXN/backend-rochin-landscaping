@@ -12,7 +12,7 @@ const { getTenantFrontendUrl } = require('../utils/tenantUrl');
 // @route   POST /api/v1/auth/register
 // @access  Public
 exports.register = asyncHandler(async (req, res, next) => {
-  const { name, email, role, phone } = req.body;
+  const { name, email, role, phone, password } = req.body;
 
   // Validate fields
   if (!name || !email || !role) {
@@ -48,41 +48,44 @@ exports.register = asyncHandler(async (req, res, next) => {
     role,
     phone,
     tenantId,
-    password: 'TEMPORARY', // Required by schema, but will be reset
-    isPasswordSet: false,  // Add this field to your User model if not present
+    password: password || 'TEMPORARY',
+    isPasswordSet: !!password,
   });
 
-  // Generate password setup token
-  const resetToken = crypto.randomBytes(20).toString('hex');
-  user.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
-  user.resetPasswordExpire = Date.now() + 60 * 60 * 1000; // 1 hour
-  await user.save({ validateBeforeSave: false });
+  // Only send password setup email if no password was provided
+  if (!password) {
+    // Generate password setup token
+    const resetToken = crypto.randomBytes(20).toString('hex');
+    user.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    user.resetPasswordExpire = Date.now() + 60 * 60 * 1000; // 1 hour
+    await user.save({ validateBeforeSave: false });
 
-  // Send password setup email
-  let setupUrl;
-  if (tenantId) {
-    // Fetch tenant info to get subdomain
-    const Tenant = require('../models/tenant.model');
-    const tenant = await Tenant.findById(tenantId);
-    if (!tenant || !tenant.subdomain) {
-      return next(new ErrorResponse('Tenant subdomain not found', 400));
+    // Send password setup email
+    let setupUrl;
+    if (tenantId) {
+      // Fetch tenant info to get subdomain
+      const Tenant = require('../models/tenant.model');
+      const tenant = await Tenant.findById(tenantId);
+      if (!tenant || !tenant.subdomain) {
+        return next(new ErrorResponse('Tenant subdomain not found', 400));
+      }
+      setupUrl = getTenantFrontendUrl(tenant.subdomain, `/auth/set-password/${resetToken}`);
+    } else {
+      // Fallback for superAdmin or no tenant
+      setupUrl = `${process.env.FRONTEND_URL}/auth/set-password/${resetToken}`;
     }
-    setupUrl = getTenantFrontendUrl(tenant.subdomain, `/auth/set-password/${resetToken}`);
-  } else {
-    // Fallback for superAdmin or no tenant
-    setupUrl = `${process.env.FRONTEND_URL}/auth/set-password/${resetToken}`;
-  }
-  const message = `Welcome! Please set your password by visiting the following link:\n\n${setupUrl}\n\nThis link will expire in 1 hour.`;
+    const message = `Welcome! Please set your password by visiting the following link:\n\n${setupUrl}\n\nThis link will expire in 1 hour.`;
 
     try {
       await sendEmail({
         email: user.email,
-      subject: 'Set up your password',
-      message,
-    });
-  } catch (err) {
-    await User.findByIdAndDelete(user._id);
-    return next(new ErrorResponse('Email could not be sent', 500));
+        subject: 'Set up your password',
+        message,
+      });
+    } catch (err) {
+      await User.findByIdAndDelete(user._id);
+      return next(new ErrorResponse('Email could not be sent', 500));
+    }
   }
 
   // Optionally create customer profile if role is customer
@@ -99,9 +102,9 @@ exports.register = asyncHandler(async (req, res, next) => {
     });
   }
 
-    res.status(201).json({ 
-      success: true, 
-    message: 'Registration successful. Please check your email to set your password.',
+  res.status(201).json({ 
+    success: true, 
+    message: password ? 'Registration successful. User can now log in.' : 'Registration successful. Please check your email to set your password.',
   });
 });
 

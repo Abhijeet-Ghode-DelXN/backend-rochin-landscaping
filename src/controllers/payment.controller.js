@@ -173,7 +173,7 @@ exports.processPayment = asyncHandler(async (req, res, next) => {
     // Update appointment or estimate payment status
     if (appointmentId) {
       await Appointment.findByIdAndUpdate(appointmentId, {
-        'payment.status': 'Paid',
+        'payment.status': 'paid',
         'payment.amount': amount,
         'payment.transactionId': paymentIntent.id,
         'payment.paymentDate': Date.now()
@@ -255,7 +255,7 @@ exports.createManualPayment = asyncHandler(async (req, res, next) => {
   // Update appointment or estimate payment status
   if (appointmentId) {
     await Appointment.findByIdAndUpdate(appointmentId, {
-      'payment.status': 'Paid',
+      'payment.status': 'paid',
       'payment.amount': amount,
       'payment.paymentMethod': method,
       'payment.paymentDate': Date.now()

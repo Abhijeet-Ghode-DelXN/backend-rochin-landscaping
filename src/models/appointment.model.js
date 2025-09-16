@@ -40,8 +40,8 @@ const AppointmentSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['Scheduled', 'In Progress', 'Completed', 'Cancelled', 'Rescheduled'],
-    default: 'Scheduled'
+    enum: ['Pending', 'Confirmed', 'In Progress', 'Completed', 'Cancelled', 'Rescheduled'],
+    default: 'Pending'
   },
   recurringType: {
     type: String,
@@ -72,8 +72,8 @@ const AppointmentSchema = new mongoose.Schema({
   payment: {
     status: {
       type: String,
-      enum: ['Pending', 'Paid', 'Partially Paid', 'Refunded'],
-      default: 'Pending'
+      enum: ['Not Required', 'Pending', 'Paid', 'Partially Paid', 'Refunded'],
+      default: 'Not Required'
     },
     amount: {
       type: Number

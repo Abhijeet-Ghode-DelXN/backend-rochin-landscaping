@@ -4,6 +4,11 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   // Copy req.query
   const reqQuery = { ...req.query };
 
+  // Add tenant filter if user has tenantId
+  if (req.user && req.user.tenantId && req.user.tenantId._id) {
+    reqQuery.tenant = req.user.tenantId._id;
+  }
+
   // Fields to exclude
   const removeFields = ['select', 'sort', 'page', 'limit', 'search'];
 
@@ -23,10 +28,15 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   if (req.query.search) {
     const searchRegex = new RegExp(req.query.search, 'i');
     const searchQuery = {
-      $or: [
-        { name: searchRegex },
-        { email: searchRegex },
-        { phone: searchRegex }
+      $and: [
+        req.user && req.user.tenantId && req.user.tenantId._id ? { tenant: req.user.tenantId._id } : {},
+        {
+          $or: [
+            { name: searchRegex },
+            { email: searchRegex },
+            { phone: searchRegex }
+          ]
+        }
       ]
     };
 

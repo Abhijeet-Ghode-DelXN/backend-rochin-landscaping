@@ -122,20 +122,12 @@ const mongoose = require('mongoose');
 // @route   GET /api/v1/dashboard
 // @access  Private/Admin
 exports.getDashboardStats = asyncHandler(async (req, res, next) => {
-  const tenantId = req.headers['x-tenant-id'];
+  const tenantId = req.user.tenantId._id;
 
   if (!tenantId) {
     return res.status(400).json({
       success: false,
       message: 'Tenant ID is required'
-    });
-  }
-
-  // Validate tenantId format
-  if (!mongoose.Types.ObjectId.isValid(tenantId)) {
-    return res.status(400).json({
-      success: false,
-      message: 'Invalid Tenant ID format'
     });
   }
 
@@ -195,7 +187,7 @@ exports.getDashboardStats = asyncHandler(async (req, res, next) => {
         $match: {
           tenant: tenantObjectId,
           createdAt: { $gte: sixMonthsAgo },
-          status: 'completed'
+          status: 'Completed'
         }
       },
       {
@@ -315,8 +307,8 @@ exports.getDashboardStats = asyncHandler(async (req, res, next) => {
 // @route   GET /api/v1/dashboard/appointments
 // @access  Private/Admin
 exports.getAppointmentAnalytics = asyncHandler(async (req, res, next) => {
-  // Get tenantId from request (assuming it's available in req.user or similar)
-  const tenantId = req.user.tenantId; // Adjust this based on how you store tenant info
+  // Get tenantId from authenticated user
+  const tenantId = req.user.tenantId._id;
 
   // Create a base match filter for the tenant
   const tenantMatch = { tenant: tenantId };
@@ -398,10 +390,13 @@ exports.getAppointmentAnalytics = asyncHandler(async (req, res, next) => {
 // @route   GET /api/v1/dashboard/revenue
 // @access  Private/Admin
 exports.getRevenueAnalytics = asyncHandler(async (req, res, next) => {
+  const tenantId = req.user.tenantId._id;
+  const tenantMatch = { tenant: tenantId, status: 'Completed' };
+
   // Get total revenue
   const totalRevenue = await Payment.aggregate([
     {
-      $match: { status: 'completed' }
+      $match: tenantMatch
     },
     {
       $group: {
@@ -414,7 +409,7 @@ exports.getRevenueAnalytics = asyncHandler(async (req, res, next) => {
   // Get revenue by service category
   const revenueByServiceCategory = await Payment.aggregate([
     {
-      $match: { status: 'completed' }
+      $match: tenantMatch
     },
     {
       $lookup: {
@@ -456,8 +451,9 @@ exports.getRevenueAnalytics = asyncHandler(async (req, res, next) => {
   const revenueByMonth = await Payment.aggregate([
     {
       $match: {
+        tenant: tenantId,
         createdAt: { $gte: startOfYear },
-        status: 'completed'
+        status: 'Completed'
       }
     },
     {
@@ -489,6 +485,8 @@ exports.getRevenueAnalytics = asyncHandler(async (req, res, next) => {
 // @route   GET /api/v1/dashboard/customers
 // @access  Private/Admin
 exports.getCustomerAnalytics = asyncHandler(async (req, res, next) => {
+  const tenantId = req.user.tenantId._id;
+  
   // Customer growth by month
   const sixMonthsAgo = new Date();
   sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
@@ -497,6 +495,7 @@ exports.getCustomerAnalytics = asyncHandler(async (req, res, next) => {
   const customerGrowth = await Customer.aggregate([
     {
       $match: {
+        tenant: tenantId,
         createdAt: { $gte: sixMonthsAgo }
       }
     },
@@ -517,7 +516,7 @@ exports.getCustomerAnalytics = asyncHandler(async (req, res, next) => {
   // Top customers by revenue
   const topCustomers = await Payment.aggregate([
     {
-      $match: { status: 'completed' }
+      $match: { tenant: tenantId, status: 'Completed' }
     },
     {
       $group: {
@@ -567,7 +566,6 @@ exports.getCustomerAnalytics = asyncHandler(async (req, res, next) => {
   ]);
 
   // Customer retention rate
-  // Get customers who had appointments in last 30 days
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
   
@@ -576,12 +574,14 @@ exports.getCustomerAnalytics = asyncHandler(async (req, res, next) => {
   
   // Customers with appointments in last 30 days
   const recentCustomers = await Appointment.distinct('customer', {
-    scheduledDate: { $gte: thirtyDaysAgo }
+    tenant: tenantId,
+    date: { $gte: thirtyDaysAgo }
   });
   
   // Customers with appointments between 30-60 days ago
   const previousPeriodCustomers = await Appointment.distinct('customer', {
-    scheduledDate: { $gte: sixtyDaysAgo, $lt: thirtyDaysAgo }
+    tenant: tenantId,
+    date: { $gte: sixtyDaysAgo, $lt: thirtyDaysAgo }
   });
   
   // Count how many previous customers returned

@@ -4,7 +4,8 @@ const {
   getUser,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  getStaff
 } = require('../controllers/user.controller');
 
 const User = require('../models/user.model');
@@ -13,6 +14,9 @@ const router = express.Router();
 
 const { protect, authorize } = require('../middlewares/auth');
 const advancedResults = require('../middlewares/advancedResults');
+
+// Staff route for tenantAdmin
+router.get('/staff', protect, authorize('tenantAdmin'), getStaff);
 
 router.use(protect);
 router.use(authorize('superAdmin'));
