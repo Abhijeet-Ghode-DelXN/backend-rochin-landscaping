@@ -15,7 +15,9 @@ const extractTenantDomain = (host) => {
   }
 
   // Handle production - superadmin domain
-  if (domain === 'www.landscape360.com' || domain === 'landscape360.com') {
+  if (domain === 'www.landscape360.com' || domain === 'landscape360.com' || 
+      domain === 'delxn.club' || domain === 'www.delxn.club' ||
+      domain === 'backend-rochin-landscaping.onrender.com') {
     return null; // Superadmin mode
   }
 
