@@ -41,14 +41,10 @@ app.use(helmet({
 // Enable CORS with specific origin
 // Configure allowed origins
 const allowedOrigins = [
-  '*',
   'http://localhost:3000',
-  'https://booking-one-omega.vercel.app',
-  'https://www.basketbuddy.in',
-  'https://www.demogardning.basketbuddy.in',
   'https://delxn.club',
-  'https://www.delxn.club',
-  'https://*.delxn.club'
+  'https://www.delxn.club'
+  // Note: Tenant domains will be validated dynamically
 ];
 
 // CORS configuration
@@ -56,22 +52,23 @@ app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
 
-    const basketbuddyRegex = /^https?:\/\/([a-z0-9-]+\.)*basketbuddy\.in$/;
-    const delxnRegex = /^https?:\/\/([a-z0-9-]+\.)*delxn\.club$/;
-    const domainRegex = /^https?:\/\/[a-z0-9-]+:3000$/; // For addon domains like isaac-gomes-ernandes:3000
-
-    if (
-      origin.includes('localhost:3000') ||
-      origin.includes('127.0.0.1:3000') ||
-      allowedOrigins.includes(origin) ||
-      basketbuddyRegex.test(origin) ||
-      delxnRegex.test(origin) ||
-      domainRegex.test(origin)
-    ) {
+    // Allow localhost for development
+    if (origin.includes('localhost') || origin.includes('127.0.0.1')) {
       return callback(null, true);
-    } else {
-      return callback(new Error('Not allowed by CORS'));
     }
+
+    // Allow superadmin domain
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    // For tenant domains, we need to validate against database
+    // For now, allow all HTTPS domains (you can add validation later)
+    if (origin.startsWith('https://')) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
