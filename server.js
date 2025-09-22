@@ -46,7 +46,9 @@ const allowedOrigins = [
   'https://booking-one-omega.vercel.app',
   'https://www.basketbuddy.in',
   'https://www.demogardning.basketbuddy.in',
-  'https://www.delxn.club'
+  'https://delxn.club',
+  'https://www.delxn.club',
+  'https://*.delxn.club'
 ];
 
 // CORS configuration
@@ -55,6 +57,7 @@ app.use(cors({
     if (!origin) return callback(null, true);
 
     const basketbuddyRegex = /^https?:\/\/([a-z0-9-]+\.)*basketbuddy\.in$/;
+    const delxnRegex = /^https?:\/\/([a-z0-9-]+\.)*delxn\.club$/;
     const domainRegex = /^https?:\/\/[a-z0-9-]+:3000$/; // For addon domains like isaac-gomes-ernandes:3000
 
     if (
@@ -62,6 +65,7 @@ app.use(cors({
       origin.includes('127.0.0.1:3000') ||
       allowedOrigins.includes(origin) ||
       basketbuddyRegex.test(origin) ||
+      delxnRegex.test(origin) ||
       domainRegex.test(origin)
     ) {
       return callback(null, true);
