@@ -10,7 +10,12 @@ exports.getTenantInfo = asyncHandler(async (req, res, next) => {
   const store = tenantContext.getStore();
   
   if (!store?.tenantId) {
-    return next(new ErrorResponse('Tenant context not found', 404));
+    // For superadmin domains, return null tenant info instead of error
+    return res.status(200).json({
+      success: true,
+      data: null,
+      message: 'Superadmin domain - no tenant context'
+    });
   }
 
   const tenant = await Tenant.findById(store.tenantId).select('-owner -subscription');
