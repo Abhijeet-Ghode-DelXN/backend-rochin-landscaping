@@ -3,64 +3,43 @@ const ErrorResponse = require('../utils/errorResponse');
 const Tenant = require('../models/tenant.model');
 const tenantContext = require('../utils/tenantContext');
 
-// Extract subdomain from host header
-const extractSubdomain = (host) => {
+// Extract tenant domain from host header
+const extractTenantDomain = (host) => {
   if (!host) return null;
 
-  // Handle localhost development (e.g. grass.localhost or www.grass.localhost)
-  if (host.includes('localhost') || host.includes('127.0.0.1')) {
-    const parts = host.split('.');
-    // www.sub.localhost → sub
-    if (parts[0] === 'www' && parts.length > 2) {
-      return parts[1];
-    }
-    // sub.localhost → sub
-    if (parts.length > 1 && parts[0] !== 'www') {
-      return parts[0];
-    }
+  const domain = host.split(':')[0]; // Remove port
+
+  // Handle localhost development - superadmin domain
+  if (domain === 'localhost' || domain === '127.0.0.1') {
+    return null; // Superadmin mode
   }
 
-  // Handle production domains
-  const parts = host.split('.');
-  if (parts[0] === 'www') {
-    // www.<sub>.<root>.<tld> → sub
-    if (parts.length >= 4) {
-      return parts[1];
-    }
-    // www.<root>.<tld> → no tenant
-    return null;
-  }
-  // <sub>.<root>.<tld>
-  if (parts.length >= 3) {
-    return parts[0];
+  // Handle production - superadmin domain
+  if (domain === 'www.landscape360.com' || domain === 'landscape360.com') {
+    return null; // Superadmin mode
   }
 
-  return null;
+  // All other domains are tenant domains
+  return domain;
 };
 
-// Resolve tenant from subdomain and set context
+// Resolve tenant from domain and set context
 exports.resolveTenant = asyncHandler(async (req, res, next) => {
-  // Prefer subdomain from host; fallback to custom header for SPA calls from main domain
-  const headerSubdomain = req.headers['x-tenant-subdomain'];
-  const subdomain = headerSubdomain || extractSubdomain(req.headers.host);
-  console.log('Tenant Resolver: headerSubdomain:', headerSubdomain, 'extracted subdomain:', subdomain);
-  // Skip tenant resolution if request is to the API host itself (no tenant context)
-  const apiLabelsToIgnore = (process.env.API_HOST_LABELS || 'backend-rochin-landscaping,api').split(',').map(l => l.trim()).filter(Boolean);
-  if (!headerSubdomain && apiLabelsToIgnore.includes(subdomain)) {
+  // Prefer domain from header; fallback to host extraction
+  const headerDomain = req.headers['x-tenant-domain'];
+  const tenantDomain = headerDomain || extractTenantDomain(req.headers.host);
+  console.log('Tenant Resolver: headerDomain:', headerDomain, 'extracted domain:', tenantDomain);
+  // For super admin routes or no tenant domain, continue without tenant context
+  if (!tenantDomain || req.path.startsWith('/api/v1/admin') || req.path.startsWith('/api/v1/super-admin')) {
     return tenantContext.run({}, next);
   }
   
-  // For super admin routes or no subdomain, continue without tenant context
-  if (!subdomain || req.path.startsWith('/api/v1/admin') || req.path.startsWith('/api/v1/super-admin')) {
-    return tenantContext.run({}, next);
-  }
-  
-  // Find tenant by subdomain
-  const tenant = await Tenant.findOne({ subdomain });
+  // Find tenant by subdomain (using domain as subdomain identifier)
+  const tenant = await Tenant.findOne({ subdomain: tenantDomain });
   
   if (!tenant) {
-    console.log('Tenant Resolver: No tenant found for subdomain:', subdomain);
-    return next(new ErrorResponse(`Tenant not found for subdomain: ${subdomain}`, 404));
+    console.log('Tenant Resolver: No tenant found for domain:', tenantDomain);
+    return next(new ErrorResponse(`Tenant not found for domain: ${tenantDomain}`, 404));
   }
   console.log('Tenant Resolver: Tenant found:', tenant.name, tenant._id);
   req.tenant = tenant;

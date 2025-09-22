@@ -53,12 +53,14 @@ app.use(cors({
     if (!origin) return callback(null, true);
 
     const basketbuddyRegex = /^https?:\/\/([a-z0-9-]+\.)*basketbuddy\.in$/;
+    const domainRegex = /^https?:\/\/[a-z0-9-]+:3000$/; // For addon domains like isaac-gomes-ernandes:3000
 
     if (
       origin.includes('localhost:3000') ||
       origin.includes('127.0.0.1:3000') ||
       allowedOrigins.includes(origin) ||
-      basketbuddyRegex.test(origin)
+      basketbuddyRegex.test(origin) ||
+      domainRegex.test(origin)
     ) {
       return callback(null, true);
     } else {
@@ -71,9 +73,11 @@ app.use(cors({
     'Content-Type',
     'Authorization',
     'X-Requested-With',
+    'X-Tenant-Domain',
     'X-Tenant-Subdomain',
     'x-tenant-id',
     'x-tenant-subdomain',
+    'x-tenant-domain',
      'x-all-tenants'
   ]
 }));

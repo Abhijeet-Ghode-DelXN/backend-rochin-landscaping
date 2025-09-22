@@ -2,6 +2,7 @@ const Gallery = require('../models/gallery.model');
 const cloudinary = require('../utils/cloudinary');
 const asyncHandler = require('../middlewares/async');
 const ErrorResponse = require('../utils/errorResponse');
+const tenantContext = require('../utils/tenantContext');
 
 // @desc    Create new gallery entry
 // @route   POST /api/v1/gallery
@@ -55,11 +56,11 @@ exports.createGallery = asyncHandler(async (req, res, next) => {
       createdBy: req.user.id // Track who created the gallery
     };
 
-    // Set tenant ID correctly from the token
-    if (req.user.tenantId) {
-      galleryData.tenant = req.user.tenantId._id; // Use the _id from tenantId object
-    } else if (req.user.tenant) {
-      galleryData.tenant = req.user.tenant; // Fallback to tenant if exists
+    // Get tenant from context
+    const store = tenantContext.getStore();
+    const tenantId = store?.tenantId || req.user?.tenantId;
+    if (tenantId) {
+      galleryData.tenant = tenantId;
     } else {
       return next(new ErrorResponse('Tenant information is missing', 400));
     }
@@ -80,16 +81,17 @@ exports.createGallery = asyncHandler(async (req, res, next) => {
 // @route   GET /api/v1/gallery
 // @access  Private/TenantAdmin
 exports.getGalleries = asyncHandler(async (req, res, next) => {
+  const store = tenantContext.getStore();
+  const tenantId = store?.tenantId;
+  
   let filter = {};
-  if (req.tenant && req.tenant._id) {
-    filter.tenant = req.tenant._id;
-    // If authenticated, filter by createdBy as well
-    if (req.user && req.user.id) {
-      filter.createdBy = req.user.id;
-    }
+  if (tenantId) {
+    filter.tenant = tenantId;
   } else {
-    // No tenant context (main domain): return all galleries
-    // Optionally, you could add public-only filtering here if needed
+    // No tenant context - superadmin can see all
+    if (req.user?.role !== 'superAdmin') {
+      return res.status(200).json({ success: true, count: 0, data: [] });
+    }
   }
 
   const galleries = await Gallery.find(filter).sort('-createdAt');

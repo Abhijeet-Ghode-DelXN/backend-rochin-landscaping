@@ -131,16 +131,20 @@ exports.getServices = asyncHandler(async (req, res, next) => {
     query.tenantId = tenantId;
     console.log(`🔍 Filtering services for tenant: ${tenantId}`);
   }
-  // If no tenantId but we're on main domain (indicated by x-all-tenants header), return ALL services
-  else if (req.headers['x-all-tenants'] === 'true') {
-    console.log('🌐 Returning ALL services from ALL tenants (main domain request)');
-    // No tenant filter - will return all services
-    query = {};
-  }
-  // Otherwise (no tenant context and not main domain), return empty
+  // If no tenantId, check if this is a superadmin domain request
   else {
-    console.log('⚠️ No tenant context found, returning empty services array');
-    return res.status(200).json({ success: true, count: 0, data: [] });
+    const host = req.get('host');
+    const domain = host ? host.split(':')[0] : null;
+    const isSuperAdminDomain = domain === 'localhost' || domain === '127.0.0.1' || domain === 'www.landscape360.com' || domain === 'landscape360.com';
+    
+    if (isSuperAdminDomain && req.headers['x-all-tenants'] === 'true') {
+      console.log('🌐 Returning ALL services from ALL tenants (superadmin domain request)');
+      // No tenant filter - will return all services
+      query = {};
+    } else {
+      console.log('⚠️ No tenant context found, returning empty services array');
+      return res.status(200).json({ success: true, count: 0, data: [] });
+    }
   }
 
   // Apply additional filters

@@ -6,7 +6,8 @@ const User = require('../models/user.model');
 const Tenant = require('../models/tenant.model');
 const cloudinary = require('../utils/cloudinary');
 const sendEmail = require('../utils/sendEmail');
-const Service = require('../models/service.model'); // Adjust the path as needed
+const Service = require('../models/service.model');
+const tenantContext = require('../utils/tenantContext');
 
 // controllers/estimate.controller.js
 
@@ -22,8 +23,9 @@ exports.getEstimates = asyncHandler(async (req, res, next) => {
     query = Estimate.find().populate('tenant', 'name subdomain');
   } 
   // For tenant admin/staff - get only their tenant's estimates
-  else if (req.user.tenantId) {
-    query = Estimate.find({ tenant: req.user.tenantId });
+  else if (req.user.tenantId || tenantContext.getStore()?.tenantId) {
+    const tenantId = req.user.tenantId || tenantContext.getStore()?.tenantId;
+    query = Estimate.find({ tenant: tenantId });
   }
   // For customers - get only their own estimates
   else if (req.user.role === 'customer') {
@@ -108,8 +110,12 @@ exports.getEstimate = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/estimates
 // @access  Private/Admin
 exports.createEstimate = asyncHandler(async (req, res, next) => {
-  // Add user as creator
+  // Add user as creator and tenant context
   req.body.createdBy = req.user.id;
+  const store = tenantContext.getStore();
+  if (store?.tenantId) {
+    req.body.tenant = store.tenantId;
+  }
 
   // Check customer exists
   const customer = await Customer.findById(req.body.customer);

@@ -2,6 +2,7 @@ const Portfolio = require('../models/portfolio.model');
 const cloudinary = require('../utils/cloudinary');
 const asyncHandler = require('../middlewares/async');
 const ErrorResponse = require('../utils/errorResponse');
+const tenantContext = require('../utils/tenantContext');
 
 // @desc    Create new portfolio entry
 // @route   POST /api/v1/portfolio
@@ -57,7 +58,7 @@ exports.createPortfolio = asyncHandler(async (req, res, next) => {
       solutions: req.body.solutions || '',
       customerFeedback: req.body.customerFeedback || '',
       status: req.body.status || 'draft',
-      tenant: req.user.tenantId._id, // Set tenant from authenticated user
+      tenant: tenantContext.getStore()?.tenantId || req.user?.tenantId, // Set tenant from context
       createdBy: req.user.id // Track who created the portfolio
     });
 
@@ -77,11 +78,15 @@ exports.createPortfolio = asyncHandler(async (req, res, next) => {
 exports.getPortfolios = asyncHandler(async (req, res, next) => {
   const { serviceType, status, search } = req.query;
 
-  // Always filter by tenant from context
-  const tenantId = req.tenant?._id;
+  const store = tenantContext.getStore();
+  const tenantId = store?.tenantId;
+  
   if (!tenantId) {
-    // Main domain: return empty array instead of error
-    return res.status(200).json({ success: true, count: 0, data: [] });
+    // No tenant context - superadmin can see all
+    if (req.user?.role !== 'superAdmin') {
+      return res.status(200).json({ success: true, count: 0, data: [] });
+    }
+    // For superadmin, don't filter by tenant
   }
 
   const filter = { tenant: tenantId };
