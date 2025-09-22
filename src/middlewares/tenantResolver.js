@@ -32,7 +32,7 @@ exports.resolveTenant = asyncHandler(async (req, res, next) => {
   const tenantDomain = headerDomain || extractTenantDomain(req.headers.host);
   console.log('Tenant Resolver: headerDomain:', headerDomain, 'extracted domain:', tenantDomain);
   // For super admin routes or no tenant domain, continue without tenant context
-  if (!tenantDomain || req.path.startsWith('/api/v1/admin') || req.path.startsWith('/api/v1/super-admin')) {
+  if (!tenantDomain || req.path.startsWith('/api/v1/admin') || req.path.startsWith('/api/v1/super-admin') || req.path === '/api/v1/tenant/info') {
     return tenantContext.run({}, next);
   }
   
