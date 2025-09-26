@@ -89,7 +89,7 @@ exports.getPortfolios = asyncHandler(async (req, res, next) => {
     // For superadmin, don't filter by tenant
   }
 
-  const filter = { tenant: tenantId };
+  const filter = tenantId ? { tenant: tenantId } : {};
 
   if (serviceType) {
     filter.serviceType = serviceType;
@@ -288,6 +288,54 @@ exports.getAllPortfolios = asyncHandler(async (req, res, next) => {
     .populate('tenant', 'name subdomain') // Populate tenant info
     .sort({ createdAt: -1 })
     .lean();
+
+  res.status(200).json({
+    success: true,
+    count: portfolios.length,
+    data: portfolios
+  });
+});
+
+// @desc    Get public portfolio entries for current tenant
+// @route   GET /api/v1/portfolio/public
+// @access  Public
+exports.getPublicPortfolios = asyncHandler(async (req, res, next) => {
+  const store = tenantContext.getStore();
+  const tenantId = store?.tenantId;
+  
+  console.log('🔍 Filtering portfolios for tenant:', tenantId);
+  
+  if (!tenantId) {
+    console.log('⚠️ No tenant context found, returning empty portfolios array');
+    return res.status(200).json({
+      success: true,
+      count: 0,
+      data: []
+    });
+  }
+
+  const { serviceType, search, limit = 6 } = req.query;
+  const filter = { 
+    tenant: tenantId,
+    status: 'published' // Only show published portfolios
+  };
+
+  if (serviceType) {
+    filter.serviceType = serviceType;
+  }
+
+  if (search) {
+    filter.$text = { $search: search };
+  }
+
+  console.log('📊 Sorting by: -createdAt');
+  
+  const portfolios = await Portfolio.find(filter)
+    .sort({ createdAt: -1 })
+    .limit(parseInt(limit))
+    .lean();
+
+  console.log('✅ Found', portfolios.length, 'portfolios');
 
   res.status(200).json({
     success: true,

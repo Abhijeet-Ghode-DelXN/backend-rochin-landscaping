@@ -4,6 +4,7 @@ const {
   createPortfolio,
    getAllPortfolios,
   getPortfolios,
+  getPublicPortfolios,
   getPortfolio,
   updatePortfolio,
   deletePortfolio,
@@ -15,6 +16,7 @@ const validate = require('../middlewares/validators/validate');
 const tenantResolver = require('../middlewares/tenantResolver');
 
 // Public routes
+router.get('/public', getPublicPortfolios);
 router.get('/', tenantResolver.resolveTenant, getPortfolios);
 router.route('/all')
   .get(getAllPortfolios);

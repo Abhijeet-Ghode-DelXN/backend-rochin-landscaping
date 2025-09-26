@@ -11,25 +11,37 @@ const cloudinary = require('../utils/cloudinary');
 // @route   GET /api/v1/super-admin/dashboard-stats
 // @access  Super Admin
 exports.getDashboardStats = asyncHandler(async (req, res, next) => {
-  // Get total counts
-  const totalTenants = await Tenant.countDocuments();
-  const activeTenants = await Tenant.countDocuments({ status: 'active' });
-  const totalUsers = await User.countDocuments({ role: { $ne: 'superAdmin' } });
+  // Get total counts with error handling
+  const [totalTenants, activeTenants, totalUsers, totalAppointments, totalServices, totalCustomers] = await Promise.all([
+    Tenant.countDocuments().catch(() => 0),
+    Tenant.countDocuments({ 'subscription.status': 'active' }).catch(() => 0),
+    User.countDocuments({ role: { $ne: 'superAdmin' } }).catch(() => 0),
+    Appointment.countDocuments().catch(() => 0),
+    Service.countDocuments().catch(() => 0),
+    Customer.countDocuments().catch(() => 0)
+  ]);
   
   // Get recent activity (last 7 days)
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-  const recentTenants = await Tenant.find({ createdAt: { $gte: sevenDaysAgo } }).limit(5);
-  const recentUsers = await User.find({ 
-    createdAt: { $gte: sevenDaysAgo },
-    role: { $ne: 'superAdmin' }
-  }).limit(5);
+  const [recentTenants, recentUsers, recentAppointments] = await Promise.all([
+    Tenant.find({ createdAt: { $gte: sevenDaysAgo } }).limit(3).populate('owner', 'name').catch(() => []),
+    User.find({ createdAt: { $gte: sevenDaysAgo }, role: { $ne: 'superAdmin' } }).limit(3).populate('tenantId', 'name').catch(() => []),
+    Appointment.find({ createdAt: { $gte: sevenDaysAgo } }).limit(3).populate('customer', 'name').populate('tenantId', 'name').catch(() => [])
+  ]);
 
-  // Calculate revenue (mock data for now)
-  const monthlyRevenue = 8500;
-  const totalRevenue = 45000;
+  // Calculate growth rates
+  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+  const [newTenantsThisMonth, newUsersThisMonth] = await Promise.all([
+    Tenant.countDocuments({ createdAt: { $gte: thirtyDaysAgo } }).catch(() => 0),
+    User.countDocuments({ createdAt: { $gte: thirtyDaysAgo }, role: { $ne: 'superAdmin' } }).catch(() => 0)
+  ]);
 
-  // System health
-  const systemUptime = 99.9;
+  // Mock revenue calculation (replace with real payment data)
+  const monthlyRevenue = activeTenants * 79; // Assuming $79 per active tenant
+  const totalRevenue = totalTenants * 79 * 6; // Mock 6 months average
+
+  // System uptime (mock - replace with real monitoring)
+  const systemUptime = 99.8;
 
   // Recent activity
   const recentActivity = [
@@ -37,13 +49,22 @@ exports.getDashboardStats = asyncHandler(async (req, res, next) => {
       id: tenant._id,
       type: 'tenant_created',
       message: `New tenant "${tenant.name}" registered`,
-      time: new Date(tenant.createdAt).toLocaleString()
+      time: tenant.createdAt,
+      icon: '🏢'
     })),
     ...recentUsers.map(user => ({
       id: user._id,
       type: 'user_registered',
-      message: `New user registered in "${user.tenantId?.name || 'Unknown'}"`,
-      time: new Date(user.createdAt).toLocaleString()
+      message: `${user.name} joined ${user.tenantId?.name || 'Unknown'}`,
+      time: user.createdAt,
+      icon: '👤'
+    })),
+    ...recentAppointments.map(apt => ({
+      id: apt._id,
+      type: 'appointment_created',
+      message: `Appointment scheduled with ${apt.customer?.name || 'Unknown'} at ${apt.tenantId?.name || 'Unknown'}`,
+      time: apt.createdAt,
+      icon: '📅'
     }))
   ].sort((a, b) => new Date(b.time) - new Date(a.time)).slice(0, 10);
 
@@ -53,9 +74,14 @@ exports.getDashboardStats = asyncHandler(async (req, res, next) => {
       totalTenants,
       activeTenants,
       totalUsers,
+      totalAppointments,
+      totalServices,
+      totalCustomers,
       totalRevenue,
       monthlyRevenue,
       systemUptime,
+      newTenantsThisMonth,
+      newUsersThisMonth,
       recentActivity
     }
   });
@@ -124,6 +150,26 @@ exports.getTenant = asyncHandler(async (req, res, next) => {
   const serviceCount = await Service.countDocuments({ tenantId: tenant._id });
   const customerCount = await Customer.countDocuments({ tenantId: tenant._id });
 
+  // Mock billing history (replace with real billing data)
+  const billingHistory = [
+    {
+      id: '1',
+      date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+      amount: 79,
+      plan: tenant.subscription?.plan || 'basic',
+      status: 'paid',
+      period: 'monthly'
+    },
+    {
+      id: '2', 
+      date: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000),
+      amount: 79,
+      plan: tenant.subscription?.plan || 'basic',
+      status: 'paid',
+      period: 'monthly'
+    }
+  ];
+
   const tenantData = tenant.toObject();
   tenantData.stats = {
     users: userCount,
@@ -131,6 +177,16 @@ exports.getTenant = asyncHandler(async (req, res, next) => {
     services: serviceCount,
     customers: customerCount
   };
+  tenantData.billingHistory = billingHistory;
+  
+  // Add subscription expiry date
+  if (tenantData.subscription) {
+    const startDate = new Date(tenantData.subscription.startDate || tenantData.createdAt);
+    const expiryDate = new Date(startDate);
+    expiryDate.setMonth(expiryDate.getMonth() + 1); // Add 1 month
+    tenantData.subscription.expiryDate = expiryDate;
+    tenantData.subscription.daysUntilExpiry = Math.ceil((expiryDate - new Date()) / (1000 * 60 * 60 * 24));
+  }
 
   res.status(200).json({
     success: true,
@@ -526,6 +582,58 @@ exports.getSystemHealth = asyncHandler(async (req, res, next) => {
   });
 });
 
+// @desc    Get tenant users
+// @route   GET /api/v1/super-admin/tenants/:id/users
+// @access  Super Admin
+exports.getTenantUsers = asyncHandler(async (req, res, next) => {
+  const users = await User.find({ tenantId: req.params.id })
+    .select('-password')
+    .sort({ createdAt: -1 });
+
+  res.status(200).json({
+    success: true,
+    data: users
+  });
+});
+
+
+
+// @desc    Get tenant activity
+// @route   GET /api/v1/super-admin/tenants/:id/activity
+// @access  Super Admin
+exports.getTenantActivity = asyncHandler(async (req, res, next) => {
+  const tenantId = req.params.id;
+  
+  const [recentUsers, recentAppointments, recentServices] = await Promise.all([
+    User.find({ tenantId }).sort({ createdAt: -1 }).limit(3).select('name email createdAt'),
+    Appointment.find({ tenantId }).sort({ createdAt: -1 }).limit(3).populate('customer', 'name'),
+    Service.find({ tenantId }).sort({ createdAt: -1 }).limit(3).select('name price createdAt')
+  ]);
+
+  const activity = [
+    ...recentUsers.map(user => ({
+      type: 'user_created',
+      message: `New user ${user.name} registered`,
+      date: user.createdAt
+    })),
+    ...recentAppointments.map(apt => ({
+      type: 'appointment_created',
+      message: `Appointment scheduled with ${apt.customer?.name || 'Unknown'}`,
+      date: apt.createdAt
+    })),
+    ...recentServices.map(service => ({
+      type: 'service_created',
+      message: `New service "${service.name}" added`,
+      date: service.createdAt
+    }))
+  ].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 10);
+
+  res.status(200).json({
+    success: true,
+    data: activity
+  });
+});
+
 // Placeholder methods for other endpoints
 exports.getTenantAnalytics = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: {} });
@@ -539,36 +647,198 @@ exports.getUserAnalytics = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: {} });
 });
 
-exports.getTenantUsers = asyncHandler(async (req, res, next) => {
-  res.status(200).json({ success: true, data: {} });
-});
-
-exports.getTenantActivity = asyncHandler(async (req, res, next) => {
-  res.status(200).json({ success: true, data: {} });
-});
-
+// @desc    Get single user
+// @route   GET /api/v1/super-admin/users/:id
+// @access  Super Admin
 exports.getUser = asyncHandler(async (req, res, next) => {
-  res.status(200).json({ success: true, data: {} });
+  const user = await User.findById(req.params.id)
+    .select('-password')
+    .populate('tenantId', 'name subdomain');
+
+  if (!user) {
+    return next(new ErrorResponse(`User not found with id of ${req.params.id}`, 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    data: user
+  });
 });
 
+// @desc    Create user
+// @route   POST /api/v1/super-admin/users
+// @access  Super Admin
 exports.createUser = asyncHandler(async (req, res, next) => {
-  res.status(200).json({ success: true, data: {} });
+  const { name, email, password, role, tenantId } = req.body;
+
+  // Check if user already exists
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    return next(new ErrorResponse('User with this email already exists', 400));
+  }
+
+  // Validate tenant exists if provided
+  if (tenantId) {
+    const tenant = await Tenant.findById(tenantId);
+    if (!tenant) {
+      return next(new ErrorResponse('Tenant not found', 404));
+    }
+  }
+
+  const user = await User.create({
+    name,
+    email,
+    password,
+    role: role || 'user',
+    tenantId,
+    isEmailVerified: true
+  });
+
+  res.status(201).json({
+    success: true,
+    data: user
+  });
 });
 
+// @desc    Update user
+// @route   PUT /api/v1/super-admin/users/:id
+// @access  Super Admin
 exports.updateUser = asyncHandler(async (req, res, next) => {
-  res.status(200).json({ success: true, data: {} });
+  let user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(new ErrorResponse(`User not found with id of ${req.params.id}`, 404));
+  }
+
+  // Don't allow updating password through this endpoint
+  delete req.body.password;
+
+  user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+  }).select('-password');
+
+  res.status(200).json({
+    success: true,
+    data: user
+  });
 });
 
+// @desc    Delete user
+// @route   DELETE /api/v1/super-admin/users/:id
+// @access  Super Admin
 exports.deleteUser = asyncHandler(async (req, res, next) => {
-  res.status(200).json({ success: true, data: {} });
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(new ErrorResponse(`User not found with id of ${req.params.id}`, 404));
+  }
+
+  // Don't allow deleting super admin users
+  if (user.role === 'superAdmin') {
+    return next(new ErrorResponse('Cannot delete super admin users', 403));
+  }
+
+  await user.deleteOne();
+
+  res.status(200).json({
+    success: true,
+    data: {}
+  });
 });
 
+// @desc    Suspend user
+// @route   POST /api/v1/super-admin/users/:id/suspend
+// @access  Super Admin
 exports.suspendUser = asyncHandler(async (req, res, next) => {
-  res.status(200).json({ success: true, data: {} });
+  const user = await User.findByIdAndUpdate(
+    req.params.id,
+    { isActive: false },
+    { new: true }
+  ).select('-password');
+
+  if (!user) {
+    return next(new ErrorResponse(`User not found with id of ${req.params.id}`, 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    data: user
+  });
 });
 
+// @desc    Activate user
+// @route   POST /api/v1/super-admin/users/:id/activate
+// @access  Super Admin
 exports.activateUser = asyncHandler(async (req, res, next) => {
-  res.status(200).json({ success: true, data: {} });
+  const user = await User.findByIdAndUpdate(
+    req.params.id,
+    { isActive: true },
+    { new: true }
+  ).select('-password');
+
+  if (!user) {
+    return next(new ErrorResponse(`User not found with id of ${req.params.id}`, 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    data: user
+  });
+});
+
+// @desc    Get tenant billing details
+// @route   GET /api/v1/super-admin/tenants/:id/billing
+// @access  Super Admin
+exports.getTenantBilling = asyncHandler(async (req, res, next) => {
+  const tenant = await Tenant.findById(req.params.id);
+  
+  if (!tenant) {
+    return next(new ErrorResponse(`Tenant not found with id of ${req.params.id}`, 404));
+  }
+
+  // Mock billing data (replace with real payment provider integration)
+  const billingData = {
+    currentPlan: {
+      name: tenant.subscription?.plan || 'basic',
+      price: tenant.subscription?.plan === 'premium' ? 79 : tenant.subscription?.plan === 'enterprise' ? 199 : 29,
+      billingCycle: 'monthly',
+      status: tenant.subscription?.status || 'active',
+      startDate: tenant.subscription?.startDate || tenant.createdAt,
+      nextBillingDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      daysUntilRenewal: 30
+    },
+    paymentHistory: [
+      {
+        id: 'inv_001',
+        date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+        amount: 79,
+        status: 'paid',
+        description: 'Monthly subscription - Premium Plan'
+      },
+      {
+        id: 'inv_002',
+        date: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000),
+        amount: 79,
+        status: 'paid',
+        description: 'Monthly subscription - Premium Plan'
+      },
+      {
+        id: 'inv_003',
+        date: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000),
+        amount: 29,
+        status: 'paid',
+        description: 'Monthly subscription - Basic Plan'
+      }
+    ],
+    totalRevenue: 187,
+    averageMonthlyRevenue: 62
+  };
+
+  res.status(200).json({
+    success: true,
+    data: billingData
+  });
 });
 
 exports.getSubscriptions = asyncHandler(async (req, res, next) => {

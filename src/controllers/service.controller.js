@@ -135,7 +135,10 @@ exports.getServices = asyncHandler(async (req, res, next) => {
   else {
     const host = req.get('host');
     const domain = host ? host.split(':')[0] : null;
-    const isSuperAdminDomain = domain === 'localhost' || domain === '127.0.0.1' || domain === 'www.landscape360.com' || domain === 'landscape360.com';
+    const isSuperAdminDomain = domain === 'localhost' || domain === '127.0.0.1' || 
+                              domain === 'www.landscape360.com' || domain === 'landscape360.com' ||
+                              domain === 'delxn.club' || domain === 'www.delxn.club' ||
+                              (domain && domain.includes('-') && !domain.includes('.'));
     
     if (isSuperAdminDomain && req.headers['x-all-tenants'] === 'true') {
       console.log('🌐 Returning ALL services from ALL tenants (superadmin domain request)');

@@ -23,6 +23,7 @@ router.post('/tenants/:id/suspend', superAdminController.suspendTenant);
 router.post('/tenants/:id/activate', superAdminController.activateTenant);
 router.get('/tenants/:id/users', superAdminController.getTenantUsers);
 router.get('/tenants/:id/activity', superAdminController.getTenantActivity);
+router.get('/tenants/:id/billing', superAdminController.getTenantBilling);
 
 // User Management
 router.get('/users', superAdminController.getAllUsers);

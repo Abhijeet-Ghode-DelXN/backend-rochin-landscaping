@@ -135,16 +135,9 @@ exports.login = asyncHandler(async (req, res, next) => {
       }
     }
   } else {
-    // No tenant context - check if this is actually the superadmin domain
-    const host = req.get('host');
-    const domain = host ? host.split(':')[0] : null;
-    const isSuperAdminDomain = domain === 'localhost' || domain === '127.0.0.1' || domain === 'www.landscape360.com' || domain === 'landscape360.com';
-    
-    if (isSuperAdminDomain && user.role !== 'superAdmin') {
-      return next(new ErrorResponse('Only super admins can log in from the main domain.', 403));
-    }
-    // If not superadmin domain but no tenant context, it might be a tenant domain without proper header
-    // Allow login but the tenant resolver should have caught this
+    // No tenant context - this should not happen for tenant domains
+    // The tenant resolver should have set the context
+    console.log('⚠️ No tenant context found during login for domain:', req.get('host'));
   }
 
   // Password check

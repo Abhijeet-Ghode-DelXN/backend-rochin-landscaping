@@ -41,9 +41,11 @@ app.use(helmet({
 // Enable CORS with specific origin
 // Configure allowed origins
 const allowedOrigins = [
+  '*',
   'http://localhost:3000',
   'https://delxn.club',
-  'https://www.delxn.club'
+  'https://www.delxn.club',
+  'http://isaac-gomes-ernandes:3000'
   // Note: Tenant domains will be validated dynamically
 ];
 
@@ -52,8 +54,8 @@ app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
 
-    // Allow localhost for development
-    if (origin.includes('localhost') || origin.includes('127.0.0.1')) {
+    // Allow localhost and local network for development
+    if (origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes(':3000') || origin.includes('isaac-gomes-ernandes')) {
       return callback(null, true);
     }
 

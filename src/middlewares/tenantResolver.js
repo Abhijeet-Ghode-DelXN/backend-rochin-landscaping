@@ -21,6 +21,13 @@ const extractTenantDomain = (host) => {
     return null; // Superadmin mode
   }
 
+  // Handle computer name domains (development)
+  if (domain.includes('-') && !domain.includes('.')) {
+    // This is likely a computer name like 'isaac-gomes-ernandes'
+    // For development, treat this as a tenant subdomain
+    return domain; // Use the computer name as tenant subdomain
+  }
+
   // All other domains are tenant domains
   return domain;
 };
@@ -32,7 +39,7 @@ exports.resolveTenant = asyncHandler(async (req, res, next) => {
   const tenantDomain = headerDomain || extractTenantDomain(req.headers.host);
   console.log('Tenant Resolver: headerDomain:', headerDomain, 'extracted domain:', tenantDomain);
   // For super admin routes or no tenant domain, continue without tenant context
-  if (!tenantDomain || req.path.startsWith('/api/v1/admin') || req.path.startsWith('/api/v1/super-admin') || req.path === '/api/v1/tenant/info') {
+  if (!tenantDomain || req.path.startsWith('/api/v1/admin') || req.path.startsWith('/api/v1/super-admin')) {
     return tenantContext.run({}, next);
   }
   
