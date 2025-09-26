@@ -39,39 +39,11 @@ app.use(helmet({
 }));
 
 // Enable CORS with specific origin
-// Configure allowed origins
-const allowedOrigins = [
-  '*',
-  'http://localhost:3000',
-  'https://delxn.club',
-  'https://www.delxn.club',
-  'http://isaac-gomes-ernandes:3000'
-  // Note: Tenant domains will be validated dynamically
-];
+// Note: CORS now allows all origins for multi-tenant setup
 
-// CORS configuration
+// CORS configuration - Allow all origins for multi-tenant setup
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
-
-    // Allow localhost and local network for development
-    if (origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes(':3000') || origin.includes('isaac-gomes-ernandes')) {
-      return callback(null, true);
-    }
-
-    // Allow superadmin domain
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-
-    // For tenant domains, we need to validate against database
-    // For now, allow all HTTPS domains (you can add validation later)
-    if (origin.startsWith('https://')) {
-      return callback(null, true);
-    }
-
-    return callback(new Error('Not allowed by CORS'));
-  },
+  origin: true, // Allow all origins
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: [
