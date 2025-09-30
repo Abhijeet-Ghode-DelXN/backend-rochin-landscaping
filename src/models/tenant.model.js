@@ -55,7 +55,7 @@ phone: {
   subscription: {
     plan: {
       type: String,
-      enum: ['monthly', 'annual', 'none'],
+      enum: ['basic', 'premium', 'enterprise', 'none'],
       default: 'none',
     },
     status: {
